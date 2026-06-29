@@ -21,6 +21,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/index' },
+      { text: 'AI', link: '/AI/index' },
       { text: '编程', link: '/Code/index' },
       { text: '服务器', link: '/Server/index' },
       { text: '设计', link: '/Design/index' },
@@ -30,6 +31,57 @@ export default defineConfig({
       { text: '其他', link: '/Other/index' },
     ],
     sidebar: {
+      '/AI/': [
+        {
+          text: '前言',
+          link: '/AI/index',
+          collapsed: false,
+        },
+        {
+          text: 'AI 全流程讲解',
+          collapsed: false,
+          items: [
+            { text: '前言', link: '/AI/full-process' },
+            { text: 'AI 开发环境搭建：GPU 选型与云平台对比', link: '/AI/1' },
+            { text: '数据采集与清洗实战', link: '/AI/2' },
+            { text: '数据标注全流程指南', link: '/AI/3' },
+            { text: '大模型选型方法论', link: '/AI/4' },
+            { text: '模型训练关键超参数详解', link: '/AI/5' },
+            { text: '模型评估指标与基准测试', link: '/AI/6' },
+            { text: 'AI 模型量化技术：GGUF / AWQ / GPTQ', link: '/AI/7' },
+            { text: 'vLLM 高性能推理部署', link: '/AI/8' },
+            { text: '模型监控与持续迭代方案', link: '/AI/9' },
+          ]
+        },
+        {
+          text: '大模型微调',
+          collapsed: false,
+          items: [
+            { text: '前言', link: '/AI/model-finetuning' },
+            { text: 'LoRA 微调原理与调参实战', link: '/AI/10' },
+            { text: 'QLoRA：消费级显卡微调大模型', link: '/AI/11' },
+            { text: '指令微调（Instruction Tuning）数据构造指南', link: '/AI/12' },
+            { text: 'DPO 偏好对齐：从原理到实战', link: '/AI/13' },
+            { text: 'LLaMA-Factory 一站式微调上手', link: '/AI/14' },
+          ]
+        },
+        {
+          text: 'Prompt 与 RAG',
+          collapsed: false,
+          items: [
+            { text: 'Prompt Engineering 提示词工程精要', link: '/AI/15' },
+            { text: 'RAG 检索增强生成：从零搭建知识库问答', link: '/AI/16' },
+            { text: 'Function Calling 与 Tool Use 开发指南', link: '/AI/17' },
+          ]
+        },
+        {
+          text: 'Agent 开发',
+          collapsed: false,
+          items: [
+            { text: 'AI Agent 开发实战：从 ReAct 到 Multi-Agent', link: '/AI/18' },
+          ]
+        },
+      ],
       '/Code/': [
         {
           text: '前言',
@@ -402,6 +454,10 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: '前言', link: '/Other/index' },
+            { text: '🍸 调酒实验室', link: '/Other/cocktail-lab' },
+            { text: '🎸 吉他研习社', link: '/Other/guitar-studio' },
+            { text: '🎵 音乐万花筒', link: '/Other/music-kaleidoscope' },
+            { text: '🌿 生活妙招集', link: '/Other/life-hacks' },
           ]
         }
       ],

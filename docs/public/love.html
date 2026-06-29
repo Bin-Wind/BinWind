@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #0a0a0f;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    cursor: default;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* ====== 密码遮罩 ====== */
+  .password-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: radial-gradient(ellipse at center, #1a0a1f 0%, #0a0a0f 70%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .password-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.1);
+    filter: blur(20px);
+  }
+
+  .lock-icon {
+    font-size: 60px;
+    margin-bottom: 24px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .password-overlay h2 {
+    color: #e8c4e0;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 150, 200, 0.4);
+  }
+
+  .password-input-wrap {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .password-input-wrap input {
+    width: 200px;
+    padding: 12px 20px;
+    border: 1px solid rgba(255, 150, 200, 0.3);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #f0c0e0;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    text-align: center;
+    outline: none;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.3s;
+  }
+  .password-input-wrap input:focus {
+    border-color: rgba(255, 100, 160, 0.7);
+    box-shadow: 0 0 20px rgba(255, 100, 160, 0.15);
+  }
+  .password-input-wrap button {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #e74c8b, #c0396b);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .password-input-wrap button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(231, 76, 139, 0.5);
+  }
+  .password-error {
+    color: #ff6b8a;
+    font-size: 0.85rem;
+    margin-top: 12px;
+    height: 20px;
+    letter-spacing: 1px;
+  }
+  .password-hint {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.7rem;
+    margin-top: 30px;
+    letter-spacing: 2px;
+    cursor: default;
+  }
+
+  /* ====== Canvas 背景 ====== */
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  /* ====== 主内容 ====== */
+  .main-content {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .love-title {
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: bold;
+    background: linear-gradient(135deg, #ff6b8a, #ff9ec4, #e74c8b, #ff6b8a);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease infinite;
+    text-shadow: none;
+    filter: drop-shadow(0 0 30px rgba(255, 100, 150, 0.5));
+    margin-bottom: 16px;
+  }
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .love-subtitle {
+    color: rgba(255, 200, 220, 0.8);
+    font-size: 1rem;
+    letter-spacing: 6px;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(255, 150, 180, 0.5);
+    animation: fadeInUp 1s ease forwards;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ====== 交互按钮组 ====== */
+  .btn-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .love-btn {
+    padding: 14px 32px;
+    border: 1px solid rgba(255, 120, 160, 0.6);
+    border-radius: 50px;
+    background: rgba(255, 100, 150, 0.08);
+    color: #f0b0c8;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .love-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 100, 150, 0.2), rgba(200, 50, 100, 0.15));
+    opacity: 0;
+    transition: opacity 0.35s;
+  }
+  .love-btn:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 100, 150, 1);
+    box-shadow: 0 8px 30px rgba(255, 80, 130, 0.3);
+    color: #fff;
+  }
+  .love-btn:hover::before { opacity: 1; }
+  .love-btn:active { transform: scale(0.96); }
+
+  /* ====== 漂浮文字 ====== */
+  .floating-text {
+    position: fixed;
+    pointer-events: none;
+    z-index: 5;
+    font-size: 1.2rem;
+    color: rgba(255, 150, 180, 0.7);
+    animation: floatUp 4s ease-out forwards;
+    text-shadow: 0 0 10px rgba(255, 100, 150, 0.6);
+  }
+  @keyframes floatUp {
+    0% { opacity: 1; transform: translateY(0) scale(0.5) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(-300px) scale(1.5) rotate(20deg); }
+  }
+
+  /* ====== Toast ====== */
+  .toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 150, 180, 0.4);
+    border-radius: 20px;
+    padding: 30px 40px;
+    color: #f0c0e0;
+    text-align: center;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  .toast.show { transform: translate(-50%, -50%) scale(1); }
+  .toast .emoji { font-size: 4rem; display: block; margin-bottom: 12px; }
+  .toast .close-toast {
+    margin-top: 16px;
+    padding: 8px 24px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 150, 180, 0.5);
+    background: transparent;
+    color: #f0c0e0;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+  }
+  .toast .close-toast:hover { background: rgba(255, 100, 150, 0.2); }
+
+  /* ====== 粒子火花 ====== */
+  .spark {
+    position: fixed;
+    pointer-events: none;
+    z-index: 15;
+    animation: sparkFly 1.5s ease-out forwards;
+  }
+  @keyframes sparkFly {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0); }
+  }
+
+  /* ====== 响应式 ====== */
+  @media (max-width: 600px) {
+    .love-title { font-size: 2rem; }
+    .love-subtitle { font-size: 0.8rem; letter-spacing: 3px; }
+    .love-btn { padding: 10px 22px; font-size: 0.8rem; }
+    .btn-group { gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 密码验证 -->
+  <div class="password-overlay" id="pwOverlay">
+    <div class="lock-icon">🔒</div>
+    <h2>专属页面 · 请输入密码</h2>
+    <div class="password-input-wrap">
+      <input type="password" id="pwInput" placeholder="········" maxlength="20" autofocus>
+      <button id="pwBtn">❤</button>
+    </div>
+    <div class="password-error" id="pwError"></div>
+    <div class="password-hint">小声说：记住我们的日子哦 💕</div>
+  </div>
+
+  <!-- 爱心 Canvas -->
+  <canvas id="heartCanvas"></canvas>
+
+  <!-- 主页内容 -->
+  <div class="main-content">
+    <div class="love-title" id="loveTitle">I ❤️ U</div>
+    <div class="love-subtitle" id="loveSub">你是我生命中最美的意外</div>
+    <div class="btn-group">
+      <button class="love-btn" onclick="fireHearts()">💖 点我撒爱心</button>
+      <button class="love-btn" onclick="showMessage()">💌 打开情书</button>
+      <button class="love-btn" onclick="fireFireworks()">🎆 放烟花</button>
+      <button class="love-btn" onclick="showSecret()">🌟 小惊喜</button>
+    </div>
+  </div>
+
+  <!-- Toast 弹窗 -->
+  <div class="toast" id="toast">
+    <span class="emoji" id="toastEmoji"></span>
+    <span id="toastMsg"></span>
+    <br>
+    <button class="close-toast" onclick="closeToast()">关 闭</button>
+  </div>
+
+<script>
+(function() {
+  const CORRECT_PW = '5201314';
+  const pwOverlay = document.getElementById('pwOverlay');
+  const pwInput = document.getElementById('pwInput');
+  const pwBtn = document.getElementById('pwBtn');
+  const pwError = document.getElementById('pwError');
+
+  function checkPassword() {
+    const val = pwInput.value.trim();
+    if (val === CORRECT_PW) {
+      pwError.textContent = '';
+      pwOverlay.classList.add('hidden');
+      // 密码正确后初始化爱心背景
+      startHeartAnimation();
+    } else if (val.length === 0) {
+      pwError.textContent = '请输入密码哦~';
+    } else {
+      pwError.textContent = '密码不对哦，再想想 💔';
+      pwInput.value = '';
+      pwInput.focus();
+    }
+  }
+
+  pwBtn.addEventListener('click', checkPassword);
+  pwInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  /* ====== Canvas 爱心背景 ====== */
+  const canvas = document.getElementById('heartCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  let hearts = [];
+  let particles = [];
+  let animId;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // 心形参数方程 x = 16 sin³(t), y = 13cos(t) - 5cos(2t) - 2cos(3t) - cos(4t)
+  function heartX(t, scale) { return scale * 16 * Math.pow(Math.sin(t), 3); }
+  function heartY(t, scale) { return scale * (
+    13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t)
+  ); }
+
+  class FloatingHeart {
+    constructor() {
+      this.reset(true);
+    }
+    reset(init) {
+      this.scale = Math.random() * 1.5 + 0.6;
+      this.x = init ? Math.random() * W : W + 60;
+      this.y = Math.random() * H;
+      this.t = Math.random() * Math.PI * 2;
+      this.speed = Math.random() * 0.02 + 0.008;
+      this.vx = -(Math.random() * 0.4 + 0.1);
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.4 + 0.15;
+      this.color = this.randomColor();
+      this.isGlow = Math.random() < 0.3;
+    }
+    randomColor() {
+      const colors = [
+        `hsl(345, 90%, ${55 + Math.random()*25}%)`,
+        `hsl(340, 80%, ${50 + Math.random()*30}%)`,
+        `hsl(0, 85%, ${55 + Math.random()*25}%)`,
+        `hsl(330, 95%, ${50 + Math.random()*30}%)`,
+      ];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+    update() {
+      this.t += this.speed;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += Math.sin(this.t * 2) * 0.002;
+      this.opacity += (Math.random() - 0.5) * 0.002;
+      this.opacity = Math.max(0.08, Math.min(0.5, this.opacity));
+      if (this.x < -80) this.reset(false);
+      if (this.y < -80) this.y = H + 80;
+      if (this.y > H + 80) this.y = -80;
+    }
+    draw(ctx) {
+      ctx.save();
+      ctx.translate(this.x, this.y - this.scale * 6);
+      ctx.globalAlpha = this.opacity;
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.isGlow ? this.color : 'transparent';
+      ctx.shadowBlur = this.isGlow ? 15 : 0;
+      ctx.beginPath();
+      const s = this.scale;
+      for (let t = 0; t < Math.PI * 2; t += 0.08) {
+        const hx = heartX(t, s);
+        const hy = -heartY(t, s);
+        if (t === 0) ctx.moveTo(hx, hy);
+        else ctx.lineTo(hx, hy);
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  class Spark {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.color = color || `hsl(${Math.random()*30+340}, 90%, 65%)`;
+      this.angle = Math.random() * Math.PI * 2;
+      this.speed = Math.random() * 3 + 2;
+      this.life = 1;
+      this.decay = Math.random() * 0.015 + 0.01;
+      this.size = Math.random() * 2.5 + 1;
+    }
+    update() {
+      this.x += Math.cos(this.angle) * this.speed;
+      this.y += Math.sin(this.angle) * this.speed;
+      this.life -= this.decay;
+      this.speed *= 0.98;
+    }
+    draw(ctx) {
+      ctx.save();
+      ctx.globalAlpha = this.life;
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 6;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    get dead() { return this.life <= 0; }
+  }
+
+  function initHearts(count = 45) {
+    hearts = [];
+    for (let i = 0; i < count; i++) {
+      hearts.push(new FloatingHeart());
+    }
+  }
+  function addParticals(x, y, count, color) {
+    for (let i = 0; i < count; i++) {
+      particles.push(new Spark(x, y, color));
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    // 半透明拖尾效果
+    ctx.fillStyle = 'rgba(10, 10, 15, 0.15)';
+    ctx.fillRect(0, 0, W, H);
+
+    hearts.forEach(h => {
+      h.update();
+      h.draw(ctx);
+    });
+    particles.forEach(p => p.update());
+    particles = particles.filter(p => !p.dead);
+    particles.forEach(p => p.draw(ctx));
+
+    // 中心微弱光晕
+    const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.min(W, H) * 0.5);
+    grad.addColorStop(0, 'rgba(255, 100, 140, 0.03)');
+    grad.addColorStop(0.5, 'rgba(255, 50, 100, 0.01)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    animId = requestAnimationFrame(animate);
+  }
+
+  function startHeartAnimation() {
+    initHearts(45);
+    animate();
+  }
+
+  /* ====== 全局交互函数 ====== */
+
+  // 撒爱心 —— 点击按钮或点击页面空白处触发
+  window.fireHearts = function(e) {
+    let cx, cy;
+    if (e && e.clientX) {
+      cx = e.clientX;
+      cy = e.clientY;
+    } else {
+      cx = W * (0.2 + Math.random() * 0.6);
+      cy = H * (0.2 + Math.random() * 0.5);
+    }
+    const colors = [
+      'hsl(345, 90%, 60%)', 'hsl(0, 90%, 65%)',
+      'hsl(330, 95%, 58%)', 'hsl(350, 85%, 62%)',
+      'hsl(5, 90%, 63%)', 'hsl(340, 88%, 55%)',
+    ];
+    for (let i = 0; i < 20; i++) {
+      particles.push(new Spark(cx, cy, colors[Math.floor(Math.random() * colors.length)]));
+    }
+    // 创建漂浮文字
+    spawnFloatingText(cx, cy);
+  };
+
+  // 点击页面任意空白处撒爱心
+  document.addEventListener('click', function(e) {
+    if (pwOverlay.classList.contains('hidden') &&
+        !e.target.closest('.love-btn') &&
+        !e.target.closest('.toast') &&
+        !e.target.closest('button')) {
+      window.fireHearts(e);
+    }
+  });
+
+  // 漂浮文字
+  function spawnFloatingText(x, y) {
+    const texts = ['❤️', '💕', '💗', '💖', '💘', '💝', '💓', '💞', '✨', '💐', '🫶'];
+    const el = document.createElement('span');
+    el.className = 'floating-text';
+    el.textContent = texts[Math.floor(Math.random() * texts.length)];
+    el.style.left = (x || W/2) + 'px';
+    el.style.top = (y || H/2) + 'px';
+    document.body.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  }
+
+  // 情书弹窗
+  const messages = [
+    { emoji: '💌', msg: '遇见你，是我这辈子最幸运的事。<br>愿往后余生，都是你。' },
+    { emoji: '🌹', msg: '你笑起来的样子，<br>是我世界里最美的风景。' },
+    { emoji: '💕', msg: '我想牵着你的手，<br>从心动到古稀。' },
+    { emoji: '✨', msg: '你是我平淡日子里<br>最耀眼的星光。' },
+    { emoji: '🫶', msg: '5201314<br>我爱你一生一世 💗' },
+  ];
+  window.showMessage = function() {
+    const m = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById('toastEmoji').textContent = m.emoji;
+    document.getElementById('toastMsg').innerHTML = m.msg;
+    document.getElementById('toast').classList.add('show');
+  };
+
+  // 烟花效果
+  window.fireFireworks = function() {
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const cx = W * (0.1 + Math.random() * 0.8);
+        const cy = H * (0.1 + Math.random() * 0.5);
+        const count = 40 + Math.floor(Math.random() * 40);
+        addParticals(cx, cy, count);
+      }, i * 150);
+    }
+    // 同时出现漂浮文字
+    for (let i = 0; i < 6; i++) {
+      setTimeout(() => {
+        const x = W * (0.1 + Math.random() * 0.8);
+        const y = H * (0.1 + Math.random() * 0.5);
+        spawnFloatingText(x, y);
+      }, i * 200);
+    }
+  };
+
+  // 小惊喜：爱心数量暴增
+  window.showSecret = function() {
+    for (let i = 0; i < 15; i++) {
+      hearts.push(new FloatingHeart());
+    }
+    document.getElementById('toastEmoji').textContent = '🌟';
+    document.getElementById('toastMsg').innerHTML = '看！天上的星星（爱心）变多了呢~<br>这是给你的专属魔法 ✨';
+    document.getElementById('toast').classList.add('show');
+  };
+
+  window.closeToast = function() {
+    document.getElementById('toast').classList.remove('show');
+  };
+
+  // 键盘快捷键
+  document.addEventListener('keydown', function(e) {
+    if (pwOverlay.classList.contains('hidden')) {
+      if (e.key === 'h' || e.key === 'H') window.fireHearts();
+      if (e.key === 'm' || e.key === 'M') window.showMessage();
+      if (e.key === 'f' || e.key === 'F') window.fireFireworks();
+    }
+  });
+
+})();
+</script>
+</body>
+</html>

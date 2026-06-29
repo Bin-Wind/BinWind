@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   lang: 'zh-CN',
-  title: "BinStork",
+  title: "BinWind",
   description: "一条路的终点，是另一条路的起点",
   appearance: true,
   lastUpdated: false,
@@ -139,7 +139,7 @@ export default defineConfig({
         provider: 'local'
     },
     footer: {
-        message: 'Binstork',
+        message: 'BinWind',
         copyright: 'Copyright © 2025 - 2026 present Evan You'
     },
   },

@@ -3,12 +3,12 @@
 layout: home
 
 hero:
-  name: "BinStork"
+  name: "BinWind"
   text: "乐观向上-充满希望"
   tagline: 一条路的终点，是另一条路的起点
   image:
     src: /images/long_logo.png
-    alt: BinStork
+    alt: BinWind
   actions:
     - theme: brand
       text: 🧑🏼‍💻Debug人生，优化世界

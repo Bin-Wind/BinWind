@@ -1,0 +1,87 @@
+/* var.css */
+:root {
+    /* 标题 */
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: linear-gradient( 135deg, #C9453B 10%, #C9453B 100%);
+    
+    /* 图标背景 */
+    /* --vp-home-hero-image-background-image: linear-gradient( 135deg, #94e2de 10%, #C9453B 100%); */
+    --vp-home-hero-image-filter: blur(150px);
+  
+    /* brand按钮 */
+    --vp-button-brand-border: #fff;
+    --vp-button-brand-text: #fff;
+    --vp-button-brand-bg: #C9453B;
+    /* --vp-button-alt-bg: #C9453B; */
+  
+    --vp-button-brand-hover-border: #fff;
+    --vp-button-brand-hover-text: #fff;
+    --vp-button-brand-hover-bg: #C9453B;
+  
+    --vp-button-brand-active-border: #fff;
+
+    --vp-c-default-1: var(--vp-c-gray-1);
+    --vp-c-default-2: var(--vp-c-gray-2);
+    --vp-c-default-3: var(--vp-c-gray-3);
+    --vp-c-default-soft: var(--vp-c-gray-soft);
+    --vp-c-brand-1: var(--vp-c-indigo-1);
+    --vp-c-brand-2: var(--vp-c-indigo-1);
+    --vp-c-brand-3: var(--vp-c-indigo-3);
+    --vp-c-brand-soft: var(--vp-c-indigo-soft);
+    --vp-c-brand: var(--vp-c-brand-1);
+    --vp-c-tip-1: var(--vp-c-brand-1);
+    --vp-c-tip-2: var(--vp-c-brand-2);
+    --vp-c-tip-3: var(--vp-c-brand-3);
+    --vp-c-tip-soft: var(--vp-c-brand-soft);
+    --vp-c-note-1: var(--vp-c-brand-1);
+    --vp-c-note-2: var(--vp-c-brand-2);
+    --vp-c-note-3: var(--vp-c-brand-3);
+    --vp-c-note-soft: var(--vp-c-brand-soft);
+    --vp-c-success-1: var(--vp-c-green-1);
+    --vp-c-success-2: var(--vp-c-green-2);
+    --vp-c-success-3: var(--vp-c-green-3);
+    --vp-c-success-soft: var(--vp-c-green-soft);
+    --vp-c-important-1: var(--vp-c-purple-1);
+    --vp-c-important-2: var(--vp-c-purple-2);
+    --vp-c-important-3: var(--vp-c-purple-3);
+    --vp-c-important-soft: var(--vp-c-purple-soft);
+    --vp-c-warning-1: var(--vp-c-yellow-1);
+    --vp-c-warning-2: var(--vp-c-yellow-2);
+    --vp-c-warning-3: var(--vp-c-yellow-3);
+    --vp-c-warning-soft: var(--vp-c-yellow-soft);
+    --vp-c-danger-1: var(--vp-c-red-1);
+    --vp-c-danger-2: var(--vp-c-red-2);
+    --vp-c-danger-3: var(--vp-c-red-3);
+    --vp-c-danger-soft: var(--vp-c-red-soft);
+    --vp-c-caution-1: var(--vp-c-red-1);
+    --vp-c-caution-2: var(--vp-c-red-2);
+    --vp-c-caution-3: var(--vp-c-red-3);
+    --vp-c-caution-soft: var(--vp-c-red-soft);
+
+    --vp-c-gray-1: #dddde3;
+    --vp-c-gray-2: #e4e4e9;
+    --vp-c-gray-3: #ebebef;
+    --vp-c-gray-soft: rgba(142, 150, 170, 0.14);
+    --vp-c-indigo-1: #C9453B;
+    --vp-c-indigo-2: #3a5ccc;
+    --vp-c-indigo-3: #5672cd;
+    --vp-c-indigo-soft: rgba(100, 108, 255, 0.14);
+    --vp-c-purple-1: #6f42c1;
+    --vp-c-purple-2: #7e4cc9;
+    --vp-c-purple-3: #8e5cd9;
+    --vp-c-purple-soft: rgba(159, 122, 234, 0.14);
+    --vp-c-green-1: #18794e;
+    --vp-c-green-2: #299764;
+    --vp-c-green-3: #30a46c;
+    --vp-c-green-soft: rgba(16, 185, 129, 0.14);
+    --vp-c-yellow-1: #915930;
+    --vp-c-yellow-2: #946300;
+    --vp-c-yellow-3: #9f6a00;
+    --vp-c-yellow-soft: rgba(234, 179, 8, 0.14);
+    --vp-c-red-1: #b8272c;
+    --vp-c-red-2: #d5393e;
+    --vp-c-red-3: #e0575b;
+    --vp-c-red-soft: rgba(244, 63, 94, 0.14);
+    --vp-c-sponsor: #db2777;
+  }
+  

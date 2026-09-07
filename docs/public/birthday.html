@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#f5edda">
+    <title>江江 · 生日快乐</title>
+    <style>
+        :root {
+            --cream: #f5edda;
+            --paper: #fffaf0;
+            --red: #ed3e2f;
+            --blue: #1754cf;
+            --yellow: #f4c933;
+            --ink: #17243a;
+            --mint: #a8d9c4
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            color: var(--ink);
+            background: var(--cream);
+            font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+            overflow-x: hidden
+        }
+
+        button,
+        input {
+            font: inherit
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            opacity: .09;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+            mix-blend-mode: multiply
+        }
+
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+            pointer-events: none
+        }
+
+        .password-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            padding: 22px;
+            background: var(--yellow);
+            transition: opacity .6s, visibility .6s
+        }
+
+        .password-gate.hidden {
+            opacity: 0;
+            visibility: hidden
+        }
+
+        .gate-card {
+            position: relative;
+            width: min(510px, 100%);
+            padding: clamp(42px, 7vw, 70px) clamp(28px, 6vw, 62px);
+            border: 3px solid var(--ink);
+            text-align: center;
+            background: var(--paper);
+            box-shadow: 12px 12px 0 var(--ink);
+            transform: rotate(-1deg)
+        }
+
+        .gate-card:before {
+            content: "PRIVATE PARTY";
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            padding: 9px 18px;
+            border: 2px solid var(--ink);
+            color: #fff;
+            background: var(--blue);
+            font-weight: 900;
+            font-size: .68rem;
+            letter-spacing: .18em;
+            white-space: nowrap;
+            transform: translateX(-50%) rotate(2deg)
+        }
+
+        .gate-star {
+            display: grid;
+            place-items: center;
+            width: 74px;
+            height: 74px;
+            margin: 0 auto 25px;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+            color: #fff;
+            background: var(--red);
+            box-shadow: 5px 5px 0 var(--ink);
+            font-size: 2rem
+        }
+
+        .gate-card h2 {
+            margin: 0;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(2.5rem, 8vw, 4.4rem);
+            font-weight: 400;
+            line-height: 1.05
+        }
+
+        .gate-card>p {
+            margin: 15px 0 28px;
+            color: #17243ab3;
+            line-height: 1.7
+        }
+
+        .password-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 9px
+        }
+
+        .password-form input {
+            min-width: 0;
+            height: 52px;
+            padding: 0 17px;
+            border: 2px solid var(--ink);
+            border-radius: 0;
+            outline: 0;
+            color: var(--ink);
+            background: var(--cream);
+            font-weight: 800;
+            letter-spacing: .16em
+        }
+
+        .password-form input:focus {
+            box-shadow: inset 0 0 0 3px var(--yellow)
+        }
+
+        .password-form button {
+            padding: 0 20px;
+            border: 2px solid var(--ink);
+            color: #fff;
+            background: var(--red);
+            box-shadow: 4px 4px 0 var(--ink);
+            cursor: pointer;
+            font-weight: 900
+        }
+
+        .password-form button:hover {
+            translate: 2px 2px;
+            box-shadow: 2px 2px 0 var(--ink)
+        }
+
+        .password-error {
+            min-height: 20px !important;
+            margin: 14px 0 0 !important;
+            color: var(--red) !important;
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: .08em
+        }
+
+        .gate-card h2 {
+            font-size: clamp(2rem, 5.2vw, 3.25rem);
+            white-space: nowrap;
+            letter-spacing: -.03em
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 24px clamp(20px, 4vw, 64px) 28px;
+            overflow: hidden
+        }
+
+        .hero:before {
+            content: "";
+            position: absolute;
+            width: 32vw;
+            height: 32vw;
+            min-width: 320px;
+            min-height: 320px;
+            right: -12vw;
+            top: -14vw;
+            border-radius: 50%;
+            background: var(--yellow);
+            z-index: -1
+        }
+
+        .hero:after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            left: -130px;
+            bottom: -100px;
+            border: 30px solid var(--blue);
+            border-radius: 50%;
+            z-index: -1
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: .72rem;
+            letter-spacing: .2em
+        }
+
+        .badge {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+            background: var(--red);
+            color: #fff;
+            transform: rotate(-7deg);
+            font-family: Georgia, serif;
+            font-size: 1.25rem;
+            letter-spacing: 0
+        }
+
+        .top-note {
+            padding: 9px 15px;
+            border: 2px solid var(--ink);
+            border-radius: 99px;
+            background: var(--paper);
+            box-shadow: 3px 3px 0 var(--ink)
+        }
+
+        .hero-grid {
+            align-self: center;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(360px, .72fr);
+            align-items: center;
+            gap: clamp(20px, 4vw, 70px);
+            max-width: 1400px;
+            width: 100%;
+            margin: auto;
+            padding: 38px 0
+        }
+
+        .copy {
+            position: relative;
+            z-index: 2
+        }
+
+        .eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 20px;
+            color: var(--blue);
+            font-weight: 900;
+            font-size: .75rem;
+            letter-spacing: .25em;
+            text-transform: uppercase
+        }
+
+        .eyebrow:before {
+            content: "";
+            width: 54px;
+            height: 8px;
+            background: var(--yellow);
+            border: 2px solid var(--ink)
+        }
+
+        h1 {
+            margin: 0;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(4.4rem, 10vw, 9.2rem);
+            font-weight: 400;
+            line-height: .82;
+            letter-spacing: -.075em
+        }
+
+        .name {
+            display: block;
+            width: max-content;
+            max-width: 100%;
+            padding: .08em .16em .13em;
+            margin-bottom: .12em;
+            color: var(--cream);
+            background: var(--blue);
+            box-shadow: 7px 7px 0 var(--ink);
+            transform: rotate(-1.2deg);
+            font-family: "Arial Black", "PingFang SC", sans-serif;
+            font-size: .53em;
+            letter-spacing: .02em
+        }
+
+        .happy {
+            display: block;
+            color: var(--red)
+        }
+
+        .sub {
+            max-width: 580px;
+            margin: 30px 0;
+            color: #17243ac7;
+            font-size: clamp(1rem, 1.6vw, 1.2rem);
+            line-height: 1.8;
+            letter-spacing: .04em
+        }
+
+        .primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 54px;
+            padding: 0 24px;
+            border: 2px solid var(--ink);
+            border-radius: 99px;
+            color: #fff;
+            background: var(--red);
+            box-shadow: 5px 5px 0 var(--ink);
+            cursor: pointer;
+            font-weight: 900;
+            letter-spacing: .08em;
+            transition: .2s
+        }
+
+        .primary:after {
+            content: "→";
+            font-size: 1.25rem
+        }
+
+        .primary:hover {
+            transform: translate(3px, 3px);
+            box-shadow: 2px 2px 0 var(--ink)
+        }
+
+        .visual {
+            position: relative;
+            display: grid;
+            place-items: center;
+            min-height: 520px
+        }
+
+        .cake-blob {
+            position: absolute;
+            width: min(440px, 92%);
+            aspect-ratio: 1;
+            border: 2px solid var(--ink);
+            border-radius: 48% 52% 42% 58%/54% 44% 56% 46%;
+            background: var(--mint);
+            box-shadow: 12px 12px 0 var(--ink);
+            transform: rotate(7deg)
+        }
+
+        .cake {
+            position: relative;
+            z-index: 2;
+            width: min(510px, 110%);
+            max-height: 580px;
+            object-fit: contain;
+            filter: drop-shadow(0 24px 18px #17243a35);
+            transform: rotate(-2deg)
+        }
+
+        .star {
+            position: absolute;
+            z-index: 3;
+            color: var(--yellow);
+            -webkit-text-stroke: 2px var(--ink);
+            font-size: 64px;
+            line-height: 1;
+            animation: bob 2.8s ease-in-out infinite
+        }
+
+        .s1 {
+            top: 10%;
+            left: 5%;
+            transform: rotate(-18deg)
+        }
+
+        .s2 {
+            right: 0;
+            bottom: 13%;
+            font-size: 44px;
+            animation-delay: -1s
+        }
+
+        .sticker {
+            position: absolute;
+            z-index: 4;
+            right: 3%;
+            top: 8%;
+            display: grid;
+            place-items: center;
+            width: 94px;
+            height: 94px;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+            color: #fff;
+            text-align: center;
+            background: var(--red);
+            box-shadow: 5px 5px 0 var(--ink);
+            font: 900 .7rem/1.3 sans-serif;
+            letter-spacing: .09em;
+            transform: rotate(10deg)
+        }
+
+        @keyframes bob {
+            50% {
+                translate: 0 -10px;
+                rotate: 8deg
+            }
+        }
+
+        .scroll-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            font-weight: 800;
+            font-size: .7rem;
+            letter-spacing: .16em;
+            text-transform: uppercase
+        }
+
+        .scroll-row span:first-child:after {
+            content: "";
+            display: inline-block;
+            width: 70px;
+            height: 2px;
+            margin-left: 12px;
+            vertical-align: middle;
+            background: var(--ink)
+        }
+
+        .ticker {
+            overflow: hidden;
+            border-block: 2px solid var(--ink);
+            background: var(--yellow);
+            transform: rotate(-1deg);
+            margin-inline: -10px
+        }
+
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 18s linear infinite
+        }
+
+        .ticker span {
+            padding: 16px 18px;
+            font-family: "Arial Black", sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            text-transform: uppercase;
+            letter-spacing: .08em
+        }
+
+        .ticker i {
+            color: var(--red);
+            font-style: normal
+        }
+
+        @keyframes marquee {
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .wishes {
+            padding: 120px clamp(20px, 5vw, 76px);
+            background: var(--paper)
+        }
+
+        .section-head {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: end;
+            max-width: 1240px;
+            margin: auto
+        }
+
+        .kicker {
+            color: var(--blue);
+            font-weight: 900;
+            font-size: .72rem;
+            letter-spacing: .24em;
+            text-transform: uppercase
+        }
+
+        .section-head h2 {
+            margin: 12px 0 0;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 400;
+            line-height: .94
+        }
+
+        .section-head p {
+            max-width: 460px;
+            margin: 0 0 8px auto;
+            font-size: 1.05rem;
+            line-height: 1.8
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            max-width: 1240px;
+            margin: 64px auto 0
+        }
+
+        .card {
+            position: relative;
+            min-height: 320px;
+            padding: 32px;
+            border: 2px solid var(--ink);
+            background: var(--cream);
+            box-shadow: 7px 7px 0 var(--ink);
+            transition: .25s
+        }
+
+        .card:nth-child(2) {
+            background: var(--blue);
+            color: #fff;
+            transform: translateY(26px) rotate(1deg)
+        }
+
+        .card:nth-child(3) {
+            background: var(--mint);
+            transform: rotate(-1deg)
+        }
+
+        .card:hover {
+            translate: 0 -8px
+        }
+
+        .no {
+            display: grid;
+            place-items: center;
+            width: 48px;
+            height: 48px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            font-weight: 900
+        }
+
+        .card h3 {
+            margin: 70px 0 16px;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 2rem;
+            font-weight: 400
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: .8
+        }
+
+        .scribble {
+            position: absolute;
+            right: 24px;
+            top: 24px;
+            font-family: Georgia, serif;
+            font-size: 2rem;
+            transform: rotate(12deg)
+        }
+
+        .letter-section {
+            position: relative;
+            padding: 140px 20px;
+            background: var(--red);
+            overflow: hidden
+        }
+
+        .letter-section:before {
+            content: "HAPPY";
+            position: absolute;
+            left: -2vw;
+            bottom: -.2em;
+            color: #ffffff12;
+            font-family: "Arial Black", sans-serif;
+            font-size: 24vw;
+            line-height: 1
+        }
+
+        .letter {
+            position: relative;
+            width: min(820px, 100%);
+            margin: auto;
+            padding: clamp(44px, 8vw, 84px);
+            border: 2px solid var(--ink);
+            color: var(--ink);
+            background: var(--cream);
+            box-shadow: 12px 12px 0 var(--ink);
+            transform: rotate(-1deg)
+        }
+
+        .tape {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 130px;
+            height: 42px;
+            background: #f4c933c7;
+            transform: translateX(-50%) rotate(2deg)
+        }
+
+        .letter .kicker {
+            text-align: center
+        }
+
+        .letter h2 {
+            margin: 18px 0 30px;
+            text-align: center;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(2.7rem, 7vw, 5.4rem);
+            font-weight: 400
+        }
+
+        .letter p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 1.1rem;
+            line-height: 2;
+            text-align: center
+        }
+
+        .signature {
+            margin-top: 28px !important;
+            color: var(--blue);
+            font-size: 1.35rem !important;
+            font-style: italic
+        }
+
+        .wish-button {
+            display: block;
+            margin: 34px auto 0;
+            padding: 13px 22px;
+            border: 2px solid var(--ink);
+            border-radius: 99px;
+            color: #fff;
+            background: var(--blue);
+            box-shadow: 4px 4px 0 var(--ink);
+            cursor: pointer;
+            font-weight: 800
+        }
+
+        .wish-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 var(--ink)
+        }
+
+        .dock {
+            position: fixed;
+            left: 50%;
+            bottom: 18px;
+            z-index: 45;
+            display: flex;
+            gap: 4px;
+            padding: 5px;
+            border: 2px solid var(--ink);
+            border-radius: 99px;
+            background: var(--paper);
+            box-shadow: 5px 5px 0 var(--ink);
+            transform: translateX(-50%)
+        }
+
+        .dock button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 0 16px;
+            border: 0;
+            border-radius: 99px;
+            color: var(--ink);
+            background: transparent;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: .74rem
+        }
+
+        .dock button:hover {
+            color: #fff;
+            background: var(--blue)
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: #17243ac2;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .modal-card {
+            width: min(500px, 100%);
+            padding: 48px 36px;
+            border: 2px solid var(--ink);
+            text-align: center;
+            background: var(--yellow);
+            box-shadow: 10px 10px 0 var(--ink);
+            transform: rotate(-1deg) scale(.95);
+            transition: .3s
+        }
+
+        .modal.open .modal-card {
+            transform: rotate(-1deg) scale(1)
+        }
+
+        .modal-card b {
+            display: block;
+            margin-bottom: 15px;
+            color: var(--red);
+            font-family: Georgia, serif;
+            font-size: 2rem
+        }
+
+        .modal-card p {
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 1.25rem;
+            line-height: 1.8
+        }
+
+        .modal-card button {
+            padding: 10px 18px;
+            border: 2px solid var(--ink);
+            border-radius: 99px;
+            color: #fff;
+            background: var(--red);
+            cursor: pointer;
+            font-weight: 800
+        }
+
+        @media(max-width:800px) {
+            .hero {
+                padding: 18px 18px 92px
+            }
+
+            .topbar span:nth-child(2) {
+                display: none
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                padding: 60px 0 10px
+            }
+
+            .copy {
+                text-align: center
+            }
+
+            .eyebrow {
+                justify-content: center
+            }
+
+            .name {
+                margin-inline: auto
+            }
+
+            .sub {
+                margin-inline: auto
+            }
+
+            .visual {
+                min-height: 380px
+            }
+
+            .cake-blob {
+                width: min(350px, 88%)
+            }
+
+            .cake {
+                width: min(400px, 100%)
+            }
+
+            .sticker {
+                right: 5%;
+                width: 78px;
+                height: 78px
+            }
+
+            .scroll-row {
+                display: none
+            }
+
+            .section-head {
+                grid-template-columns: 1fr
+            }
+
+            .section-head p {
+                margin: 0
+            }
+
+            .cards {
+                grid-template-columns: 1fr
+            }
+
+            .card {
+                min-height: 250px
+            }
+
+            .card:nth-child(2) {
+                transform: none
+            }
+
+            .card h3 {
+                margin-top: 42px
+            }
+
+            .dock {
+                bottom: 12px;
+                width: calc(100% - 24px);
+                justify-content: space-around
+            }
+
+            .dock button {
+                flex-direction: column;
+                gap: 1px;
+                padding: 5px 10px;
+                font-size: .64rem
+            }
+        }
+
+        @media(max-width:420px) {
+            h1 {
+                font-size: 4.2rem
+            }
+
+            .visual {
+                min-height: 320px
+            }
+
+            .cake {
+                max-height: 360px
+            }
+
+            .hero:before {
+                right: -220px
+            }
+
+            .wishes {
+                padding-block: 90px
+            }
+
+            .letter-section {
+                padding-block: 100px
+            }
+
+            .dock button {
+                min-width: 0
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *:before,
+            *:after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="noise" aria-hidden="true"></div><canvas id="partyCanvas" aria-hidden="true"></canvas>
+    <section class="password-gate" id="passwordGate" aria-labelledby="gateTitle">
+        <div class="gate-card"><span class="gate-star" aria-hidden="true">✦</span>
+            <h2 id="gateTitle">解锁生日派对</h2>
+            <p>这是一份只为江江准备的生日惊喜。</p>
+            <form class="password-form" id="passwordForm"><input id="passwordInput" type="password" autocomplete="off"
+                    placeholder="请输入密码" aria-label="生日页面密码" autofocus><button type="submit">打开</button></form>
+            <p class="password-error" id="passwordError" role="alert"></p>
+        </div>
+    </section>
+    <main>
+        <section class="hero">
+            <header class="topbar"><span class="badge">JJ</span><span>For one very special person</span><span
+                    class="top-note">Birthday edition · 2026</span></header>
+            <div class="hero-grid">
+                <div class="copy">
+                    <p class="eyebrow">Today is your day</p>
+                    <h1><span class="name">江江</span><span class="happy">生日快乐!</span></h1>
+                    <p class="sub">今天不用做那个一直向前赶路的大人。收下蛋糕、愿望和偏爱，认真地为自己开心一次。</p><button class="primary" id="startParty"
+                        type="button">开始庆祝</button>
+                </div>
+                <div class="visual">
+                    <div class="cake-blob"></div><span class="star s1">✦</span><span class="star s2">✦</span><span
+                        class="sticker">MAKE<br>A WISH</span><img class="cake" src="/images/birthday-cake-pop.png"
+                        alt="点着蜡烛的彩色生日蛋糕">
+                </div>
+            </div>
+            <div class="scroll-row"><span>Scroll for good things</span><span>Keep shining · Keep smiling</span></div>
+        </section>
+        <div class="ticker" aria-hidden="true">
+            <div class="ticker-track"><span>Happy birthday <i>✦</i> 江江 <i>✦</i> Best day ever
+                    <i>✦</i></span><span>Happy birthday <i>✦</i> 江江 <i>✦</i> Best day ever <i>✦</i></span><span>Happy
+                    birthday <i>✦</i> 江江 <i>✦</i> Best day ever <i>✦</i></span><span>Happy birthday <i>✦</i> 江江
+                    <i>✦</i> Best day ever <i>✦</i></span></div>
+        </div>
+        <section class="wishes">
+            <div class="section-head">
+                <div><span class="kicker">Three wishes · 三份心愿</span>
+                    <h2>新一岁，<br>尽兴一点。</h2>
+                </div>
+                <p>愿接下来的日子，不只是年龄增长，更是眼界、底气和快乐一起增长。</p>
+            </div>
+            <div class="cards">
+                <article class="card"><span class="no">01</span><span class="scribble">↗</span>
+                    <h3>去想去的地方</h3>
+                    <p>不必等万事俱备。风景会在出发以后，慢慢来到你的眼前。</p>
+                </article>
+                <article class="card"><span class="no">02</span><span class="scribble">♡</span>
+                    <h3>爱喜欢的人和事</h3>
+                    <p>保持热烈，也保持坦荡。把时间花在真正让你发光的事情上。</p>
+                </article>
+                <article class="card"><span class="no">03</span><span class="scribble">✦</span>
+                    <h3>成为更好的自己</h3>
+                    <p>不是活成谁期待的模样，而是越来越喜欢镜子里的那个人。</p>
+                </article>
+            </div>
+        </section>
+        <section class="letter-section">
+            <article class="letter"><span class="tape" aria-hidden="true"></span>
+                <div class="kicker">A note for Jiangjiang</div>
+                <h2>愿快乐如期而至</h2>
+                <p>愿你有说走就走的勇气，也有不慌不忙的底气；愿生活偶尔有小插曲，但结局永远偏向你。新的一岁，健康、自在、好事发生。</p>
+                <p class="signature">生日快乐，江江。</p><button class="wish-button" id="wishButton"
+                    type="button">按下收藏这份愿望</button>
+            </article>
+        </section>
+    </main>
+    <nav class="dock" aria-label="生日互动"><button type="button" data-action="confetti"><span>✦</span>撒彩纸</button><button
+            type="button" data-action="wish"><span>♡</span>抽祝福</button><button type="button"
+            data-action="firework"><span>✺</span>放烟花</button></nav>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalText">
+        <div class="modal-card"><b>Just for you!</b>
+            <p id="modalText"></p><button type="button" id="closeModal">开心收下</button>
+        </div>
+    </div>
+    <script src="/birthday-wishes.js"></script>
+    <script>(() => { const gate = document.getElementById('passwordGate'), form = document.getElementById('passwordForm'), input = document.getElementById('passwordInput'), error = document.getElementById('passwordError'); form.addEventListener('submit', event => { event.preventDefault(); if (input.value === 'ldj99') { error.textContent = ''; gate.classList.add('hidden'); setTimeout(() => document.getElementById('startParty').click(), 250); return } error.textContent = input.value ? '密码不对，再试一次' : '请先输入密码'; input.value = ''; input.focus() }) })();</script>
+    <script>(() => { const canvas = document.getElementById('partyCanvas'), ctx = canvas.getContext('2d'), modal = document.getElementById('modal'), modalText = document.getElementById('modalText'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; let bits = [], raf = 0; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function pop(x = innerWidth / 2, y = innerHeight * .35, n = 130) { if (reduced) return; const colors = ['#ed3e2f', '#1754cf', '#f4c933', '#a8d9c4', '#fffaf0']; for (let i = 0; i < n; i++)bits.push({ x: x + (Math.random() - .5) * 100, y: y + (Math.random() - .5) * 30, vx: (Math.random() - .5) * 10, vy: -Math.random() * 8 - 2, g: .1 + Math.random() * .08, a: Math.random() * 6, s: 4 + Math.random() * 7, c: colors[i % colors.length], life: 1 }); if (!raf) draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); bits = bits.filter(b => b.life > 0 && b.y < innerHeight + 20); for (const b of bits) { b.x += b.vx; b.y += b.vy; b.vy += b.g; b.vx *= .994; b.a += .11; b.life -= .003; ctx.save(); ctx.globalAlpha = b.life; ctx.translate(b.x, b.y); ctx.rotate(b.a); ctx.fillStyle = b.c; ctx.fillRect(-b.s / 2, -b.s / 3, b.s, b.s * .65); ctx.restore() } raf = bits.length ? requestAnimationFrame(draw) : 0 } const wishes = ['愿你钱包有底气，生活有惊喜，身边一直有懂你的人。', '愿这一岁的你，比上一岁更自由、更笃定，也更会取悦自己。', '愿认真生活的你，总能收到世界温柔又热烈的回信。', '愿所有期待都有回应，所有努力都有结果，所有快乐都不必假装。']; function show(text) { modalText.textContent = text; modal.classList.add('open'); document.getElementById('closeModal').focus() } function hide() { modal.classList.remove('open') } document.getElementById('startParty').addEventListener('click', e => { const r = e.currentTarget.getBoundingClientRect(); pop(r.left + r.width / 2, r.top, 180) }); document.getElementById('wishButton').addEventListener('click', () => { pop(innerWidth / 2, innerHeight / 2, 150); show('愿望已收藏。等它实现的时候，记得回来告诉今天的自己。') }); document.querySelector('.dock').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (!b) return; const r = b.getBoundingClientRect(); if (b.dataset.action === 'confetti') pop(r.left + r.width / 2, r.top, 110); if (b.dataset.action === 'wish') show(wishes[Math.floor(Math.random() * wishes.length)]); if (b.dataset.action === 'firework') [0, 220, 440, 660].forEach(d => setTimeout(() => pop(innerWidth * (.15 + Math.random() * .7), innerHeight * (.15 + Math.random() * .45), 80), d)) }); document.getElementById('closeModal').addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); addEventListener('keydown', e => { if (e.key === 'Escape') hide() }) })();</script>
+</body>
+
+</html>

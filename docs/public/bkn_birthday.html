@@ -1,21 +1,725 @@
 <!doctype html>
 <html lang="zh-CN">
+
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#181713"><title>康哥 · 生日快乐</title>
-<style>
-:root{--paper:#ebe5d9;--ink:#181713;--red:#d83224;--grey:#9b978e;--white:#f7f3eb}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;color:var(--ink);background:var(--paper);font-family:"Arial Narrow","PingFang SC","Microsoft YaHei",sans-serif;overflow-x:hidden}button,a{font:inherit}.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.13;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}#confetti{position:fixed;inset:0;z-index:50;pointer-events:none}
-.hero{min-height:100svh;display:grid;grid-template-columns:47% 53%;background:var(--ink);overflow:hidden}.hero-copy{position:relative;display:grid;grid-template-rows:auto 1fr auto;padding:32px clamp(24px,5vw,76px) 36px;color:var(--white)}.top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ffffff45;padding-bottom:18px;font-size:.66rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase}.number{color:var(--red);font-family:Georgia,serif;font-size:1.1rem}.headline{align-self:center;padding:8vh 0}.edition{display:flex;align-items:center;gap:12px;margin:0 0 22px;color:#bcb6ac;font-size:.7rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase}.edition:before{content:"";width:46px;height:5px;background:var(--red)}h1{margin:0;font-family:Georgia,"Songti SC",serif;font-size:clamp(4.3rem,9vw,8.6rem);font-weight:400;line-height:.8;letter-spacing:-.07em}.outline{display:block;color:transparent;-webkit-text-stroke:1px var(--white)}.solid{display:block;margin-left:.16em;color:var(--white)}.hero-lead{max-width:540px;margin:34px 0 0;color:#c8c2b8;font-size:clamp(1rem,1.6vw,1.14rem);line-height:1.95}.hero-lead strong{color:#fff;font-weight:600}.actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:28px}.btn{min-height:50px;padding:0 23px;border:1px solid var(--white);color:var(--ink);background:var(--white);cursor:pointer;font-size:.75rem;font-weight:900;letter-spacing:.1em;transition:.2s}.btn:hover{color:#fff;background:var(--red);border-color:var(--red);transform:translateY(-2px)}.btn.alt{color:var(--white);background:transparent}.hero-meta{display:flex;justify-content:space-between;gap:15px;padding-top:17px;border-top:1px solid #ffffff45;color:#8f8b83;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase}.hero-meta b{color:var(--white)}.hero-photo{position:relative;min-height:100svh;background:url('/images/bkn-night-toast.png') 58% center/cover no-repeat;filter:contrast(1.04) saturate(.82)}.hero-photo:after{content:"";position:absolute;inset:0;border:18px solid var(--paper);border-left:0;pointer-events:none}.stamp{position:absolute;right:6%;top:9%;z-index:2;display:grid;place-items:center;width:118px;height:118px;border:3px solid var(--red);border-radius:50%;color:var(--red);text-align:center;font:900 .7rem/1.45 sans-serif;letter-spacing:.12em;transform:rotate(12deg)}.caption{position:absolute;left:28px;bottom:28px;z-index:2;padding:10px 14px;color:#fff;background:var(--red);font-size:.68rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;transform:rotate(-1deg)}
-.ticker{overflow:hidden;border-block:2px solid var(--ink);background:var(--red);color:#fff;transform:rotate(-.6deg);margin-inline:-5px}.track{display:flex;width:max-content;animation:scroll 18s linear infinite}.track span{padding:15px 20px;font-weight:900;font-size:.85rem;letter-spacing:.18em;text-transform:uppercase}@keyframes scroll{to{transform:translateX(-50%)}}
-.brother{padding:130px clamp(22px,6vw,92px);background:var(--paper)}.intro{display:grid;grid-template-columns:.7fr 1.3fr;gap:7vw;max-width:1240px;margin:auto}.label{font-size:.68rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase}.label span{display:block;width:34px;height:4px;margin-bottom:15px;background:var(--red)}.intro h2{margin:0;font-family:Georgia,"Songti SC",serif;font-size:clamp(3rem,7vw,6.2rem);font-weight:400;line-height:1.02;letter-spacing:-.05em}.intro h2 em{color:var(--red);font-weight:400}.intro-copy{grid-column:2;max-width:720px;margin:32px 0 0;font-family:Georgia,"Songti SC",serif;font-size:1.15rem;line-height:2}.traits{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:1240px;margin:80px auto 0;border-block:1px solid var(--ink)}.trait{min-height:270px;padding:32px;border-right:1px solid var(--ink)}.trait:last-child{border-right:0}.trait-no{color:var(--red);font:italic 2rem Georgia,serif}.trait h3{margin:65px 0 14px;font-size:1.35rem}.trait p{margin:0;color:#57544f;line-height:1.8}
-.letter-section{position:relative;padding:140px 22px;background:var(--ink);color:var(--white);overflow:hidden}.letter-section:before{content:"一路";position:absolute;right:-.05em;bottom:-.3em;color:#ffffff08;font-family:"Songti SC",serif;font-size:28vw;line-height:1}.letter{position:relative;max-width:900px;margin:auto;padding:clamp(42px,8vw,86px);border:1px solid #ffffff52}.letter:before{content:"";position:absolute;left:-1px;top:70px;width:7px;height:110px;background:var(--red)}.letter .label{color:#aaa59b}.letter h2{margin:22px 0 34px;font-family:Georgia,"Songti SC",serif;font-size:clamp(2.8rem,7vw,6rem);font-weight:400;line-height:1}.letter h2 em{color:var(--red);font-weight:400}.letter p{max-width:720px;margin:0;color:#c6c0b6;font-family:Georgia,"Songti SC",serif;font-size:1.12rem;line-height:2}.letter .sign{margin-top:30px;color:#fff;font-style:italic}.letter .btn{margin-top:36px}
-.music{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;border:1px solid #4c4943;background:#181713e8;box-shadow:0 12px 40px #0005}.music button,.music a{display:flex;align-items:center;justify-content:center;min-height:44px;border:0;color:#fff;background:transparent;text-decoration:none;cursor:pointer;font-size:.7rem;font-weight:900;letter-spacing:.1em}.music button{gap:10px;padding:0 15px}.music a{width:44px;border-left:1px solid #4c4943;color:#3ae47d}.disc{width:15px;height:15px;border:2px solid var(--red);border-radius:50%}.music.playing .disc{animation:spin 1.4s linear infinite}.disc:after{content:"";display:block;width:3px;height:3px;margin:4px;border-radius:50%;background:#fff}@keyframes spin{to{transform:rotate(1turn)}}.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:#181713cc;opacity:0;visibility:hidden;transition:.3s}.modal.open{opacity:1;visibility:visible}.note{width:min(540px,100%);padding:54px 40px;color:var(--ink);text-align:center;background:var(--paper);box-shadow:12px 12px 0 var(--red);transform:rotate(-1deg)}.note b{display:block;color:var(--red);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}.note p{font-family:Georgia,"Songti SC",serif;font-size:1.25rem;line-height:1.85}.note button{padding:10px 20px;border:1px solid var(--ink);color:#fff;background:var(--ink);cursor:pointer}
-@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-copy{min-height:90svh;padding:22px 22px 80px}.hero-photo{min-height:68svh}.hero-photo:after{border:12px solid var(--paper)}.headline{padding-top:12vh}.hero-meta span:nth-child(2){display:none}.intro{grid-template-columns:1fr}.intro-copy{grid-column:auto}.traits{grid-template-columns:1fr}.trait{min-height:220px;border-right:0;border-bottom:1px solid var(--ink)}.trait:last-child{border-bottom:0}.trait h3{margin-top:38px}.music{right:12px;bottom:12px}}@media(max-width:460px){h1{font-size:4.1rem}.stamp{width:88px;height:88px;font-size:.57rem}.caption{left:18px}.actions{display:grid}.btn{width:100%}.brother{padding-block:95px}.letter-section{padding-block:100px}.note{padding:45px 28px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
-</style></head>
-<body><div class="grain" aria-hidden="true"></div><canvas id="confetti" aria-hidden="true"></canvas>
-<main><section class="hero"><div class="hero-copy"><header class="top"><span class="number">No. 09</span><span>Birthday special · 康哥</span></header><div class="headline"><p class="edition">For my brother</p><h1><span class="outline">康哥</span><span class="solid">生日快乐</span></h1><p class="hero-lead">兄弟，是高兴时能一起痛快，遇到事也能一起扛的人。<strong>很庆幸，这一路我们始终站在彼此身边。</strong></p><div class="actions"><button class="btn" id="celebrate" type="button">为康哥庆祝</button><button class="btn alt" id="openNote" type="button">打开兄弟留言</button></div></div><footer class="hero-meta"><span>Since <b>相识那天</b></span><span>Route <b>一路同行</b></span><span>Status <b>兄弟常在</b></span></footer></div><div class="hero-photo"><span class="stamp">HAPPY<br>BIRTHDAY<br>KANG GE</span><span class="caption">The road goes on · 一直往前走</span></div></section>
-<div class="ticker" aria-hidden="true"><div class="track"><span>Happy birthday Kang Ge · Brother for life · Keep going ·</span><span>Happy birthday Kang Ge · Brother for life · Keep going ·</span><span>Happy birthday Kang Ge · Brother for life · Keep going ·</span><span>Happy birthday Kang Ge · Brother for life · Keep going ·</span></div></div>
-<section class="brother"><div class="intro"><div class="label"><span></span>About us · 兄弟</div><div><h2>不必天天联系，<br>但需要时<em>一定在。</em></h2><p class="intro-copy">有些关系不靠客套维持，也不必反复证明。一起笑过、累过，也一起见过事情不顺的样子。真正难得的，是走过这么多路，依然愿意把真话留给彼此。</p></div></div><div class="traits"><article class="trait"><span class="trait-no">01</span><h3>有事，一起扛</h3><p>顺风的时候碰杯，逆风的时候并肩。很多话不用说透，一个眼神就懂。</p></article><article class="trait"><span class="trait-no">02</span><h3>有路，一起走</h3><p>各自努力，也互相托底。前面的风景再远，身边有兄弟就不算孤军奋战。</p></article><article class="trait"><span class="trait-no">03</span><h3>有成绩，一起庆祝</h3><p>认真做事，尽兴生活。把吹过的牛慢慢实现，再找个时间好好喝一杯。</p></article></div></section>
-<section class="letter-section"><article class="letter"><div class="label"><span></span>A note for Kang Ge</div><h2>康哥，新的一岁，<br><em>继续痛快。</em></h2><p>愿你有解决难题的实力，也有放下疲惫的松弛；愿身体健康，家人平安，想做的事都有结果。兄弟的话不必太煽情——需要我的时候我在，值得庆祝的时候我们一起举杯。</p><p class="sign">生日快乐。敬下一程，也敬一路同行。</p><button class="btn" id="lightRoad" type="button">点亮下一程</button></article></section></main>
-<aside class="music" id="music"><button id="musicToggle" type="button"><span class="disc"></span><span id="musicLabel">播放 BGM</span></button><a href="https://y.qq.com/n/ryqq/search?w=%E5%85%84%E5%BC%9F&t=song" target="_blank" rel="noopener" title="打开QQ音乐" aria-label="打开QQ音乐">Q</a></aside>
-<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="note"><b>To my brother</b><p id="noteText">康哥，认识你是缘分，能成为兄弟是运气。新的一岁，愿我们把路走远，把日子过好，依旧有事一起上，有酒一起喝。</p><button id="closeModal" type="button">收下，继续走</button></div></div>
-<script>(()=>{const canvas=document.getElementById('confetti'),ctx=canvas.getContext('2d'),modal=document.getElementById('modal'),reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;let pieces=[],raf=0;function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}addEventListener('resize',resize);resize();function burst(x=innerWidth/2,y=innerHeight/2,n=130){if(reduced)return;const colors=['#d83224','#f7f3eb','#77736b','#181713'];for(let i=0;i<n;i++)pieces.push({x,y,vx:(Math.random()-.5)*11,vy:-Math.random()*9-1,g:.12,s:2+Math.random()*5,c:colors[i%4],life:1,a:Math.random()*5});if(!raf)draw()}function draw(){ctx.clearRect(0,0,innerWidth,innerHeight);pieces=pieces.filter(p=>p.life>0&&p.y<innerHeight+20);for(const p of pieces){p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.99;p.a+=.1;p.life-=.006;ctx.save();ctx.globalAlpha=p.life;ctx.translate(p.x,p.y);ctx.rotate(p.a);ctx.fillStyle=p.c;ctx.fillRect(-p.s,-p.s/3,p.s*3,p.s);ctx.restore()}raf=pieces.length?requestAnimationFrame(draw):0}function show(){modal.classList.add('open');document.getElementById('closeModal').focus()}function hide(){modal.classList.remove('open')}document.getElementById('celebrate').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();burst(r.left+r.width/2,r.top,180)});document.getElementById('openNote').addEventListener('click',show);document.getElementById('lightRoad').addEventListener('click',()=>{burst(innerWidth/2,innerHeight/2,230);show()});document.getElementById('closeModal').addEventListener('click',hide);modal.addEventListener('click',e=>{if(e.target===modal)hide()});addEventListener('keydown',e=>{if(e.key==='Escape')hide()});let audio,master,timer,step=0,playing=false;const bass=[55,55,65.41,73.42,55,82.41,73.42,65.41];function tone(freq,time,dur,type,vol){const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(.0001,time);g.gain.linearRampToValueAtTime(vol,time+.02);g.gain.exponentialRampToValueAtTime(.0001,time+dur);o.connect(g).connect(master);o.start(time);o.stop(time+dur+.03)}function loop(){if(!playing)return;const t=audio.currentTime+.03;tone(bass[step%8],t,.24,'triangle',.06);if(step%2===0)tone(bass[step%8]*2,t,.1,'sine',.025);if(step%4===0)tone(38,t,.2,'sine',.09);step++;timer=setTimeout(loop,360)}const music=document.getElementById('music'),label=document.getElementById('musicLabel');document.getElementById('musicToggle').addEventListener('click',()=>{if(!audio){audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=.24;master.connect(audio.destination)}if(audio.state==='suspended')audio.resume();playing=!playing;music.classList.toggle('playing',playing);label.textContent=playing?'暂停 BGM':'播放 BGM';if(playing)loop();else clearTimeout(timer)})})();</script></body></html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#181713">
+    <title>康哥 · 生日快乐</title>
+    <style>
+        :root {
+            --paper: #ebe5d9;
+            --ink: #181713;
+            --red: #d83224;
+            --grey: #9b978e;
+            --white: #f7f3eb
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
+            overflow-x: hidden
+        }
+
+        button,
+        a {
+            font: inherit
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 60;
+            pointer-events: none;
+            opacity: .13;
+            mix-blend-mode: multiply;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")
+        }
+
+        #confetti {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none
+        }
+
+        .hero {
+            min-height: 100svh;
+            display: grid;
+            grid-template-columns: 47% 53%;
+            background: var(--ink);
+            overflow: hidden
+        }
+
+        .hero-copy {
+            position: relative;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 32px clamp(24px, 5vw, 76px) 36px;
+            color: var(--white)
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ffffff45;
+            padding-bottom: 18px;
+            font-size: .66rem;
+            font-weight: 800;
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .number {
+            color: var(--red);
+            font-family: Georgia, serif;
+            font-size: 1.1rem
+        }
+
+        .headline {
+            align-self: center;
+            padding: 8vh 0
+        }
+
+        .edition {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 22px;
+            color: #bcb6ac;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: .24em;
+            text-transform: uppercase
+        }
+
+        .edition:before {
+            content: "";
+            width: 46px;
+            height: 5px;
+            background: var(--red)
+        }
+
+        h1 {
+            margin: 0;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(4.3rem, 9vw, 8.6rem);
+            font-weight: 400;
+            line-height: .8;
+            letter-spacing: -.07em
+        }
+
+        .outline {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--white)
+        }
+
+        .solid {
+            display: block;
+            margin-left: .16em;
+            color: var(--white)
+        }
+
+        .hero-lead {
+            max-width: 540px;
+            margin: 34px 0 0;
+            color: #c8c2b8;
+            font-size: clamp(1rem, 1.6vw, 1.14rem);
+            line-height: 1.95
+        }
+
+        .hero-lead strong {
+            color: #fff;
+            font-weight: 600
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 11px;
+            margin-top: 28px
+        }
+
+        .btn {
+            min-height: 50px;
+            padding: 0 23px;
+            border: 1px solid var(--white);
+            color: var(--ink);
+            background: var(--white);
+            cursor: pointer;
+            font-size: .75rem;
+            font-weight: 900;
+            letter-spacing: .1em;
+            transition: .2s
+        }
+
+        .btn:hover {
+            color: #fff;
+            background: var(--red);
+            border-color: var(--red);
+            transform: translateY(-2px)
+        }
+
+        .btn.alt {
+            color: var(--white);
+            background: transparent
+        }
+
+        .hero-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding-top: 17px;
+            border-top: 1px solid #ffffff45;
+            color: #8f8b83;
+            font-size: .65rem;
+            letter-spacing: .16em;
+            text-transform: uppercase
+        }
+
+        .hero-meta b {
+            color: var(--white)
+        }
+
+        .hero-photo {
+            position: relative;
+            min-height: 100svh;
+            background: url('/images/bkn-night-toast.png') 58% center/cover no-repeat;
+            filter: contrast(1.04) saturate(.82)
+        }
+
+        .hero-photo:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 18px solid var(--paper);
+            border-left: 0;
+            pointer-events: none
+        }
+
+        .stamp {
+            position: absolute;
+            right: 6%;
+            top: 9%;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            width: 118px;
+            height: 118px;
+            border: 3px solid var(--red);
+            border-radius: 50%;
+            color: var(--red);
+            text-align: center;
+            font: 900 .7rem/1.45 sans-serif;
+            letter-spacing: .12em;
+            transform: rotate(12deg)
+        }
+
+        .caption {
+            position: absolute;
+            left: 28px;
+            bottom: 28px;
+            z-index: 2;
+            padding: 10px 14px;
+            color: #fff;
+            background: var(--red);
+            font-size: .68rem;
+            font-weight: 900;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            transform: rotate(-1deg)
+        }
+
+        .ticker {
+            overflow: hidden;
+            border-block: 2px solid var(--ink);
+            background: var(--red);
+            color: #fff;
+            transform: rotate(-.6deg);
+            margin-inline: -5px
+        }
+
+        .track {
+            display: flex;
+            width: max-content;
+            animation: scroll 18s linear infinite
+        }
+
+        .track span {
+            padding: 15px 20px;
+            font-weight: 900;
+            font-size: .85rem;
+            letter-spacing: .18em;
+            text-transform: uppercase
+        }
+
+        @keyframes scroll {
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .brother {
+            padding: 130px clamp(22px, 6vw, 92px);
+            background: var(--paper)
+        }
+
+        .intro {
+            display: grid;
+            grid-template-columns: .7fr 1.3fr;
+            gap: 7vw;
+            max-width: 1240px;
+            margin: auto
+        }
+
+        .label {
+            font-size: .68rem;
+            font-weight: 900;
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .label span {
+            display: block;
+            width: 34px;
+            height: 4px;
+            margin-bottom: 15px;
+            background: var(--red)
+        }
+
+        .intro h2 {
+            margin: 0;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(3rem, 7vw, 6.2rem);
+            font-weight: 400;
+            line-height: 1.02;
+            letter-spacing: -.05em
+        }
+
+        .intro h2 em {
+            color: var(--red);
+            font-weight: 400
+        }
+
+        .intro-copy {
+            grid-column: 2;
+            max-width: 720px;
+            margin: 32px 0 0;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 1.15rem;
+            line-height: 2
+        }
+
+        .traits {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            max-width: 1240px;
+            margin: 80px auto 0;
+            border-block: 1px solid var(--ink)
+        }
+
+        .trait {
+            min-height: 270px;
+            padding: 32px;
+            border-right: 1px solid var(--ink)
+        }
+
+        .trait:last-child {
+            border-right: 0
+        }
+
+        .trait-no {
+            color: var(--red);
+            font: italic 2rem Georgia, serif
+        }
+
+        .trait h3 {
+            margin: 65px 0 14px;
+            font-size: 1.35rem
+        }
+
+        .trait p {
+            margin: 0;
+            color: #57544f;
+            line-height: 1.8
+        }
+
+        .letter-section {
+            position: relative;
+            padding: 140px 22px;
+            background: var(--ink);
+            color: var(--white);
+            overflow: hidden
+        }
+
+        .letter-section:before {
+            content: "一路";
+            position: absolute;
+            right: -.05em;
+            bottom: -.3em;
+            color: #ffffff08;
+            font-family: "Songti SC", serif;
+            font-size: 28vw;
+            line-height: 1
+        }
+
+        .letter {
+            position: relative;
+            max-width: 900px;
+            margin: auto;
+            padding: clamp(42px, 8vw, 86px);
+            border: 1px solid #ffffff52
+        }
+
+        .letter:before {
+            content: "";
+            position: absolute;
+            left: -1px;
+            top: 70px;
+            width: 7px;
+            height: 110px;
+            background: var(--red)
+        }
+
+        .letter .label {
+            color: #aaa59b
+        }
+
+        .letter h2 {
+            margin: 22px 0 34px;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            font-weight: 400;
+            line-height: 1
+        }
+
+        .letter h2 em {
+            color: var(--red);
+            font-weight: 400
+        }
+
+        .letter p {
+            max-width: 720px;
+            margin: 0;
+            color: #c6c0b6;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 1.12rem;
+            line-height: 2
+        }
+
+        .letter .sign {
+            margin-top: 30px;
+            color: #fff;
+            font-style: italic
+        }
+
+        .letter .btn {
+            margin-top: 36px
+        }
+
+        .music {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 70;
+            display: flex;
+            border: 1px solid #4c4943;
+            background: #181713e8;
+            box-shadow: 0 12px 40px #0005
+        }
+
+        .music button,
+        .music a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            border: 0;
+            color: #fff;
+            background: transparent;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: .7rem;
+            font-weight: 900;
+            letter-spacing: .1em
+        }
+
+        .music button {
+            gap: 10px;
+            padding: 0 15px
+        }
+
+        .music a {
+            width: 44px;
+            border-left: 1px solid #4c4943;
+            color: #3ae47d
+        }
+
+        .disc {
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--red);
+            border-radius: 50%
+        }
+
+        .music.playing .disc {
+            animation: spin 1.4s linear infinite
+        }
+
+        .disc:after {
+            content: "";
+            display: block;
+            width: 3px;
+            height: 3px;
+            margin: 4px;
+            border-radius: 50%;
+            background: #fff
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(1turn)
+            }
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 90;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: #181713cc;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .note {
+            width: min(540px, 100%);
+            padding: 54px 40px;
+            color: var(--ink);
+            text-align: center;
+            background: var(--paper);
+            box-shadow: 12px 12px 0 var(--red);
+            transform: rotate(-1deg)
+        }
+
+        .note b {
+            display: block;
+            color: var(--red);
+            font-size: .7rem;
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .note p {
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 1.25rem;
+            line-height: 1.85
+        }
+
+        .note button {
+            padding: 10px 20px;
+            border: 1px solid var(--ink);
+            color: #fff;
+            background: var(--ink);
+            cursor: pointer
+        }
+
+        @media(max-width:800px) {
+            .hero {
+                grid-template-columns: 1fr
+            }
+
+            .hero-copy {
+                min-height: 90svh;
+                padding: 22px 22px 80px
+            }
+
+            .hero-photo {
+                min-height: 68svh
+            }
+
+            .hero-photo:after {
+                border: 12px solid var(--paper)
+            }
+
+            .headline {
+                padding-top: 12vh
+            }
+
+            .hero-meta span:nth-child(2) {
+                display: none
+            }
+
+            .intro {
+                grid-template-columns: 1fr
+            }
+
+            .intro-copy {
+                grid-column: auto
+            }
+
+            .traits {
+                grid-template-columns: 1fr
+            }
+
+            .trait {
+                min-height: 220px;
+                border-right: 0;
+                border-bottom: 1px solid var(--ink)
+            }
+
+            .trait:last-child {
+                border-bottom: 0
+            }
+
+            .trait h3 {
+                margin-top: 38px
+            }
+
+            .music {
+                right: 12px;
+                bottom: 12px
+            }
+        }
+
+        @media(max-width:460px) {
+            h1 {
+                font-size: 4.1rem
+            }
+
+            .stamp {
+                width: 88px;
+                height: 88px;
+                font-size: .57rem
+            }
+
+            .caption {
+                left: 18px
+            }
+
+            .actions {
+                display: grid
+            }
+
+            .btn {
+                width: 100%
+            }
+
+            .brother {
+                padding-block: 95px
+            }
+
+            .letter-section {
+                padding-block: 100px
+            }
+
+            .note {
+                padding: 45px 28px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *:before,
+            *:after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+                scroll-behavior: auto !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grain" aria-hidden="true"></div><canvas id="confetti" aria-hidden="true"></canvas>
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <header class="top"><span class="number">No. 09</span><span>Birthday special · 康哥</span></header>
+                <div class="headline">
+                    <p class="edition">For my brother</p>
+                    <h1><span class="outline">康哥</span><span class="solid">生日快乐</span></h1>
+                    <p class="hero-lead">兄弟，是高兴时能一起痛快，遇到事也能一起扛的人。<strong>很庆幸，这一路我们始终站在彼此身边。</strong></p>
+                    <div class="actions"><button class="btn" id="celebrate" type="button">为康哥庆祝</button><button
+                            class="btn alt" id="openNote" type="button">打开兄弟留言</button></div>
+                </div>
+                <footer class="hero-meta"><span>Since <b>相识那天</b></span><span>Route <b>一路同行</b></span><span>Status
+                        <b>兄弟常在</b></span></footer>
+            </div>
+            <div class="hero-photo"><span class="stamp">HAPPY<br>BIRTHDAY<br>KANG GE</span><span class="caption">The
+                    road goes on · 一直往前走</span></div>
+        </section>
+        <div class="ticker" aria-hidden="true">
+            <div class="track"><span>Happy birthday Kang Ge · Brother for life · Keep going ·</span><span>Happy birthday
+                    Kang Ge · Brother for life · Keep going ·</span><span>Happy birthday Kang Ge · Brother for life ·
+                    Keep going ·</span><span>Happy birthday Kang Ge · Brother for life · Keep going ·</span></div>
+        </div>
+        <section class="brother">
+            <div class="intro">
+                <div class="label"><span></span>About us · 兄弟</div>
+                <div>
+                    <h2>不必天天联系，<br>但需要时<em>一定在。</em></h2>
+                    <p class="intro-copy">有些关系不靠客套维持，也不必反复证明。一起笑过、累过，也一起见过事情不顺的样子。真正难得的，是走过这么多路，依然愿意把真话留给彼此。</p>
+                </div>
+            </div>
+            <div class="traits">
+                <article class="trait"><span class="trait-no">01</span>
+                    <h3>有事，一起扛</h3>
+                    <p>顺风的时候碰杯，逆风的时候并肩。很多话不用说透，一个眼神就懂。</p>
+                </article>
+                <article class="trait"><span class="trait-no">02</span>
+                    <h3>有路，一起走</h3>
+                    <p>各自努力，也互相托底。前面的风景再远，身边有兄弟就不算孤军奋战。</p>
+                </article>
+                <article class="trait"><span class="trait-no">03</span>
+                    <h3>有成绩，一起庆祝</h3>
+                    <p>认真做事，尽兴生活。把吹过的牛慢慢实现，再找个时间好好喝一杯。</p>
+                </article>
+            </div>
+        </section>
+        <section class="letter-section">
+            <article class="letter">
+                <div class="label"><span></span>A note for Kang Ge</div>
+                <h2>康哥，新的一岁，<br><em>继续痛快。</em></h2>
+                <p>愿你有解决难题的实力，也有放下疲惫的松弛；愿身体健康，家人平安，想做的事都有结果。兄弟的话不必太煽情——需要我的时候我在，值得庆祝的时候我们一起举杯。</p>
+                <p class="sign">生日快乐。敬下一程，也敬一路同行。</p><button class="btn" id="lightRoad" type="button">点亮下一程</button>
+            </article>
+        </section>
+    </main>
+    <!-- <aside class="music" id="music"><button id="musicToggle" type="button"><span class="disc"></span><span
+                id="musicLabel">播放 BGM</span></button><a
+            href="https://y.qq.com/n/ryqq/search?w=%E5%85%84%E5%BC%9F&t=song" target="_blank" rel="noopener"
+            title="打开QQ音乐" aria-label="打开QQ音乐">Q</a></aside> -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true">
+        <div class="note"><b>To my brother</b>
+            <p id="noteText">康哥，认识你是缘分，能成为兄弟是运气。新的一岁，愿我们把路走远，把日子过好，依旧有事一起上，有酒一起喝。</p><button id="closeModal"
+                type="button">收下，继续走</button>
+        </div>
+    </div>
+    <script>(() => { const canvas = document.getElementById('confetti'), ctx = canvas.getContext('2d'), modal = document.getElementById('modal'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; let pieces = [], raf = 0; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function burst(x = innerWidth / 2, y = innerHeight / 2, n = 130) { if (reduced) return; const colors = ['#d83224', '#f7f3eb', '#77736b', '#181713']; for (let i = 0; i < n; i++)pieces.push({ x, y, vx: (Math.random() - .5) * 11, vy: -Math.random() * 9 - 1, g: .12, s: 2 + Math.random() * 5, c: colors[i % 4], life: 1, a: Math.random() * 5 }); if (!raf) draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); pieces = pieces.filter(p => p.life > 0 && p.y < innerHeight + 20); for (const p of pieces) { p.x += p.vx; p.y += p.vy; p.vy += p.g; p.vx *= .99; p.a += .1; p.life -= .006; ctx.save(); ctx.globalAlpha = p.life; ctx.translate(p.x, p.y); ctx.rotate(p.a); ctx.fillStyle = p.c; ctx.fillRect(-p.s, -p.s / 3, p.s * 3, p.s); ctx.restore() } raf = pieces.length ? requestAnimationFrame(draw) : 0 } function show() { modal.classList.add('open'); document.getElementById('closeModal').focus() } function hide() { modal.classList.remove('open') } document.getElementById('celebrate').addEventListener('click', e => { const r = e.currentTarget.getBoundingClientRect(); burst(r.left + r.width / 2, r.top, 180) }); document.getElementById('openNote').addEventListener('click', show); document.getElementById('lightRoad').addEventListener('click', () => { burst(innerWidth / 2, innerHeight / 2, 230); show() }); document.getElementById('closeModal').addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); addEventListener('keydown', e => { if (e.key === 'Escape') hide() }); let audio, master, timer, step = 0, playing = false; const bass = [55, 55, 65.41, 73.42, 55, 82.41, 73.42, 65.41]; function tone(freq, time, dur, type, vol) { const o = audio.createOscillator(), g = audio.createGain(); o.type = type; o.frequency.value = freq; g.gain.setValueAtTime(.0001, time); g.gain.linearRampToValueAtTime(vol, time + .02); g.gain.exponentialRampToValueAtTime(.0001, time + dur); o.connect(g).connect(master); o.start(time); o.stop(time + dur + .03) } function loop() { if (!playing) return; const t = audio.currentTime + .03; tone(bass[step % 8], t, .24, 'triangle', .06); if (step % 2 === 0) tone(bass[step % 8] * 2, t, .1, 'sine', .025); if (step % 4 === 0) tone(38, t, .2, 'sine', .09); step++; timer = setTimeout(loop, 360) } const music = document.getElementById('music'), label = document.getElementById('musicLabel'); document.getElementById('musicToggle').addEventListener('click', () => { if (!audio) { audio = new (window.AudioContext || window.webkitAudioContext)(); master = audio.createGain(); master.gain.value = .24; master.connect(audio.destination) } if (audio.state === 'suspended') audio.resume(); playing = !playing; music.classList.toggle('playing', playing); label.textContent = playing ? '暂停 BGM' : '播放 BGM'; if (playing) loop(); else clearTimeout(timer) }) })();</script>
+</body>
+
+</html>

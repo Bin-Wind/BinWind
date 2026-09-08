@@ -51,6 +51,9 @@ export default defineConfig({
             { text: 'AI 模型量化技术：GGUF / AWQ / GPTQ', link: '/AI/7' },
             { text: 'vLLM 高性能推理部署', link: '/AI/8' },
             { text: '模型监控与持续迭代方案', link: '/AI/9' },
+            { text: '用 DVC 管理机器学习数据版本', link: '/AI/19' },
+            { text: '机器学习流水线：把训练步骤变成可重复任务', link: '/AI/20' },
+            { text: 'AI 模型灰度发布与安全回滚', link: '/AI/21' },
           ]
         },
         {
@@ -63,6 +66,9 @@ export default defineConfig({
             { text: '指令微调（Instruction Tuning）数据构造指南', link: '/AI/12' },
             { text: 'DPO 偏好对齐：从原理到实战', link: '/AI/13' },
             { text: 'LLaMA-Factory 一站式微调上手', link: '/AI/14' },
+            { text: 'LoRA 适配器合并、切换与版本管理', link: '/AI/22' },
+            { text: 'SFT 数据质量诊断：从损失曲线找到脏样本', link: '/AI/23' },
+            { text: '微调检查点选择：不要只挑最低 Loss', link: '/AI/24' },
           ]
         },
         {
@@ -72,6 +78,9 @@ export default defineConfig({
             { text: 'Prompt Engineering 提示词工程精要', link: '/AI/15' },
             { text: 'RAG 检索增强生成：从零搭建知识库问答', link: '/AI/16' },
             { text: 'Function Calling 与 Tool Use 开发指南', link: '/AI/17' },
+            { text: 'RAG 混合检索：关键词、向量与重排', link: '/AI/25' },
+            { text: 'RAG 文档切分与元数据设计实战', link: '/AI/26' },
+            { text: 'RAG 评测体系：从检索命中到答案忠实度', link: '/AI/27' },
           ]
         },
         {
@@ -79,6 +88,9 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'AI Agent 开发实战：从 ReAct 到 Multi-Agent', link: '/AI/18' },
+            { text: 'AI Agent 记忆设计：短期上下文与长期知识', link: '/AI/28' },
+            { text: 'Agent 工具权限与沙箱：把误操作限制在边界内', link: '/AI/29' },
+            { text: 'Agent 可观测性：追踪、评测与故障定位', link: '/AI/30' },
           ]
         },
       ],
@@ -118,6 +130,9 @@ export default defineConfig({
             { text: 'Flask Web 框架入门', link: '/Code/python/23' },
             { text: 'FastAPI 搭建高性能 API', link: '/Code/python/24' },
             { text: 'Python 脚本自动化实战', link: '/Code/python/25' },
+            { text: 'asyncio 并发请求与超时控制', link: '/Code/python/26' },
+            { text: 'dataclass：让数据对象更清晰', link: '/Code/python/27' },
+            { text: '用 pyproject.toml 打包 Python 项目', link: '/Code/python/28' },
           ]
         },
         {
@@ -150,6 +165,9 @@ export default defineConfig({
             { text: 'Spring Boot RESTful API 实战', link: '/Code/java/23' },
             { text: 'Spring Security 认证与授权', link: '/Code/java/24' },
             { text: 'Java 项目打包与部署', link: '/Code/java/25' },
+            { text: 'Java Record 与密封类建模', link: '/Code/java/26' },
+            { text: 'Java 虚拟线程：高并发阻塞任务实战', link: '/Code/java/27' },
+            { text: 'CompletableFuture 异步编排与异常处理', link: '/Code/java/28' },
           ]
         },
         {
@@ -179,6 +197,9 @@ export default defineConfig({
             { text: '邮件发送解决方案', link: '/Code/php/20' },
             { text: '图片处理（GD 库）', link: '/Code/php/21' },
             { text: '代码调试技巧', link: '/Code/php/22' },
+            { text: 'Composer 依赖管理与自动加载', link: '/Code/php/23' },
+            { text: 'PDO 事务：保证多步写入一致', link: '/Code/php/24' },
+            { text: 'PHPUnit 单元测试入门', link: '/Code/php/25' },
           ]
         },
         {
@@ -211,6 +232,9 @@ export default defineConfig({
             { text: '安全最佳实践 (Helmet, Rate Limiting)', link: '/Code/node/23' },
             { text: 'GraphQL API 搭建 (Apollo Server)', link: '/Code/node/24' },
             { text: 'Docker 容器化 Node.js 应用', link: '/Code/node/25' },
+            { text: 'worker_threads 处理 CPU 密集任务', link: '/Code/node/26' },
+            { text: 'Node.js 服务优雅关闭指南', link: '/Code/node/27' },
+            { text: '使用 node:test 编写零依赖测试', link: '/Code/node/28' },
           ]
         },
         {
@@ -243,6 +267,9 @@ export default defineConfig({
             { text: '性能优化实战', link: '/Code/vue/23' },
             { text: '从零搭建后台管理项目', link: '/Code/vue/24' },
             { text: 'Vue 3 新特性与生态 2025', link: '/Code/vue/25' },
+            { text: 'Vue 3 Teleport、KeepAlive 与 Suspense', link: '/Code/vue/26' },
+            { text: 'Vue SSR 水合不一致排查', link: '/Code/vue/27' },
+            { text: 'Vue 组件无障碍实战', link: '/Code/vue/28' },
           ]
         },
         {
@@ -275,6 +302,9 @@ export default defineConfig({
             { text: '性能优化技巧', link: '/Code/js/23' },
             { text: '设计模式在 JavaScript 中的应用', link: '/Code/js/24' },
             { text: '现代 JavaScript 趋势 2025', link: '/Code/js/25' },
+            { text: 'AbortController：取消请求与异步任务', link: '/Code/js/26' },
+            { text: 'structuredClone 深拷贝实战', link: '/Code/js/27' },
+            { text: 'Intl API：可靠处理日期、数字与列表', link: '/Code/js/28' },
           ]
         },
       ],
@@ -309,6 +339,9 @@ export default defineConfig({
             { text: '文件同步工具（rsync）详解', link: '/Server/23' },
             { text: 'DNS 配置与域名解析原理', link: '/Server/24' },
             { text: 'Kubernetes 入门：Pod 与 Deployment', link: '/Server/25' },
+            { text: 'systemd 服务管理与故障排查', link: '/Server/26' },
+            { text: '容器化应用备份与恢复演练', link: '/Server/27' },
+            { text: 'Web 服务零停机发布实战', link: '/Server/28' },
           ]
         }
       ],
@@ -343,6 +376,9 @@ export default defineConfig({
             { text: 'AI 辅助设计工具实战', link: '/Design/23' },
             { text: '设计师的作品集搭建指南', link: '/Design/24' },
             { text: '设计趋势 2025-2026', link: '/Design/25' },
+            { text: '空状态、加载态与错误态设计', link: '/Design/26' },
+            { text: '设计令牌治理：从命名到发布', link: '/Design/27' },
+            { text: '可用性测试：用 5 个任务发现真实问题', link: '/Design/28' },
           ]
         }
       ],
@@ -377,6 +413,9 @@ export default defineConfig({
             { text: '团队协作工具：Linear / Notion / Lark', link: '/APP/23' },
             { text: '系统监控工具：iStat Menus / Stats / htop', link: '/APP/24' },
             { text: '年度应用推荐：2025 必装的精品应用', link: '/APP/25' },
+            { text: '本地优先笔记的备份与迁移方案', link: '/APP/26' },
+            { text: '浏览器多账号与工作区管理', link: '/APP/27' },
+            { text: 'PDF 阅读与批注工作流', link: '/APP/28' },
           ]
         }
       ],
@@ -411,6 +450,9 @@ export default defineConfig({
             { text: '建立个人图书馆：选书、购书与藏书指南', link: '/Book/23' },
             { text: '回忆录与传记精选：用他人的人生扩展自己的视野', link: '/Book/24' },
             { text: '年度阅读总结模板：如何回顾一年的阅读', link: '/Book/25' },
+            { text: '主题阅读法：用一组书建立知识地图', link: '/Book/26' },
+            { text: '非虚构阅读中的事实核验', link: '/Book/27' },
+            { text: '读书会主持指南：让讨论超越复述情节', link: '/Book/28' },
           ]
         }
       ],
@@ -445,6 +487,9 @@ export default defineConfig({
             { text: '日本动画电影推荐：从今敏到新海诚', link: '/Video/23' },
             { text: '旅行纪录片推荐：不出门看世界', link: '/Video/24' },
             { text: '年度视频回顾：2025年最值得看的10支视频', link: '/Video/25' },
+            { text: '视频声音设计入门：对白、环境与音乐', link: '/Video/26' },
+            { text: '分镜脚本实战：拍摄前解决叙事问题', link: '/Video/27' },
+            { text: '视频素材归档：命名、校验与长期保存', link: '/Video/28' },
           ]
         }
       ],
@@ -458,6 +503,9 @@ export default defineConfig({
             { text: '🎸 吉他研习社', link: '/Other/guitar-studio' },
             { text: '🎵 音乐万花筒', link: '/Other/music-kaleidoscope' },
             { text: '🌿 生活妙招集', link: '/Other/life-hacks' },
+            { text: '☕ 家庭手冲咖啡：从稳定配方开始', link: '/Other/home-coffee' },
+            { text: '🗂️ 数码文件整理：建立找得到的个人档案', link: '/Other/digital-file-organizing' },
+            { text: '🌱 阳台香草种植：罗勒、薄荷与迷迭香', link: '/Other/balcony-herbs' },
           ]
         }
       ],

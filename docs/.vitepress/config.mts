@@ -54,6 +54,9 @@ export default defineConfig({
             { text: '用 DVC 管理机器学习数据版本', link: '/AI/19' },
             { text: '机器学习流水线：把训练步骤变成可重复任务', link: '/AI/20' },
             { text: 'AI 模型灰度发布与安全回滚', link: '/AI/21' },
+            { text: '数据漂移监测：发现模型输入正在改变', link: '/AI/31' },
+            { text: '机器学习实验清单：让一次结果可以重现', link: '/AI/32' },
+            { text: '离线与在线特征一致性：避免训练服务两套逻辑', link: '/AI/33' },
           ]
         },
         {
@@ -69,6 +72,9 @@ export default defineConfig({
             { text: 'LoRA 适配器合并、切换与版本管理', link: '/AI/22' },
             { text: 'SFT 数据质量诊断：从损失曲线找到脏样本', link: '/AI/23' },
             { text: '微调检查点选择：不要只挑最低 Loss', link: '/AI/24' },
+            { text: '梯度累积：小显存下保持有效批次', link: '/AI/34' },
+            { text: '微调中的灾难性遗忘：识别与缓解', link: '/AI/35' },
+            { text: '微调数据去重与评测泄漏检查', link: '/AI/36' },
           ]
         },
         {
@@ -81,6 +87,9 @@ export default defineConfig({
             { text: 'RAG 混合检索：关键词、向量与重排', link: '/AI/25' },
             { text: 'RAG 文档切分与元数据设计实战', link: '/AI/26' },
             { text: 'RAG 评测体系：从检索命中到答案忠实度', link: '/AI/27' },
+            { text: 'RAG 查询改写与问题拆解', link: '/AI/37' },
+            { text: 'RAG 引用设计：让答案可以核验', link: '/AI/38' },
+            { text: 'RAG 增量索引：文档更新后只处理变化', link: '/AI/39' },
           ]
         },
         {
@@ -91,6 +100,9 @@ export default defineConfig({
             { text: 'AI Agent 记忆设计：短期上下文与长期知识', link: '/AI/28' },
             { text: 'Agent 工具权限与沙箱：把误操作限制在边界内', link: '/AI/29' },
             { text: 'Agent 可观测性：追踪、评测与故障定位', link: '/AI/30' },
+            { text: 'Agent 工具调用的幂等设计', link: '/AI/40' },
+            { text: 'Agent 人工审批点：在高风险动作前停下来', link: '/AI/41' },
+            { text: 'Agent 故障恢复：用检查点重放长任务', link: '/AI/42' },
           ]
         },
       ],
@@ -133,6 +145,9 @@ export default defineConfig({
             { text: 'asyncio 并发请求与超时控制', link: '/Code/python/26' },
             { text: 'dataclass：让数据对象更清晰', link: '/Code/python/27' },
             { text: '用 pyproject.toml 打包 Python 项目', link: '/Code/python/28' },
+            { text: 'Python 上下文管理器：可靠释放资源', link: '/Code/python/29' },
+            { text: 'Python 结构化日志：让问题可以检索', link: '/Code/python/30' },
+            { text: 'pathlib 批量整理文件：先预览再执行', link: '/Code/python/31' },
           ]
         },
         {
@@ -168,6 +183,9 @@ export default defineConfig({
             { text: 'Java Record 与密封类建模', link: '/Code/java/26' },
             { text: 'Java 虚拟线程：高并发阻塞任务实战', link: '/Code/java/27' },
             { text: 'CompletableFuture 异步编排与异常处理', link: '/Code/java/28' },
+            { text: 'Java try-with-resources：自动关闭资源', link: '/Code/java/29' },
+            { text: 'Java Optional：表达可能缺失的返回值', link: '/Code/java/30' },
+            { text: 'Java 原子计数器：AtomicLong 与 LongAdder 怎么选', link: '/Code/java/31' },
           ]
         },
         {
@@ -200,6 +218,9 @@ export default defineConfig({
             { text: 'Composer 依赖管理与自动加载', link: '/Code/php/23' },
             { text: 'PDO 事务：保证多步写入一致', link: '/Code/php/24' },
             { text: 'PHPUnit 单元测试入门', link: '/Code/php/25' },
+            { text: 'PHP strict_types 与值对象：让输入边界更明确', link: '/Code/php/26' },
+            { text: 'PHP 密码存储：password_hash 与安全验证', link: '/Code/php/27' },
+            { text: 'PHP cURL 请求：超时、状态码与有限重试', link: '/Code/php/28' },
           ]
         },
         {
@@ -235,6 +256,9 @@ export default defineConfig({
             { text: 'worker_threads 处理 CPU 密集任务', link: '/Code/node/26' },
             { text: 'Node.js 服务优雅关闭指南', link: '/Code/node/27' },
             { text: '使用 node:test 编写零依赖测试', link: '/Code/node/28' },
+            { text: 'AsyncLocalStorage：贯穿异步调用的请求上下文', link: '/Code/node/29' },
+            { text: 'Node.js Stream 背压：用 pipeline 安全传输大文件', link: '/Code/node/30' },
+            { text: 'Node.js 启动配置校验：让错误尽早暴露', link: '/Code/node/31' },
           ]
         },
         {
@@ -270,6 +294,9 @@ export default defineConfig({
             { text: 'Vue 3 Teleport、KeepAlive 与 Suspense', link: '/Code/vue/26' },
             { text: 'Vue SSR 水合不一致排查', link: '/Code/vue/27' },
             { text: 'Vue 组件无障碍实战', link: '/Code/vue/28' },
+            { text: 'Vue 表单脏状态与重置设计', link: '/Code/vue/29' },
+            { text: 'Vue 组件错误捕获与降级界面', link: '/Code/vue/30' },
+            { text: 'Vue watch 清理副作用：取消过期请求', link: '/Code/vue/31' },
           ]
         },
         {
@@ -305,6 +332,9 @@ export default defineConfig({
             { text: 'AbortController：取消请求与异步任务', link: '/Code/js/26' },
             { text: 'structuredClone 深拷贝实战', link: '/Code/js/27' },
             { text: 'Intl API：可靠处理日期、数字与列表', link: '/Code/js/28' },
+            { text: 'Promise 并发池：限制同时运行的异步任务', link: '/Code/js/29' },
+            { text: 'URL 与 URLSearchParams：可靠处理地址和查询参数', link: '/Code/js/30' },
+            { text: 'Web Worker：把 CPU 计算移出主线程', link: '/Code/js/31' },
           ]
         },
       ],
@@ -342,6 +372,9 @@ export default defineConfig({
             { text: 'systemd 服务管理与故障排查', link: '/Server/26' },
             { text: '容器化应用备份与恢复演练', link: '/Server/27' },
             { text: 'Web 服务零停机发布实战', link: '/Server/28' },
+            { text: 'SSH 服务加固：从密钥登录到最小权限', link: '/Server/29' },
+            { text: 'TLS 证书故障排查：从握手到证书链', link: '/Server/30' },
+            { text: 'Web 服务容量规划：从单机压测到扩容阈值', link: '/Server/31' },
           ]
         }
       ],
@@ -379,6 +412,9 @@ export default defineConfig({
             { text: '空状态、加载态与错误态设计', link: '/Design/26' },
             { text: '设计令牌治理：从命名到发布', link: '/Design/27' },
             { text: '可用性测试：用 5 个任务发现真实问题', link: '/Design/28' },
+            { text: '数据表格设计：在密度与可读性之间取平衡', link: '/Design/29' },
+            { text: '通知系统设计：把重要信息送到合适位置', link: '/Design/30' },
+            { text: '国际化界面设计：为文本增长和文化差异留空间', link: '/Design/31' },
           ]
         }
       ],
@@ -416,6 +452,9 @@ export default defineConfig({
             { text: '本地优先笔记的备份与迁移方案', link: '/APP/26' },
             { text: '浏览器多账号与工作区管理', link: '/APP/27' },
             { text: 'PDF 阅读与批注工作流', link: '/APP/28' },
+            { text: '自动化启动器工作流：把重复操作变成可维护命令', link: '/APP/29' },
+            { text: '邮件客户端工作流：把收件箱变成处理队列', link: '/APP/30' },
+            { text: '云盘同步冲突处理：避免覆盖正确版本', link: '/APP/31' },
           ]
         }
       ],
@@ -453,6 +492,9 @@ export default defineConfig({
             { text: '主题阅读法：用一组书建立知识地图', link: '/Book/26' },
             { text: '非虚构阅读中的事实核验', link: '/Book/27' },
             { text: '读书会主持指南：让讨论超越复述情节', link: '/Book/28' },
+            { text: '弃读的判断：什么时候应该放下一本书', link: '/Book/29' },
+            { text: '引文笔记：保留原文、出处与自己的判断', link: '/Book/30' },
+            { text: '小说细读入门：从重复意象发现文本结构', link: '/Book/31' },
           ]
         }
       ],
@@ -490,6 +532,9 @@ export default defineConfig({
             { text: '视频声音设计入门：对白、环境与音乐', link: '/Video/26' },
             { text: '分镜脚本实战：拍摄前解决叙事问题', link: '/Video/27' },
             { text: '视频素材归档：命名、校验与长期保存', link: '/Video/28' },
+            { text: '单人访谈布光：一盏灯也能获得稳定画面', link: '/Video/29' },
+            { text: '视频色彩管理：避免不同设备上的颜色漂移', link: '/Video/30' },
+            { text: '视频导出质检清单：交付前完整看一遍', link: '/Video/31' },
           ]
         }
       ],
@@ -503,9 +548,6 @@ export default defineConfig({
             { text: '🎸 吉他研习社', link: '/Other/guitar-studio' },
             { text: '🎵 音乐万花筒', link: '/Other/music-kaleidoscope' },
             { text: '🌿 生活妙招集', link: '/Other/life-hacks' },
-            { text: '☕ 家庭手冲咖啡：从稳定配方开始', link: '/Other/home-coffee' },
-            { text: '🗂️ 数码文件整理：建立找得到的个人档案', link: '/Other/digital-file-organizing' },
-            { text: '🌱 阳台香草种植：罗勒、薄荷与迷迭香', link: '/Other/balcony-herbs' },
           ]
         }
       ],

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="locked">
 
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,8 @@
         }
 
         html {
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
+            overflow-x: hidden
         }
 
         body {
@@ -32,6 +33,20 @@
             background: var(--cream);
             font-family: "Arial Narrow", "PingFang SC", "Microsoft YaHei", sans-serif;
             overflow-x: hidden
+        }
+
+        html.locked,
+        body.locked {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none
+        }
+
+        body.locked {
+            position: fixed;
+            inset: 0;
+            touch-action: none
         }
 
         button,
@@ -896,7 +911,7 @@
     </style>
 </head>
 
-<body>
+<body class="locked">
     <div class="noise" aria-hidden="true"></div><canvas id="partyCanvas" aria-hidden="true"></canvas>
     <section class="password-gate" id="passwordGate" aria-labelledby="gateTitle">
         <div class="gate-card"><span class="gate-star" aria-hidden="true">✦</span>
@@ -973,7 +988,8 @@
         </div>
     </div>
     <script src="/birthday-wishes.js"></script>
-    <script>(() => { const gate = document.getElementById('passwordGate'), form = document.getElementById('passwordForm'), input = document.getElementById('passwordInput'), error = document.getElementById('passwordError'); form.addEventListener('submit', event => { event.preventDefault(); if (input.value === 'ldj99') { error.textContent = ''; gate.classList.add('hidden'); setTimeout(() => document.getElementById('startParty').click(), 250); return } error.textContent = input.value ? '密码不对，再试一次' : '请先输入密码'; input.value = ''; input.focus() }) })();</script>
+    <script src="/birthday-auth.js"></script>
+    <script>(() => { const gate = document.getElementById('passwordGate'), form = document.getElementById('passwordForm'), input = document.getElementById('passwordInput'), error = document.getElementById('passwordError'), unlockKey = 'jiangjiang-birthday-unlock-until', unlockDuration = 12 * 60 * 60 * 1000; function unlock(celebrate = false) { error.textContent = ''; gate.classList.add('hidden'); document.documentElement.classList.remove('locked'); document.body.classList.remove('locked'); if (celebrate) setTimeout(() => document.getElementById('startParty').click(), 250) } function hasValidUnlock() { try { const until = Number(localStorage.getItem(unlockKey)); if (Number.isFinite(until) && until > Date.now()) return true; localStorage.removeItem(unlockKey) } catch (_) {} return false } document.documentElement.classList.add('locked'); if (hasValidUnlock()) unlock(); form.addEventListener('submit', event => { event.preventDefault(); if (window.verifyBirthdayPassword(input.value.trim())) { try { localStorage.setItem(unlockKey, String(Date.now() + unlockDuration)) } catch (_) {} unlock(true); input.value = ''; return } error.textContent = input.value ? '密码不对，再试一次' : '请先输入密码'; input.value = ''; input.focus() }) })();</script>
     <script>(() => { const canvas = document.getElementById('partyCanvas'), ctx = canvas.getContext('2d'), modal = document.getElementById('modal'), modalText = document.getElementById('modalText'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; let bits = [], raf = 0; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function pop(x = innerWidth / 2, y = innerHeight * .35, n = 130) { if (reduced) return; const colors = ['#ed3e2f', '#1754cf', '#f4c933', '#a8d9c4', '#fffaf0']; for (let i = 0; i < n; i++)bits.push({ x: x + (Math.random() - .5) * 100, y: y + (Math.random() - .5) * 30, vx: (Math.random() - .5) * 10, vy: -Math.random() * 8 - 2, g: .1 + Math.random() * .08, a: Math.random() * 6, s: 4 + Math.random() * 7, c: colors[i % colors.length], life: 1 }); if (!raf) draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); bits = bits.filter(b => b.life > 0 && b.y < innerHeight + 20); for (const b of bits) { b.x += b.vx; b.y += b.vy; b.vy += b.g; b.vx *= .994; b.a += .11; b.life -= .003; ctx.save(); ctx.globalAlpha = b.life; ctx.translate(b.x, b.y); ctx.rotate(b.a); ctx.fillStyle = b.c; ctx.fillRect(-b.s / 2, -b.s / 3, b.s, b.s * .65); ctx.restore() } raf = bits.length ? requestAnimationFrame(draw) : 0 } const wishes = ['愿你钱包有底气，生活有惊喜，身边一直有懂你的人。', '愿这一岁的你，比上一岁更自由、更笃定，也更会取悦自己。', '愿认真生活的你，总能收到世界温柔又热烈的回信。', '愿所有期待都有回应，所有努力都有结果，所有快乐都不必假装。']; function show(text) { modalText.textContent = text; modal.classList.add('open'); document.getElementById('closeModal').focus() } function hide() { modal.classList.remove('open') } document.getElementById('startParty').addEventListener('click', e => { const r = e.currentTarget.getBoundingClientRect(); pop(r.left + r.width / 2, r.top, 180) }); document.getElementById('wishButton').addEventListener('click', () => { pop(innerWidth / 2, innerHeight / 2, 150); show('愿望已收藏。等它实现的时候，记得回来告诉今天的自己。') }); document.querySelector('.dock').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (!b) return; const r = b.getBoundingClientRect(); if (b.dataset.action === 'confetti') pop(r.left + r.width / 2, r.top, 110); if (b.dataset.action === 'wish') show(wishes[Math.floor(Math.random() * wishes.length)]); if (b.dataset.action === 'firework') [0, 220, 440, 660].forEach(d => setTimeout(() => pop(innerWidth * (.15 + Math.random() * .7), innerHeight * (.15 + Math.random() * .45), 80), d)) }); document.getElementById('closeModal').addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); addEventListener('keydown', e => { if (e.key === 'Escape') hide() }) })();</script>
 </body>
 

@@ -60,6 +60,9 @@ export default defineConfig({
             { text: '模型注册表：让每次训练产物都有身份', link: '/AI/43' },
             { text: '上线门禁：把离线评测变成可执行规则', link: '/AI/44' },
             { text: '推理成本预算：从 Token 估算到容量护栏', link: '/AI/45' },
+            { text: '训练数据血缘：从样本追踪到模型版本', link: '/AI/55' },
+            { text: '批量推理管线：分片、幂等与断点续跑', link: '/AI/56' },
+            { text: '模型服务 SLO：同时约束延迟、可用性与质量', link: '/AI/57' },
           ]
         },
         {
@@ -81,6 +84,9 @@ export default defineConfig({
             { text: '微调数据的对话模板：避免训练与推理格式错位', link: '/AI/46' },
             { text: '序列打包与 Padding：提升微调吞吐但不串样本', link: '/AI/47' },
             { text: 'LoRA 目标模块选择：先确认参数名再配置', link: '/AI/48' },
+            { text: '混合精度微调：速度提升与数值稳定', link: '/AI/58' },
+            { text: '可训练参数审计：确认微调真的只改了该改的层', link: '/AI/59' },
+            { text: '多轮对话微调：截断、标签掩码与样本边界', link: '/AI/60' },
           ]
         },
         {
@@ -99,6 +105,9 @@ export default defineConfig({
             { text: 'RAG 权限过滤：检索阶段就隔离不可见文档', link: '/AI/49' },
             { text: 'RAG 上下文压缩：保留证据而不是盲目截断', link: '/AI/50' },
             { text: 'RAG 无答案检测：证据不足时可靠地拒答', link: '/AI/51' },
+            { text: 'RAG 检索去重与多样性：避免上下文被同一文档占满', link: '/AI/61' },
+            { text: 'RAG 邻段扩展：命中一个切片后补回必要上下文', link: '/AI/62' },
+            { text: '提示词回归测试：让模板修改有证据可比', link: '/AI/63' },
           ]
         },
         {
@@ -115,6 +124,9 @@ export default defineConfig({
             { text: 'Agent 工具 Schema 设计：让参数可验证也可理解', link: '/AI/52' },
             { text: 'Agent 计划与执行分离：让长任务更容易校正', link: '/AI/53' },
             { text: 'Agent 预算控制：限制步数、时间与外部费用', link: '/AI/54' },
+            { text: 'Agent 工具结果校验：不要把外部返回值当成事实', link: '/AI/64' },
+            { text: 'Agent 状态机：让长任务的转移条件清晰可查', link: '/AI/65' },
+            { text: 'Agent 密钥管理：最小暴露、短期凭证与日志脱敏', link: '/AI/66' },
           ]
         },
       ],
@@ -163,6 +175,9 @@ export default defineConfig({
             { text: 'argparse 子命令：构建可维护的 Python 命令行工具', link: '/Code/python/32' },
             { text: 'Python 有限重试：指数退避与抖动', link: '/Code/python/33' },
             { text: 'sqlite3 事务：让多步写入一起成功或失败', link: '/Code/python/34' },
+            { text: 'tempfile 与原子替换：安全写入配置文件', link: '/Code/python/35' },
+            { text: 'functools.cache：缓存纯函数并避免陈旧结果', link: '/Code/python/36' },
+            { text: 'queue.Queue：构建有背压的生产者消费者', link: '/Code/python/37' },
           ]
         },
         {
@@ -204,6 +219,9 @@ export default defineConfig({
             { text: 'Java equals 与 hashCode：让值对象在集合中行为一致', link: '/Code/java/32' },
             { text: 'Java ExecutorService：有界并发与可靠关闭', link: '/Code/java/33' },
             { text: 'Java HttpClient：超时、状态码与响应体处理', link: '/Code/java/34' },
+            { text: 'Java NIO 原子替换：避免写出半截文件', link: '/Code/java/35' },
+            { text: 'ConcurrentHashMap.computeIfAbsent：并发缓存的边界', link: '/Code/java/36' },
+            { text: 'Java BigDecimal：正确表示和计算金额', link: '/Code/java/37' },
           ]
         },
         {
@@ -242,6 +260,9 @@ export default defineConfig({
             { text: 'PHP 枚举与 match：把有限状态写进类型', link: '/Code/php/29' },
             { text: 'PHP readonly DTO：在输入边界固定数据', link: '/Code/php/30' },
             { text: 'PHP 流式处理 CSV：避免一次读入全部数据', link: '/Code/php/31' },
+            { text: 'PHP SPL 迭代器：逐行处理大型文本', link: '/Code/php/32' },
+            { text: 'PHP Webhook 签名验证：先验真再解析业务', link: '/Code/php/33' },
+            { text: 'PHP DateTimeImmutable：跨时区时间计算不再互相污染', link: '/Code/php/34' },
           ]
         },
         {
@@ -283,6 +304,9 @@ export default defineConfig({
             { text: 'Node.js 原生 fetch：超时、校验与错误边界', link: '/Code/node/32' },
             { text: 'Node.js EventEmitter：监听器生命周期与错误处理', link: '/Code/node/33' },
             { text: 'Node.js 加密随机数：生成令牌而不是拼接时间戳', link: '/Code/node/34' },
+            { text: 'Node.js readline：用异步迭代逐行处理大文件', link: '/Code/node/35' },
+            { text: 'Node.js HTTP 请求体限制：在解析前挡住超大输入', link: '/Code/node/36' },
+            { text: 'Node.js 路径边界：安全解析用户提供的文件名', link: '/Code/node/37' },
           ]
         },
         {
@@ -324,6 +348,9 @@ export default defineConfig({
             { text: 'Vue provide/inject：为组件树提供类型安全的服务', link: '/Code/vue/32' },
             { text: 'Vue 异步组件：按需加载与可恢复失败', link: '/Code/vue/33' },
             { text: 'Vue 列表渲染：稳定 key 与可预测状态', link: '/Code/vue/34' },
+            { text: 'Vue 组件 v-model：显式约定值与更新事件', link: '/Code/vue/35' },
+            { text: 'Vue effectScope：集中释放一组响应式副作用', link: '/Code/vue/36' },
+            { text: 'Vue 路由后的焦点管理：让页面切换可被感知', link: '/Code/vue/37' },
           ]
         },
         {
@@ -365,6 +392,9 @@ export default defineConfig({
             { text: 'Map 与 WeakMap：为对象关联状态的两种方式', link: '/Code/js/32' },
             { text: 'IntersectionObserver：高效判断元素是否进入视口', link: '/Code/js/33' },
             { text: '自定义事件：用 EventTarget 解耦页面模块', link: '/Code/js/34' },
+            { text: 'Web Crypto：在浏览器中计算文件 SHA-256', link: '/Code/js/35' },
+            { text: 'MutationObserver：可靠观察 DOM 结构变化', link: '/Code/js/36' },
+            { text: '异步生成器：按页拉取并逐条消费数据', link: '/Code/js/37' },
           ]
         },
       ],
@@ -408,6 +438,9 @@ export default defineConfig({
             { text: 'logrotate 日志轮转：控制磁盘占用又保留历史', link: '/Server/32' },
             { text: 'Nginx 上游健康与失败切换：避免把请求送给坏实例', link: '/Server/33' },
             { text: 'Linux 时间同步：排查时钟漂移与证书异常', link: '/Server/34' },
+            { text: 'journald 日志保留：在可追溯与磁盘上限间取平衡', link: '/Server/35' },
+            { text: 'PostgreSQL 逻辑备份与恢复演练', link: '/Server/36' },
+            { text: '反向代理后的真实客户端 IP：只信任已知代理', link: '/Server/37' },
           ]
         }
       ],
@@ -451,6 +484,9 @@ export default defineConfig({
             { text: '权限设置界面：让用户看懂谁能做什么', link: '/Design/32' },
             { text: '站内搜索设计：从空查询到无结果恢复', link: '/Design/33' },
             { text: '数据图表无障碍：颜色之外还要有结构', link: '/Design/34' },
+            { text: '破坏性操作确认：让用户看懂将失去什么', link: '/Design/35' },
+            { text: '渐进式引导：让新用户先完成一次真实任务', link: '/Design/36' },
+            { text: '长表单信息层级：降低填写与复核成本', link: '/Design/37' },
           ]
         }
       ],
@@ -494,6 +530,9 @@ export default defineConfig({
             { text: 'RSS 阅读工作流：把信息流变成可处理的收件箱', link: '/APP/32' },
             { text: 'OCR 文档整理：从拍照到可检索档案', link: '/APP/33' },
             { text: '日历时间块：把重要工作放进真实时间', link: '/APP/34' },
+            { text: '密码管理器迁移：不丢字段也不留下明文副本', link: '/APP/35' },
+            { text: '通知审计：把打断改造成有层级的信号', link: '/APP/36' },
+            { text: '快捷键体系：用少量高频动作建立肌肉记忆', link: '/APP/37' },
           ]
         }
       ],
@@ -537,6 +576,9 @@ export default defineConfig({
             { text: '译本比较：如何为一本外国文学选择版本', link: '/Book/32' },
             { text: '人物索引卡：读懂多人物与多时间线小说', link: '/Book/33' },
             { text: '有声书主动阅读：在通勤中留下可用记忆', link: '/Book/34' },
+            { text: '索引式阅读：用书后的关键词地图回查论证', link: '/Book/35' },
+            { text: '阅读疲劳恢复：在注意力下降时调整任务难度', link: '/Book/36' },
+            { text: '版本信息卡：让引文在多年后仍能定位', link: '/Book/37' },
           ]
         }
       ],
@@ -580,6 +622,9 @@ export default defineConfig({
             { text: '帧率与快门：让运动模糊服务于画面', link: '/Video/32' },
             { text: '单人访谈收音：领夹麦与枪麦的双保险', link: '/Video/33' },
             { text: '字幕质检：从文字正确到观看舒适', link: '/Video/34' },
+            { text: 'B-roll 覆盖镜头表：为剪辑提前准备视觉证据', link: '/Video/35' },
+            { text: '多机位同步：用拍板、波形与时间码对齐素材', link: '/Video/36' },
+            { text: '响度统一：让对白、音乐与平台播放更稳定', link: '/Video/37' },
           ]
         }
       ],

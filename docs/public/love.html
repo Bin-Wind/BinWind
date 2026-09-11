@@ -25,13 +25,29 @@
             scroll-behavior: smooth
         }
 
+        html {
+            max-width: 100%;
+            overflow-x: hidden
+        }
+
         body {
             margin: 0;
             min-width: 320px;
             color: var(--cream);
             background: var(--night);
             font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+            max-width: 100%;
             overflow-x: hidden
+        }
+
+        body.locked {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+            touch-action: none
         }
 
         button,
@@ -318,6 +334,89 @@
             letter-spacing: .14em
         }
 
+        .story-section {
+            position: relative;
+            padding: 120px clamp(24px, 7vw, 110px);
+            background: linear-gradient(180deg, #080405e8, #13080d 65%, #0a0507)
+        }
+
+        .section-intro {
+            display: grid;
+            grid-template-columns: .7fr 1.3fr;
+            gap: clamp(30px, 7vw, 100px);
+            max-width: 1180px;
+            margin: 0 auto 70px
+        }
+
+        .section-no {
+            color: var(--gold);
+            font: .7rem system-ui, sans-serif;
+            letter-spacing: .28em;
+            text-transform: uppercase
+        }
+
+        .section-intro h3 {
+            margin: 0;
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            font-weight: 400;
+            line-height: 1.05
+        }
+
+        .section-intro h3 em {
+            color: #d6a99d;
+            font-weight: 400
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1180px;
+            margin: auto;
+            border-top: 1px solid #c5a87552
+        }
+
+        .moment {
+            position: relative;
+            min-height: 260px;
+            padding: 34px 30px;
+            border-right: 1px solid #c5a87538
+        }
+
+        .moment:last-child { border-right: 0 }
+        .moment:before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 30px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 18px #c5a875b8
+        }
+
+        .moment small {
+            color: var(--gold);
+            font: .68rem system-ui, sans-serif;
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .moment h4 { margin: 48px 0 14px; font-size: 1.5rem; font-weight: 400 }
+        .moment p { margin: 0; color: #f3e9d899; font-size: 1rem; line-height: 1.85 }
+
+        .first-meet {
+            padding: 130px 24px;
+            text-align: left;
+            background: radial-gradient(circle at center, #32101c, #0a0507 68%)
+        }
+
+        .first-meet-inner { width: min(900px, 100%); margin: 0 auto }
+        .first-meet .section-no { display: block; margin-bottom: 24px }
+        .first-meet h3 { max-width: 900px; margin: 0; font-size: clamp(2.8rem, 7vw, 6.2rem); font-weight: 400; line-height: 1.08 }
+        .first-meet p { max-width: 760px; margin: 30px 0 0; color: #f3e9d899; font-size: 1.06rem; line-height: 2 }
+        .meet-note { display: inline-block; margin-top: 40px; padding: 13px 22px; border: 1px solid #c5a87573; border-radius: 99px; color: var(--gold); font: .72rem system-ui, sans-serif; letter-spacing: .16em }
+
         .letter-section {
             min-height: 100svh;
             display: grid;
@@ -487,6 +586,38 @@
             line-height: 1.85
         }
 
+        .message-form { display: none; margin-top: 20px; text-align: left }
+        .message-form.open { display: block }
+        .message-form label { display: block; margin-bottom: 10px; color: var(--wine); font-size: 1rem }
+        .message-input {
+            width: 100%;
+            min-height: 130px;
+            resize: vertical;
+            border: 1px solid #6f142852;
+            border-radius: 3px;
+            padding: 15px 16px;
+            color: var(--ink);
+            background: #fffaf1;
+            outline: none;
+            font: 1rem/1.7 system-ui, sans-serif
+        }
+        .message-input:focus { border-color: var(--wine); box-shadow: 0 0 0 3px #6f142814 }
+        .message-count { display: block; margin-top: 6px; color: #6b574f; text-align: right; font: .75rem system-ui, sans-serif }
+        .message-status { min-height: 24px; margin: 8px 0; color: #6b574f; text-align: center; font: .85rem/1.6 system-ui, sans-serif }
+        .message-status.error { color: #a3263e }
+        .message-actions { display: flex; justify-content: center; align-items: center; gap: 22px }
+        .send-message {
+            border: 1px solid var(--wine);
+            border-radius: 99px;
+            padding: 11px 25px;
+            color: #fff8ec;
+            background: var(--wine);
+            cursor: pointer;
+            font: .82rem system-ui, sans-serif;
+            letter-spacing: .12em
+        }
+        .send-message:disabled { opacity: .55; cursor: not-allowed }
+
         .close {
             border: 0;
             border-bottom: 1px solid var(--wine);
@@ -519,15 +650,21 @@
 
             .hero-copy {
                 width: 100%;
+                min-width: 0;
                 padding-top: 12vh
             }
 
             .hero h2 {
-                font-size: clamp(4.6rem, 25vw, 7.2rem)
+                max-width: 100%;
+                font-size: clamp(3.8rem, 17vw, 5.5rem);
+                letter-spacing: -.085em
             }
 
             .hero h2 em {
-                margin-left: .22em
+                width: max-content;
+                max-width: 100%;
+                margin-left: .08em;
+                white-space: nowrap
             }
 
             .lead {
@@ -537,13 +674,23 @@
                 line-height: 1.85
             }
 
-            .topline span:nth-child(2) {
+            .topline span:not(.monogram) {
                 display: none
             }
 
             .date {
                 font-size: .7rem
             }
+
+            .story-section,
+            .first-meet { padding-block: 90px }
+
+            .section-intro { grid-template-columns: 1fr }
+
+            .timeline { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid #c5a87552 }
+            .moment { min-height: 0; padding: 12px 20px 48px 30px; border-right: 0 }
+            .moment:before { top: 5px; left: -5px }
+            .moment h4 { margin-top: 24px }
 
             .letter-section {
                 padding-inline: 15px
@@ -586,7 +733,7 @@
     </style>
 </head>
 
-<body>
+<body class="locked">
     <div class="background" aria-hidden="true"></div>
     <div class="grain" aria-hidden="true"></div><canvas id="heartCanvas" aria-hidden="true"></canvas>
     <section class="gate" id="gate" aria-labelledby="gateTitle">
@@ -595,11 +742,12 @@
             <div class="seal" aria-hidden="true">♥</div>
             <h1 id="gateTitle">只写给江江</h1>
             <p class="gate-copy">江江，有些话想等你亲自打开</p>
-            <form class="unlock" id="unlockForm"><input id="password" type="password" 
-                    autocomplete="off" placeholder="输入我们的暗号" aria-label="输入密码"><button type="submit"
+            <form class="unlock" id="unlockForm"><input id="password" type="password" inputmode="text"
+                    autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+                    placeholder="输入我们的暗号" aria-label="输入密码"><button type="submit"
                     aria-label="打开信件">→</button></form>
             <p class="error" id="error" role="alert"></p>
-            <p class="hint">提示：那个关于“一生一世”的数字</p>
+            <p class="hint">提示：字母与“一生一世”的数字组合</p>
         </div>
     </section>
     <main class="page" id="page">
@@ -608,20 +756,41 @@
             <div class="hero-copy">
                 <div class="kicker">致我最爱的江江</div>
                 <h2>Only <em>Jiangjiang.</em></h2>
-                <p class="lead">江江，世界有千万种相遇，而我最庆幸的，是刚好在那一天、那个时刻，遇见了你。</p>
+                <p class="lead">江江，很高兴认识你。关于这场刚刚开始的相遇，有些话，想请你慢慢读完。</p>
             </div>
             <footer class="hero-footer"><span class="scroll">继续读下去</span><span class="date">520 · 1314</span></footer>
         </section>
+        <section class="story-section">
+            <div class="section-intro">
+                <span class="section-no">Chapter I · 相识</span>
+                <h3>故事没有轰轰烈烈，<br>只是从一句<em>“你好呀”</em>开始。</h3>
+            </div>
+            <div class="timeline">
+                <article class="moment"><small>01 · 缘分的开场</small><h4>一个介绍，让故事有了开头</h4><p>家里的一次介绍，让我对你有了简单的了解。没有刻意设想以后，只是从那一刻起，我们之间命运似乎就有了相交点。</p></article>
+                <article class="moment"><small>02 · 微信里的相识</small><h4>从一句“你好呀”，慢慢认识彼此</h4><p>一条好友申请，把两个原本陌生的人连在了一起。聊天或许还不算很多，但每一次回应，都在让屏幕另一端的彼此变得更真实一点。</p></article>
+                <article class="moment"><small>03 · 等待见面</small><h4>屏幕之外，期待真正相见</h4><p>现在的我们还隔着屏幕，所以不急着替这段关系写下答案。想把认真放进每一次交流，也把一点心动和期待，留给真正见到你的那天。</p></article>
+            </div>
+        </section>
+
+        <section class="first-meet">
+            <div class="first-meet-inner">
+                <span class="section-no">Chapter II · 第一次见面</span>
+                <h3>还没见过面，<br>所以一切都值得期待。</h3>
+                <p>第一次见面，我想我们顺其自然的见面。然后我带着为你挑选的鲜花，带着送你的惊喜，去一家安静又好看的店或者安静温馨的是否，把微信里没有说完的话留到面对面慢慢说。仪式感不是刻意铺张，而是想让你知道：跨过屏幕真正见到你的这一天，对我来说值得被认真记住。</p>
+                <span class="meet-note">愿第一次见面，有花、有期待、有惊喜和开心，也有值得收藏的心动</span>
+            </div>
+        </section>
+
         <section class="letter-section" id="letter">
             <article class="letter">
-                <p class="chapter">Chapter I · 江江与我</p>
-                <h3>如果爱有形状，<br>大概就是江江。</h3>
+                <p class="chapter">Chapter III · 写给江江</p>
+                <h3>不是急着表白，<br>是想认真地靠近你。</h3>
                 <div class="letter-body">
-                    <p>江江，我喜欢我们之间那些微小又确切的瞬间：每一次的晚安，每一次的关心，却又舍不得结束的话题。</p>
-                    <p>江江让普通的日子有了纪念的意义。不是因为每一天都完美，而是因为有你以后，连平凡也变得值得期待。</p>
-                    <p>往后的路还很长。我想继续记住江江的笑，接住你的情绪，和你分享所有琐碎，也陪你走过每一个不那么容易的时刻。</p>
+                    <p>江江，我们的故事才刚刚开始。你是 10 月 14 日，我是 1 月 14 日；两个相隔九个月的“14”，因为一次介绍和一条微信消息，忽然有了交集。</p>
+                    <p>我想慢一点靠近，也愿意用时间和行动表达认真。我会认真对待每一次聊天，也会认真准备我们的第一次见面。不是为了用一场盛大的安排证明什么，只是希望每个与你有关的重要时刻，都有属于它的仪式感。</p>
+                    <p>如果你也愿意，希望我们可以从微信里的问候，走到现实中的第一次见面；你的温柔与通透，我想慢慢了解，我不太擅长说出口的认真，也愿意一点点让你看见。至于更远的以后，就交给时间，也交给我们。</p>
                 </div>
-                <p class="signature">江江，我爱你，不止今天。</p><span class="letter-seal" aria-hidden="true">♥</span>
+                <p class="signature">江江，很高兴认识你，也期待见到你。</p><span class="letter-seal" aria-hidden="true">♥</span>
             </article>
         </section>
         <nav class="actions" aria-label="爱的互动"><button class="action" type="button" data-action="hearts"><span
@@ -634,12 +803,19 @@
     <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
         <div class="modal-card">
             <div class="modal-icon">♥</div>
-            <div class="modal-message" id="modalMessage"></div><button class="close" id="closeModal"
-                type="button">收好这句话</button>
+            <div class="modal-message" id="modalMessage"></div>
+            <form class="message-form" id="messageForm">
+                <label for="messageInput">想对我说的话</label>
+                <textarea class="message-input" id="messageInput" maxlength="300" placeholder="写下你想说的话……" required></textarea>
+                <span class="message-count" id="messageCount">0 / 300</span>
+                <p class="message-status" id="messageStatus" aria-live="polite"></p>
+                <div class="message-actions"><button class="send-message" id="sendMessage" type="submit">发送消息</button><button class="close" id="cancelMessage" type="button">暂时不写</button></div>
+            </form>
+            <button class="close" id="closeModal" type="button">收好这句话</button>
         </div>
     </div>
     <script src="/love-jiangjiang.js"></script>
-    <script>(() => { const gate = document.getElementById('gate'), page = document.getElementById('page'), form = document.getElementById('unlockForm'), password = document.getElementById('password'), error = document.getElementById('error'), modal = document.getElementById('modal'), modalMessage = document.getElementById('modalMessage'), closeModal = document.getElementById('closeModal'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; form.addEventListener('submit', e => { e.preventDefault(); if (password.value.trim() !== 'ldj5201314') { error.textContent = password.value ? '暗号不太对，再想想看。' : '先输入我们的暗号。'; password.value = ''; password.focus(); return } error.textContent = ''; gate.classList.add('hidden'); page.classList.add('ready'); startCanvas() }); const messages = ['遇见你以后，我才知道“刚刚好”原来不是形容时间，而是形容一个人。', '我想和你分享的，从来不只是浪漫，还有早餐、晚风和漫长岁月。', '你不用一直闪闪发光。在我这里，你永远可以做最真实的自己。', '我的偏爱很简单：别人再好也是别人，你不一样，你是我的答案。', '想把每一个普通的明天，都慢慢变成我们的以后。']; function show(message) { modalMessage.textContent = message; modal.classList.add('open'); closeModal.focus() } function hide() { modal.classList.remove('open') } closeModal.addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); document.addEventListener('keydown', e => { if (e.key === 'Escape') hide() }); function burst(x = innerWidth / 2, y = innerHeight / 2, amount = 18) { if (reduced) return; for (let i = 0; i < amount; i++) { const s = document.createElement('span'); s.className = 'spark'; s.textContent = Math.random() > .35 ? '♥' : '✦'; s.style.left = x + 'px'; s.style.top = y + 'px'; s.style.color = Math.random() > .5 ? '#c46678' : '#d8bd8b'; s.style.fontSize = 8 + Math.random() * 14 + 'px'; s.style.setProperty('--x', (Math.random() - .5) * 240 + 'px'); s.style.setProperty('--r', (Math.random() - .5) * 90 + 'deg'); document.body.appendChild(s); s.addEventListener('animationend', () => s.remove()) } } document.querySelector('.actions').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (!b) return; const r = b.getBoundingClientRect(), a = b.dataset.action; if (a === 'hearts') burst(r.left + r.width / 2, r.top, 24); if (a === 'letter') show(messages[Math.floor(Math.random() * messages.length)]); if (a === 'fireworks') [0, 220, 440, 660].forEach(d => setTimeout(() => burst(innerWidth * (.18 + Math.random() * .64), innerHeight * (.18 + Math.random() * .42), 28), d)); if (a === 'secret') show('偷偷告诉你：这个页面会旧，代码会更新，但我喜欢你这件事，永远是最新版本。') }); document.addEventListener('click', e => { if (gate.classList.contains('hidden') && !e.target.closest('button') && !e.target.closest('.modal-card')) burst(e.clientX, e.clientY, 7) }); const canvas = document.getElementById('heartCanvas'), ctx = canvas.getContext('2d'); let motes = [], running = false; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function startCanvas() { if (running || reduced) return; running = true; motes = Array.from({ length: 34 }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.4 + .4, s: Math.random() * .22 + .06, o: Math.random() * .35 + .08 })); draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); for (const m of motes) { m.y -= m.s; m.x += Math.sin(m.y * .006) * .08; if (m.y < -8) { m.y = innerHeight + 8; m.x = Math.random() * innerWidth } ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(216,189,139,${m.o})`; ctx.fill() } requestAnimationFrame(draw) } })();</script>
+    <script>(() => { const gate = document.getElementById('gate'), page = document.getElementById('page'), form = document.getElementById('unlockForm'), password = document.getElementById('password'), error = document.getElementById('error'), modal = document.getElementById('modal'), modalMessage = document.getElementById('modalMessage'), closeModal = document.getElementById('closeModal'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; form.addEventListener('submit', e => { e.preventDefault(); if (!window.verifyLovePassword(password.value.trim())) { error.textContent = password.value ? '暗号不太对，再想想看。' : '先输入我们的暗号。'; password.value = ''; password.focus(); return } error.textContent = ''; gate.classList.add('hidden'); page.classList.add('ready'); document.body.classList.remove('locked'); startCanvas() }); const messages = ['遇见你以后，我才知道“刚刚好”原来不是形容时间，而是形容一个人。', '我想和你分享的，从来不只是浪漫，还有早餐、晚风和漫长岁月。', '你不用一直闪闪发光。在我这里，你永远可以做最真实的自己。', '我的偏爱很简单：别人再好也是别人，你不一样，你是我的答案。', '想把每一个普通的明天，都慢慢变成我们的以后。']; function show(message) { modalMessage.textContent = message; modal.classList.add('open'); closeModal.focus() } function hide() { modal.classList.remove('open') } closeModal.addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); document.addEventListener('keydown', e => { if (e.key === 'Escape') hide() }); function burst(x = innerWidth / 2, y = innerHeight / 2, amount = 18) { if (reduced) return; for (let i = 0; i < amount; i++) { const s = document.createElement('span'); s.className = 'spark'; s.textContent = Math.random() > .35 ? '♥' : '✦'; s.style.left = x + 'px'; s.style.top = y + 'px'; s.style.color = Math.random() > .5 ? '#c46678' : '#d8bd8b'; s.style.fontSize = 8 + Math.random() * 14 + 'px'; s.style.setProperty('--x', (Math.random() - .5) * 240 + 'px'); s.style.setProperty('--r', (Math.random() - .5) * 90 + 'deg'); document.body.appendChild(s); s.addEventListener('animationend', () => s.remove()) } } document.querySelector('.actions').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (!b) return; const r = b.getBoundingClientRect(), a = b.dataset.action; if (a === 'hearts') burst(r.left + r.width / 2, r.top, 24); if (a === 'letter') show(messages[Math.floor(Math.random() * messages.length)]); if (a === 'fireworks') [0, 220, 440, 660].forEach(d => setTimeout(() => burst(innerWidth * (.18 + Math.random() * .64), innerHeight * (.18 + Math.random() * .42), 28), d)); if (a === 'secret') show('偷偷告诉你：这个页面会旧，代码会更新，但我喜欢你这件事，永远是最新版本。') }); document.addEventListener('click', e => { if (gate.classList.contains('hidden') && !e.target.closest('button') && !e.target.closest('.modal-card')) burst(e.clientX, e.clientY, 7) }); const canvas = document.getElementById('heartCanvas'), ctx = canvas.getContext('2d'); let motes = [], running = false; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function startCanvas() { if (running || reduced) return; running = true; motes = Array.from({ length: 34 }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.4 + .4, s: Math.random() * .22 + .06, o: Math.random() * .35 + .08 })); draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); for (const m of motes) { m.y -= m.s; m.x += Math.sin(m.y * .006) * .08; if (m.y < -8) { m.y = innerHeight + 8; m.x = Math.random() * innerWidth } ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(216,189,139,${m.o})`; ctx.fill() } requestAnimationFrame(draw) } })();</script>
 </body>
 
 </html>

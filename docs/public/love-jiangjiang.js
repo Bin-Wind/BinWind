@@ -142,7 +142,7 @@
   };
 
   messageInput.addEventListener('input', () => {
-    messageCount.textContent = `${messageInput.value.length} / 300`;
+    messageCount.textContent = `${messageInput.value.length} / 3000`;
     if (messageStatus.classList.contains('error')) {
       messageStatus.textContent = '';
       messageStatus.classList.remove('error');
@@ -182,7 +182,7 @@
         localStorage.setItem(duplicateKey, JSON.stringify({ content, sentAt: Date.now() }));
       } catch (_) {}
       messageInput.value = '';
-      messageCount.textContent = '0 / 300';
+      messageCount.textContent = '0 / 3000';
       messageStatus.textContent = '已经送出，谢谢你认真写下这句话。';
       sendMessage.textContent = '已发送';
       setTimeout(() => {

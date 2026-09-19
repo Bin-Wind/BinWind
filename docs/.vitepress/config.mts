@@ -78,6 +78,12 @@ export default defineConfig({
             { text: '模型产物晋级：同一份文件穿过测试、预发与生产', link: '/AI/115' },
             { text: '特征删除传播：用户数据移除后如何追到训练集', link: '/AI/116' },
             { text: '推理运行时兼容矩阵：升级前验证模型、驱动与量化格式', link: '/AI/117' },
+            { text: '线上特征回退：实时特征失效时退回安全基线', link: '/AI/127' },
+            { text: '模型服务金丝雀判定：用配对请求减少流量噪声', link: '/AI/128' },
+            { text: '训练任务资源配额：让失败尽早而不是挤垮集群', link: '/AI/129' },
+            { text: '训练数据回填验收：用不变量发现静默错误', link: '/AI/139' },
+            { text: '推理结果复现：锁定模型、运行时与采样配置', link: '/AI/140' },
+            { text: '模型服务冷启动预算：提前加载而不是让首批请求等待', link: '/AI/141' },
           ]
         },
         {
@@ -117,6 +123,12 @@ export default defineConfig({
             { text: '微调优化器状态：恢复训练时不能只加载权重', link: '/AI/118' },
             { text: '微调梯度累积尾批次：不足步数时如何正确更新', link: '/AI/119' },
             { text: '微调评测生成配置：把温度、停止词与长度一起锁定', link: '/AI/120' },
+            { text: '微调数据难例配比：别让少数边界样本被平均掉', link: '/AI/130' },
+            { text: 'LoRA 多适配器路由：加载、隔离与回退', link: '/AI/131' },
+            { text: '微调权重衰减：只对该衰减的参数生效', link: '/AI/132' },
+            { text: '微调分词器变更：扩充词表后的权重与兼容性', link: '/AI/142' },
+            { text: '微调结束符审计：避免模型学不会停下来', link: '/AI/143' },
+            { text: 'LoRA 适配器精度转换：保存前后验证数值偏差', link: '/AI/144' },
           ]
         },
         {
@@ -153,6 +165,12 @@ export default defineConfig({
             { text: 'RAG 稳定切片 ID：文档小改动后只更新真正变化的块', link: '/AI/121' },
             { text: 'RAG 中文词法检索：分词词典与字符召回如何配合', link: '/AI/122' },
             { text: 'RAG 引用片段绑定：让答案句子能定位到原文证据', link: '/AI/123' },
+            { text: 'RAG 删除一致性：文档撤回后同步清理切片与缓存', link: '/AI/133' },
+            { text: 'RAG 多查询融合：用 RRF 合并不同检索结果', link: '/AI/134' },
+            { text: 'RAG 数字与实体核验：生成后回查证据', link: '/AI/135' },
+            { text: 'RAG 查询日志脱敏：保留评测价值而不泄露原文', link: '/AI/145' },
+            { text: 'RAG 过滤后空结果：区分无权限、无内容与索引延迟', link: '/AI/146' },
+            { text: 'RAG 重排候选池：别让召回上限锁死最终质量', link: '/AI/147' },
           ]
         },
         {
@@ -187,6 +205,12 @@ export default defineConfig({
             { text: 'Agent 持久工具收件箱：进程重启后仍能接住异步结果', link: '/AI/124' },
             { text: 'Agent 资源锁：并行步骤修改同一对象时避免互相覆盖', link: '/AI/125' },
             { text: 'Agent 策略决策日志：记录为什么允许、拒绝或升级', link: '/AI/126' },
+            { text: 'Agent 工具能力探测：调用前确认版本与权限', link: '/AI/136' },
+            { text: 'Agent 长任务心跳：区分仍在运行与已经失联', link: '/AI/137' },
+            { text: 'Agent 输出契约：让最终结果可校验可交付', link: '/AI/138' },
+            { text: 'Agent 重试预算传播：避免多层重试放大请求', link: '/AI/148' },
+            { text: 'Agent 工具演练模式：预览副作用再正式执行', link: '/AI/149' },
+            { text: 'Agent 事件重放：用不可变记录复现一次任务', link: '/AI/150' },
           ]
         },
       ],
@@ -253,6 +277,12 @@ export default defineConfig({
             { text: 'itertools.batched：按固定大小分批处理迭代数据', link: '/Code/python/50' },
             { text: 'Python ExceptionGroup：一次报告多个并发失败', link: '/Code/python/51' },
             { text: 'pathlib.Path.walk：遍历目录时原地剪枝', link: '/Code/python/52' },
+            { text: 'Python graphlib.TopologicalSorter：按依赖顺序执行任务', link: '/Code/python/53' },
+            { text: 'Python bisect：在有序列表中插入并明确重复值边界', link: '/Code/python/54' },
+            { text: 'Python shlex：解析类 Shell 参数而不启动 Shell', link: '/Code/python/55' },
+            { text: 'Python weakref.finalize：对象回收时安排兜底清理', link: '/Code/python/56' },
+            { text: 'Python ipaddress：验证地址并判断所属网段', link: '/Code/python/57' },
+            { text: 'Python statistics.quantiles：用分位数观察长尾数据', link: '/Code/python/58' },
           ]
         },
         {
@@ -312,6 +342,12 @@ export default defineConfig({
             { text: 'Java ReentrantLock.tryLock：为锁等待设置期限', link: '/Code/java/50' },
             { text: 'Java Files.walk：遍历目录时正确关闭资源', link: '/Code/java/51' },
             { text: 'Java BigDecimal 比较：数值相等与表示相等不是一回事', link: '/Code/java/52' },
+            { text: 'Java ObjectInputFilter：为反序列化设置类型与规模边界', link: '/Code/java/53' },
+            { text: 'Java Phaser：协调会动态加入的分阶段任务', link: '/Code/java/54' },
+            { text: 'Java Files.createTempFile：安全创建并清理临时文件', link: '/Code/java/55' },
+            { text: 'Java HexFormat：可靠转换十六进制文本与字节', link: '/Code/java/56' },
+            { text: 'Java CompletableFuture.orTimeout：为异步阶段设置截止时间', link: '/Code/java/57' },
+            { text: 'Java Cleaner：为本地资源提供最后一道清理防线', link: '/Code/java/58' },
           ]
         },
         {
@@ -368,6 +404,12 @@ export default defineConfig({
             { text: 'PHP SensitiveParameter：避免敏感参数出现在堆栈中', link: '/Code/php/47' },
             { text: 'PHP stream_context_create：为 HTTP 读取设置明确边界', link: '/Code/php/48' },
             { text: 'PHP register_shutdown_function：记录致命退出但不冒充恢复', link: '/Code/php/49' },
+            { text: 'PHP php://temp：让中间数据超过阈值后自动落盘', link: '/Code/php/50' },
+            { text: 'PHP stream_copy_to_stream：限制大文件复制的内存占用', link: '/Code/php/51' },
+            { text: 'PHP usort：用稳定规则完成多字段排序', link: '/Code/php/52' },
+            { text: 'PHP fputcsv：按规则输出可交换的 CSV', link: '/Code/php/53' },
+            { text: 'PHP hrtime：测量耗时不受系统时钟跳变影响', link: '/Code/php/54' },
+            { text: 'PHP password_needs_rehash：登录时平滑升级口令哈希', link: '/Code/php/55' },
           ]
         },
         {
@@ -427,6 +469,12 @@ export default defineConfig({
             { text: 'Node.js events.once：等待一次事件并支持取消', link: '/Code/node/50' },
             { text: 'Node.js fs.cp：复制目录并用过滤器控制范围', link: '/Code/node/51' },
             { text: 'Node.js crypto.randomUUID：生成标识而不是安全口令', link: '/Code/node/52' },
+            { text: 'Node.js fs.watch：用 AbortSignal 管理监听器生命周期', link: '/Code/node/53' },
+            { text: 'Node.js finished：确认流真正结束并清理监听器', link: '/Code/node/54' },
+            { text: 'Node.js crypto.scrypt：为口令派生可验证摘要', link: '/Code/node/55' },
+            { text: 'Node.js diagnostics_channel：低耦合发布运行时诊断事件', link: '/Code/node/56' },
+            { text: 'Node.js fs.statfs：在写入前观察文件系统容量', link: '/Code/node/57' },
+            { text: 'Node.js Readable.fromWeb：桥接 Web Stream 与 Node 流', link: '/Code/node/58' },
           ]
         },
         {
@@ -486,6 +534,12 @@ export default defineConfig({
             { text: 'Vue customRef：实现可控的防抖输入状态', link: '/Code/vue/50' },
             { text: 'Vue onScopeDispose：让组合式函数离开作用域就清理资源', link: '/Code/vue/51' },
             { text: 'Vue defineModel 修饰符：显式处理组件双向绑定', link: '/Code/vue/52' },
+            { text: 'Vue defineExpose：只向父组件开放必要能力', link: '/Code/vue/53' },
+            { text: 'Vue defineEmits 校验：让组件事件在开发阶段尽早失败', link: '/Code/vue/54' },
+            { text: 'Vue KeepAlive 激活钩子：缓存页面恢复时重新校准外部状态', link: '/Code/vue/55' },
+            { text: 'Vue useTemplateRef：用稳定名称取得模板引用', link: '/Code/vue/56' },
+            { text: 'Vue triggerRef：外部对象原地变化后显式通知视图', link: '/Code/vue/57' },
+            { text: 'Vue defineAsyncComponent：把重组件延迟到真正需要时', link: '/Code/vue/58' },
           ]
         },
         {
@@ -545,6 +599,12 @@ export default defineConfig({
             { text: 'TextDecoder 流式解码：避免 UTF-8 字符被分块截断', link: '/Code/js/50' },
             { text: 'addEventListener 的 signal：统一撤销一组 DOM 监听器', link: '/Code/js/51' },
             { text: 'CSS.escape：安全构造选择器中的动态标识', link: '/Code/js/52' },
+            { text: 'Object.hasOwn：安全判断对象自己的属性', link: '/Code/js/53' },
+            { text: 'Promise.withResolvers：把完成能力交给事件边界', link: '/Code/js/54' },
+            { text: 'AbortSignal.throwIfAborted：在多阶段任务间快速响应取消', link: '/Code/js/55' },
+            { text: 'Promise.any：采用第一个成功结果而不是第一个结束结果', link: '/Code/js/56' },
+            { text: 'Intl.ListFormat：按语言习惯拼接名称列表', link: '/Code/js/57' },
+            { text: 'URLSearchParams.sort：稳定规范化查询参数顺序', link: '/Code/js/58' },
           ]
         },
       ],
@@ -606,6 +666,12 @@ export default defineConfig({
             { text: 'Nginx 配置原子发布：先测试，再替换，最后平滑重载', link: '/Server/50' },
             { text: 'Linux PSI：用压力停顿判断 CPU、内存与 IO 争用', link: '/Server/51' },
             { text: 'SSH known_hosts 轮换：更换主机密钥时不中断信任链', link: '/Server/52' },
+            { text: 'systemd Drop-In：覆盖服务配置而不修改发行版文件', link: '/Server/53' },
+            { text: 'Linux ss 排障：从监听端口追到对应进程', link: '/Server/54' },
+            { text: 'systemd-tmpfiles：按规则创建并清理应用临时目录', link: '/Server/55' },
+            { text: 'journalctl 游标续读：从上次位置继续采集日志', link: '/Server/56' },
+            { text: 'findmnt --verify：修改 fstab 后先做静态检查', link: '/Server/57' },
+            { text: 'systemd-analyze verify：部署前检查服务单元', link: '/Server/58' },
           ]
         }
       ],
@@ -667,6 +733,12 @@ export default defineConfig({
             { text: '乐观更新设计：先给反馈，也要为失败准备回路', link: '/Design/50' },
             { text: '会话即将过期提示：给用户保存与续期的机会', link: '/Design/51' },
             { text: '图表替代说明：让数据关系不只存在于颜色和形状里', link: '/Design/52' },
+            { text: '组件状态矩阵：把悬停、禁用与错误一次设计完整', link: '/Design/53' },
+            { text: '对象命名一致性：让同一个概念在界面里只有一个名字', link: '/Design/54' },
+            { text: '触控目标间距：避免按钮够大却仍然容易误触', link: '/Design/55' },
+            { text: '键盘快捷键设计：让速度提升不牺牲可发现性', link: '/Design/56' },
+            { text: '高信息密度界面：用层级和对齐代替一味缩小', link: '/Design/57' },
+            { text: '批量操作反馈：让用户知道选中了什么、改变了什么', link: '/Design/58' },
           ]
         }
       ],
@@ -728,6 +800,12 @@ export default defineConfig({
             { text: '浏览器扩展审计：从权限、更新来源到替代方案', link: '/APP/50' },
             { text: '邮件导出验收：迁移前确认正文、附件与文件夹都可用', link: '/APP/51' },
             { text: '设备丢失响应清单：先锁定账号，再恢复工作环境', link: '/APP/52' },
+            { text: '账户恢复演练：确认备用入口真的可用', link: '/APP/53' },
+            { text: '文件关联排错：同一扩展名为何总被错误应用打开', link: '/APP/54' },
+            { text: '应用数据目录迁移：先识别数据库、附件与缓存', link: '/APP/55' },
+            { text: '浏览器配置文件隔离：把工作账号与个人账号分开', link: '/APP/56' },
+            { text: '应用通知权限盘点：按行动价值而不是数量清零', link: '/APP/57' },
+            { text: '删除云端账号前的导出清单：先验证能恢复的数据', link: '/APP/58' },
           ]
         }
       ],
@@ -789,6 +867,12 @@ export default defineConfig({
             { text: '书目初筛：用目录、索引与参考文献判断是否值得精读', link: '/Book/50' },
             { text: '统计图表阅读：先看口径、分母与不确定性', link: '/Book/51' },
             { text: '边注迁移：换版本后保留思考而不是照搬页码', link: '/Book/52' },
+            { text: '反驳性阅读：主动寻找能推翻作者结论的证据', link: '/Book/53' },
+            { text: '章节问题闭环：读前提问，读后用页码回答', link: '/Book/54' },
+            { text: '阅读证据等级：区分作者主张、转述与原始材料', link: '/Book/55' },
+            { text: '术语表阅读：先统一作者的词义再讨论观点', link: '/Book/56' },
+            { text: '引文上下文核对：避免一句话脱离作者论证', link: '/Book/57' },
+            { text: '章节摘要压缩：从一页笔记提炼到三句话', link: '/Book/58' },
           ]
         }
       ],
@@ -850,6 +934,12 @@ export default defineConfig({
             { text: '容器与编码区分：排查“有画面却无法导入”', link: '/Video/50' },
             { text: '场记板元数据：让镜头编号从片场贯穿到剪辑', link: '/Video/51' },
             { text: '安全框与边缘质检：为不同屏幕保留重要信息', link: '/Video/52' },
+            { text: '拍摄格式检查单：开机前统一分辨率、帧率与时间基准', link: '/Video/53' },
+            { text: '对白补录匹配：让 ADR 听起来仍在原来的空间', link: '/Video/54' },
+            { text: '可变帧率素材：先识别时间戳，再决定是否转码', link: '/Video/55' },
+            { text: '房间底噪采集：给对白剪辑留下连续的空气', link: '/Video/56' },
+            { text: '代理素材重连验收：防止成片悄悄回到低清文件', link: '/Video/57' },
+            { text: '运动镜头快门检查：在自然模糊与清晰定格间取舍', link: '/Video/58' },
           ]
         }
       ],

@@ -600,6 +600,164 @@
             transform: rotate(12deg)
         }
 
+        .love-notes {
+            position: relative;
+            padding: 120px clamp(20px, 5vw, 76px);
+            background: var(--blue);
+            color: #fff;
+            overflow: hidden
+        }
+
+        .love-notes:after {
+            content: "♡";
+            position: absolute;
+            right: -4vw;
+            top: -9vw;
+            color: #ffffff0d;
+            font-family: Georgia, serif;
+            font-size: 36vw;
+            line-height: 1
+        }
+
+        .love-wrap {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: .78fr 1.22fr;
+            gap: clamp(40px, 7vw, 100px);
+            max-width: 1240px;
+            margin: auto
+        }
+
+        .love-intro {
+            position: sticky;
+            top: 80px;
+            align-self: start
+        }
+
+        .love-intro .kicker {
+            color: var(--yellow)
+        }
+
+        .love-intro h2 {
+            margin: 18px 0 24px;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(3.2rem, 7vw, 6.8rem);
+            font-weight: 400;
+            line-height: .92
+        }
+
+        .love-intro p {
+            max-width: 430px;
+            margin: 0;
+            color: #ffffffc7;
+            font-size: 1.05rem;
+            line-height: 1.9
+        }
+
+        .detail-list {
+            display: grid;
+            gap: 16px
+        }
+
+        .detail {
+            display: grid;
+            grid-template-columns: 66px 1fr;
+            gap: 20px;
+            padding: 28px;
+            border: 2px solid var(--ink);
+            color: var(--ink);
+            background: var(--paper);
+            box-shadow: 7px 7px 0 var(--ink);
+            transform: rotate(.35deg)
+        }
+
+        .detail:nth-child(even) {
+            background: var(--yellow);
+            transform: rotate(-.5deg)
+        }
+
+        .detail-icon {
+            display: grid;
+            place-items: center;
+            width: 58px;
+            height: 58px;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+            color: #fff;
+            background: var(--red);
+            font-size: 1.5rem
+        }
+
+        .detail h3 {
+            margin: 2px 0 8px;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: 1.6rem;
+            font-weight: 400
+        }
+
+        .detail p {
+            margin: 0;
+            opacity: .78;
+            line-height: 1.75
+        }
+
+        .together {
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            min-height: 680px;
+            background: #07172a;
+            color: #fff
+        }
+
+        .together-photo {
+            min-height: 520px;
+            background: linear-gradient(90deg, transparent 70%, #07172a), url('/images/birthday-midnight.png') center/cover
+        }
+
+        .together-copy {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(52px, 8vw, 110px) clamp(28px, 7vw, 90px) clamp(52px, 8vw, 110px) 20px
+        }
+
+        .together-copy .kicker {
+            color: var(--yellow)
+        }
+
+        .together-copy h2 {
+            margin: 18px 0 26px;
+            font-family: Georgia, "Songti SC", serif;
+            font-size: clamp(3rem, 6vw, 5.8rem);
+            font-weight: 400;
+            line-height: .98
+        }
+
+        .together-copy p {
+            margin: 0 0 18px;
+            color: #ffffffc7;
+            font-size: 1.05rem;
+            line-height: 1.95
+        }
+
+        .mini-promises {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 18px
+        }
+
+        .mini-promises span {
+            padding: 9px 13px;
+            border: 1px solid #ffffff55;
+            border-radius: 99px;
+            color: var(--yellow);
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .06em
+        }
+
         .letter-section {
             position: relative;
             padding: 140px 20px;
@@ -842,6 +1000,24 @@
                 grid-template-columns: 1fr
             }
 
+            .love-wrap,
+            .together {
+                grid-template-columns: 1fr
+            }
+
+            .love-intro {
+                position: static
+            }
+
+            .together-photo {
+                min-height: 420px;
+                background-image: linear-gradient(0deg, #07172a, transparent 45%), url('/images/birthday-midnight.png')
+            }
+
+            .together-copy {
+                padding: 20px 24px 90px
+            }
+
             .card {
                 min-height: 250px
             }
@@ -889,6 +1065,21 @@
                 padding-block: 90px
             }
 
+            .love-notes {
+                padding-block: 90px
+            }
+
+            .detail {
+                grid-template-columns: 48px 1fr;
+                gap: 14px;
+                padding: 22px 18px
+            }
+
+            .detail-icon {
+                width: 46px;
+                height: 46px
+            }
+
             .letter-section {
                 padding-block: 100px
             }
@@ -924,13 +1115,13 @@
     </section>
     <main>
         <section class="hero">
-            <header class="topbar"><span class="badge">JJ</span><span>For one very special person</span><span
+            <header class="topbar"><span class="badge">JJ</span><span>For someone very special</span><span
                     class="top-note">Birthday edition · 2026</span></header>
             <div class="hero-grid">
                 <div class="copy">
-                    <p class="eyebrow">Today is your day</p>
+                    <p class="eyebrow">To my dearest Jiangjiang</p>
                     <h1><span class="name">江江</span><span class="happy">生日快乐!</span></h1>
-                    <p class="sub">今天不用做那个一直向前赶路的大人。收下蛋糕、愿望和偏爱，认真地为自己开心一次。</p><button class="primary" id="startParty"
+                    <p class="sub">虽然今天不能当面把蛋糕和祝福送给你，但还是想隔着屏幕，认真地祝你生日快乐。愿今天的你只负责开心、许愿，收下所有美好。</p><button class="primary" id="startParty"
                         type="button">开始庆祝</button>
                 </div>
                 <div class="visual">
@@ -950,31 +1141,67 @@
         <section class="wishes">
             <div class="section-head">
                 <div><span class="kicker">Three wishes · 三份心愿</span>
-                    <h2>新一岁，<br>尽兴一点。</h2>
+                    <h2>新一岁，<br>继续闪闪发光。</h2>
                 </div>
-                <p>愿接下来的日子，不只是年龄增长，更是眼界、底气和快乐一起增长。</p>
+                <p>我希望时间带给你的，从来不只是年龄。还要有从容、有底气、有更多被爱包围的瞬间。</p>
             </div>
             <div class="cards">
                 <article class="card"><span class="no">01</span><span class="scribble">↗</span>
-                    <h3>去想去的地方</h3>
-                    <p>不必等万事俱备。风景会在出发以后，慢慢来到你的眼前。</p>
+                    <h3>有热爱，也有远方</h3>
+                    <p>去看没看过的风景，去做让眼睛发亮的事。不必着急赶路，按自己喜欢的节奏出发。</p>
                 </article>
                 <article class="card"><span class="no">02</span><span class="scribble">♡</span>
-                    <h3>爱喜欢的人和事</h3>
-                    <p>保持热烈，也保持坦荡。把时间花在真正让你发光的事情上。</p>
+                    <h3>被世界温柔偏爱</h3>
+                    <p>希望你的认真都有回应，你的柔软都被珍惜，所有委屈最后都能换成甜甜的拥抱。</p>
                 </article>
                 <article class="card"><span class="no">03</span><span class="scribble">✦</span>
-                    <h3>成为更好的自己</h3>
-                    <p>不是活成谁期待的模样，而是越来越喜欢镜子里的那个人。</p>
+                    <h3>一直做自在的江江</h3>
+                    <p>不必成为别人期待的样子。你勇敢也好、偶尔脆弱也好，在我这里，你怎样都很好。</p>
                 </article>
+            </div>
+        </section>
+        <section class="love-notes">
+            <div class="love-wrap">
+                <div class="love-intro"><span class="kicker">Nice to meet you · 关于我们的相识</span>
+                    <h2>还没见面，<br>却很高兴认识你。</h2>
+                    <p>从朋友介绍，到隔着屏幕慢慢聊天，我们的故事才刚刚写下开头。生日让我有了一个认真表达祝福的理由。</p>
+                </div>
+                <div class="detail-list">
+                    <article class="detail"><span class="detail-icon">☀</span><div>
+                        <h3>谢谢这场介绍</h3>
+                        <p>原本只是一次简单的认识，却让我遇到了一个愿意继续聊下去、也想慢慢了解的人。</p>
+                    </div></article>
+                    <article class="detail"><span class="detail-icon">♡</span><div>
+                        <h3>喜欢聊天的感觉</h3>
+                        <p>分享日常、说说心情，哪怕只是几句简单的消息，也会给普通的一天添一点期待。</p>
+                    </div></article>
+                    <article class="detail"><span class="detail-icon">✦</span><div>
+                        <h3>期待了解更多</h3>
+                        <p>现在认识的只是你的一小部分，但已经足够让我好奇：真实的江江，还有多少可爱又特别的故事。</p>
+                    </div></article>
+                    <article class="detail"><span class="detail-icon">∞</span><div>
+                        <h3>把时间交给时间</h3>
+                        <p>不急着给关系写下答案，也不提前许下太远的承诺。认真聊天，真诚相处，让故事自然发生。</p>
+                    </div></article>
+                </div>
+            </div>
+        </section>
+        <section class="together">
+            <div class="together-photo" role="img" aria-label="夜色中点亮蜡烛的生日蛋糕"></div>
+            <div class="together-copy"><span class="kicker">To be continued · 未完待续</span>
+                <h2>隔着屏幕，<br>也认真祝福你。</h2>
+                <p>这次生日没办法见面，所以把想说的话放进这个小小的网页里。它代替不了当面的祝福，但每一句都是认真写给你的。</p>
+                <p>至于未来，不急着预设剧情。希望我们还能分享很多日常，慢慢熟悉彼此；如果有一天真的见面，也希望那会是轻松又开心的一天。</p>
+                <div class="mini-promises"><span>继续分享日常</span><span>认真听你说话</span><span>保持真诚和分寸</span><span>期待自然发生</span></div>
             </div>
         </section>
         <section class="letter-section">
             <article class="letter"><span class="tape" aria-hidden="true"></span>
-                <div class="kicker">A note for Jiangjiang</div>
-                <h2>愿快乐如期而至</h2>
-                <p>愿你有说走就走的勇气，也有不慌不忙的底气；愿生活偶尔有小插曲，但结局永远偏向你。新的一岁，健康、自在、好事发生。</p>
-                <p class="signature">生日快乐，江江。</p><button class="wish-button" id="wishButton"
+                <div class="kicker">A birthday note for Jiangjiang</div>
+                <h2>写给江江的话</h2>
+                <p>很高兴因为一次介绍认识了你。我们还没有见过面，也没有共同走过很长的路，但那些隔着屏幕的聊天，已经让“江江”这个名字变得有些特别。</p>
+                <p>谢谢你愿意和我分享日常，也谢谢每一次真诚的回应。新的一岁，希望你先好好爱自己：顺利的时候尽情开心，疲惫的时候也允许自己慢一点。至于我们，就从每一次聊天开始，慢慢认识，慢慢靠近。</p>
+                <p class="signature">生日快乐，江江。很高兴认识你，也期待继续认识你。</p><button class="wish-button" id="wishButton"
                     type="button">按下收藏这份愿望</button>
             </article>
         </section>

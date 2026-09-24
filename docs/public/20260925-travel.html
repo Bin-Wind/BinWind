@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上海 → 深圳 → 平潭岛 | 7天6晚双人攻略</title>
+<style>
+  :root{
+    --bg:#f5f8fc;
+    --card:#ffffff;
+    --ink:#1b2733;
+    --muted:#6b7a8c;
+    --line:#e3e9f1;
+    --sea:#0d6fb8;
+    --sea-soft:#e7f2fb;
+    --sun:#f2732c;
+    --sun-soft:#fef1e7;
+    --green:#1f9d6b;
+    --green-soft:#e8f7f0;
+    --red:#d94b4b;
+    --red-soft:#fdecec;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px;}
+
+  header{
+    background:linear-gradient(135deg,#0a5c9e 0%,#1189c9 55%,#2fb3c9 100%);
+    color:#fff;padding:46px 20px 40px;text-align:center;
+  }
+  header .kicker{
+    display:inline-block;font-size:12px;letter-spacing:3px;
+    background:rgba(255,255,255,.18);padding:5px 14px;border-radius:20px;
+    margin-bottom:16px;
+  }
+  header h1{font-size:29px;font-weight:700;letter-spacing:.5px;line-height:1.35;}
+  header .sub{margin-top:12px;font-size:14.5px;opacity:.92;}
+  header .route{
+    margin-top:22px;display:flex;justify-content:center;align-items:center;
+    gap:9px;flex-wrap:wrap;font-size:13.5px;
+  }
+  header .route span.city{
+    background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+    padding:7px 15px;border-radius:22px;font-weight:600;
+  }
+  header .route span.arrow{opacity:.75;font-size:15px;}
+
+  .alert{
+    margin-top:26px;background:var(--red-soft);border:1px solid #f6c9c9;
+    border-left:5px solid var(--red);border-radius:10px;padding:18px 20px;
+  }
+  .alert h3{color:var(--red);font-size:15px;margin-bottom:8px;}
+  .alert ul{margin-left:18px;font-size:14px;color:#5a3a3a;}
+  .alert li{margin:4px 0;}
+
+  section{margin-top:38px;}
+  h2.sec{font-size:19px;display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  h2.sec::before{
+    content:"";width:5px;height:20px;border-radius:3px;
+    background:linear-gradient(180deg,var(--sea),var(--sun));
+  }
+  h2.sec small{font-size:12.5px;color:var(--muted);font-weight:400;margin-left:2px;}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px;box-shadow:0 1px 3px rgba(20,50,80,.04);
+  }
+  .card + .card{margin-top:16px;}
+
+  .tl{position:relative;padding-left:4px;}
+  .tl-item{position:relative;padding:0 0 22px 34px;border-left:2px solid var(--line);}
+  .tl-item:last-child{border-left:2px solid transparent;padding-bottom:0;}
+  .tl-item::before{
+    content:"";position:absolute;left:-8px;top:4px;width:14px;height:14px;
+    border-radius:50%;background:#fff;border:3px solid var(--sea);
+  }
+  .tl-item.hi::before{border-color:var(--sun);}
+  .tl-date{font-size:12.5px;font-weight:700;color:var(--sea);letter-spacing:.5px;}
+  .tl-item.hi .tl-date{color:var(--sun);}
+  .tl-title{font-size:15.5px;font-weight:600;margin:1px 0 4px;}
+  .tl-desc{font-size:13.8px;color:var(--muted);}
+  .tl-desc b{color:#2a3a4a;}
+
+  .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table{width:100%;border-collapse:collapse;font-size:13.6px;min-width:620px;}
+  th{
+    background:var(--sea-soft);color:#0a4f80;font-weight:600;
+    text-align:left;padding:11px 12px;border-bottom:2px solid #cfe4f5;
+    white-space:nowrap;font-size:13px;
+  }
+  td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tbody tr:hover{background:#fafcff;}
+  td.num,th.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
+  .tag{
+    display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:6px;
+    font-weight:600;white-space:nowrap;
+  }
+  .tag.rec{background:var(--green-soft);color:var(--green);}
+  .tag.alt{background:#f0f3f7;color:var(--muted);}
+  .tag.warn{background:var(--sun-soft);color:#c2551a;}
+  tr.hl{background:#f6fbf8;}
+  tr.hl:hover{background:#f0f8f3;}
+
+  /* route cards */
+  .route-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px;}
+  .rt{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;box-shadow:0 1px 3px rgba(20,50,80,.04);
+    display:flex;flex-direction:column;
+  }
+  .rt-head{
+    padding:14px 18px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,#eef6fd,#f8fbfe);
+  }
+  .rt-head .lbl{font-size:11.5px;letter-spacing:2px;color:var(--sea);font-weight:700;}
+  .rt-head h4{font-size:15.5px;font-weight:650;margin-top:2px;}
+  .rt-body{padding:16px 18px 18px;flex:1;}
+  .rt-body ol{margin:0 0 12px 17px;font-size:13.8px;}
+  .rt-body ol li{margin:5px 0;}
+  .rt-body ol li b{font-weight:650;}
+  .rt-meta{
+    font-size:12.8px;color:var(--muted);border-top:1px dashed #eef2f7;
+    padding-top:11px;margin-top:auto;
+  }
+  .rt-meta div{margin:2px 0;}
+  .rt-meta span.k{color:#8d9bab;}
+
+  .day{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    overflow:hidden;margin-bottom:16px;box-shadow:0 1px 3px rgba(20,50,80,.04);
+  }
+  .day-head{
+    display:flex;align-items:center;gap:14px;padding:15px 20px;
+    background:linear-gradient(90deg,#eef6fd,#f8fbfe);border-bottom:1px solid var(--line);
+  }
+  .day-head .d-badge{
+    flex:none;width:52px;height:52px;border-radius:12px;
+    background:linear-gradient(145deg,var(--sea),#2a9ad0);color:#fff;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    line-height:1.1;
+  }
+  .day-head .d-badge b{font-size:19px;font-weight:700;}
+  .day-head .d-badge i{font-size:10.5px;font-style:normal;opacity:.9;}
+  .day-head .d-info h4{font-size:16px;font-weight:650;}
+  .day-head .d-info p{font-size:12.8px;color:var(--muted);margin-top:2px;}
+  .day-body{padding:18px 20px 20px;}
+  .slot{display:flex;gap:14px;padding:9px 0;border-bottom:1px dashed #eef2f7;font-size:14px;}
+  .slot:last-child{border-bottom:none;}
+  .slot .t{
+    flex:none;width:78px;color:var(--sea);font-weight:650;font-size:13px;
+    font-variant-numeric:tabular-nums;padding-top:1px;
+  }
+  .slot .c{flex:1;}
+  .slot .c b{font-weight:650;}
+  .slot .c .note{color:var(--muted);font-size:13px;}
+
+  .sum-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:18px;}
+  .sum-box{background:var(--sea-soft);border-radius:11px;padding:14px 16px;text-align:center;}
+  .sum-box .lbl{font-size:12.5px;color:#4a7fa6;}
+  .sum-box .val{font-size:21px;font-weight:700;color:#0a4f80;margin-top:3px;font-variant-numeric:tabular-nums;}
+  .sum-box .val small{font-size:12px;font-weight:500;}
+
+  .total-box{
+    margin-top:16px;background:linear-gradient(135deg,#0a5c9e,#1a8fc4);color:#fff;
+    border-radius:12px;padding:20px 22px;display:flex;justify-content:space-between;
+    align-items:center;flex-wrap:wrap;gap:10px;
+  }
+  .total-box .l{font-size:14px;opacity:.9;}
+  .total-box .l b{display:block;font-size:16px;opacity:1;margin-top:4px;font-weight:600;}
+  .total-box .r{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;}
+
+  /* 费用明细：默认整块不显示，长按/双击页脚爱心查看 */
+  .cost-trigger{
+    display:block;margin:0 auto 14px;width:34px;height:34px;line-height:34px;
+    text-align:center;font-size:16px;border-radius:50%;
+    cursor:pointer;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
+    outline:none;opacity:.45;transition:opacity .2s,transform .2s;
+  }
+  .cost-trigger:active{opacity:.95;transform:scale(1.12);}
+  #cost-section{display:none;}
+  #cost-section.show{display:block;animation:costIn .3s ease;}
+  @keyframes costIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;}
+  .tip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 18px;}
+  .tip h4{font-size:14.2px;margin-bottom:9px;}
+  .tip ul{margin-left:17px;font-size:13.4px;color:#3d4b5a;}
+  .tip li{margin:5px 0;}
+  .tip.warnbox{background:var(--sun-soft);border-color:#f6ddc8;}
+  .tip.warnbox h4{color:#c2551a;}
+
+  .pack{display:flex;flex-wrap:wrap;gap:8px;}
+  .pack span{
+    background:#f2f6fa;border:1px solid var(--line);border-radius:20px;
+    padding:5px 13px;font-size:13px;color:#3d4b5a;
+  }
+
+  footer{margin-top:46px;text-align:center;font-size:12.5px;color:#9aa8b8;line-height:1.9;}
+  @media (max-width:560px){
+    header h1{font-size:22px;}
+    header{padding:34px 16px 30px;}
+    .route-grid{grid-template-columns:1fr;}
+    .day-head{padding:13px 14px;gap:11px;}
+    .day-head .d-badge{width:46px;height:46px;}
+    .day-body{padding:14px;}
+    .slot{flex-direction:column;gap:2px;}
+    .slot .t{width:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">双人出行 · 明细攻略 · 10/1 返程版</div>
+  <h1>上海 → 深圳 → 平潭岛<br>7天6晚 海岛度假计划</h1>
+  <div class="sub">2026年9月25日（周五）— 10月1日（周四） · 深圳住龙华大浪 · 平潭3晚 ＋ 9/30 延伸日四选一</div>
+  <div class="route">
+    <span class="city">上海（1人 高铁）</span>
+    <span class="arrow">→</span>
+    <span class="city">深圳 · 龙华大浪</span>
+    <span class="arrow">→</span>
+    <span class="city">平潭岛 · 3-4天</span>
+    <span class="arrow">→</span>
+    <span class="city">9/30 延伸日 · 四选一</span>
+    <span class="arrow">→</span>
+    <span class="city">10/1 分头返沪 / 返深</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ 提醒 ============ -->
+  <div class="alert">
+    <h3>⚠️ 出发前必读：四件事</h3>
+    <ul>
+      <li><b>假期的形状很特殊</b>：中秋假 9/25（周五）—9/27（周日），国庆假 10/1（周四）—10/7（周三），中间 <b>9/28、9/29、9/30 都是工作日</b>。也就是说平潭这三天是要请假的，返程定在 10/1 正好接上国庆节。</li>
+      <li><b>返程改到 10/1，代价是撞上国庆第一天，也是铁路全年客流最高峰日。</b>车票按「提前15天」预售，<b>10/1 的票 9月17日就已经开卖</b>，今天（9/24）热门车次基本只剩候补。要在 12306 上把候补开满：多选车次、多选席别、多选乘车日期（一个账号最多 6 个候补订单，单个订单最多可选 3 个日期、共 60 个车次），并打开<b>「接受新增列车」</b>。</li>
+      <li><b>直达抢不到就用「福州中转」兜底（重要）：</b>平潭→福州南只有半小时、全天 20 多班、票几乎随时有；从福州出发，回上海每天 40 多班、去深圳北每天也有 40 多班。<b>先拿平潭→福州南，再拿福州出发的长途段</b>，比死磕平潭直达那两班车靠谱得多。</li>
+      <li><b>江江的返程先按 10月1日 排</b>（她也从平潭或沿途城市一起走，具体可再定）。她若是想提前回深圳，平潭→深圳的早班车选择也不算少，随时能改。</li>
+    </ul>
+  </div>
+
+  <!-- ============ 行程总览 ============ -->
+  <section>
+    <h2 class="sec">行程总览 <small>一眼看清7天怎么走</small></h2>
+    <div class="card">
+      <div class="tl">
+        <div class="tl-item hi">
+          <div class="tl-date">9月25日 · 周五（中秋）</div>
+          <div class="tl-title">上海 → 深圳 · 一个人先到</div>
+          <div class="tl-desc">08:47 上海虹桥发车，17:30 到深圳北。坐6号线<b>3站</b>到元芬站，直奔龙华大浪三合村新村汇合，晚上住大浪商业中心片区。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">9月26日 · 周六（中秋）</div>
+          <div class="tl-title">深圳一日游 · 两个人一起逛</div>
+          <div class="tl-desc">主推<b>经典地标线</b>：世界之窗 → 深圳湾公园 → 欢乐海岸看日落。也可换成大梅沙海边线或文艺小众线，见下方四条路线。</div>
+        </div>
+        <div class="tl-item hi">
+          <div class="tl-date">9月27日 · 周日（中秋）</div>
+          <div class="tl-title">龙华上午 → 平潭岛 · 高铁移动日</div>
+          <div class="tl-desc">早上在大浪/龙华就近逛，13:00 出发去深圳北（6号线3站约10分钟），15:10 乘 D3344，21:24 抵达平潭站。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">9月28日 · 周一（需请假）</div>
+          <div class="tl-title">平潭北线 · 风车与日落</div>
+          <div class="tl-desc">仙人井 → 北港村 → 最美环岛路 → 北部生态廊道 → 长江澳风车田看日落。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">9月29日 · 周二（需请假）</div>
+          <div class="tl-title">平潭南线 · 沙滩与68海里</div>
+          <div class="tl-desc">龙王头看日出 → 68海里景区（猴研岛）→ 坛南湾躺平 → 县城吃海鲜。</div>
+        </div>
+        <div class="tl-item hi">
+          <div class="tl-date">9月30日 · 周三（需请假）· 延伸日</div>
+          <div class="tl-title">四选一：平潭多待一天 ／ 转场福州 · 厦门 · 泉州</div>
+          <div class="tl-desc">这天是国庆前最后一个工作日，<b>人流和房价都还没涨起来</b>，玩起来最舒服。四个方案都接得上 10/1 的返程车，见下方「9月30日 · 延伸日」。</div>
+        </div>
+        <div class="tl-item hi">
+          <div class="tl-date">10月1日 · 周四（国庆）</div>
+          <div class="tl-title">返程日 · 彬彬回上海 ／ 江江回深圳</div>
+          <div class="tl-desc">从平潭出发：彬彬 G1634（08:08→上海虹桥13:45），江江 D3346（08:54→深圳北14:48）。如果 9/30 转场了，就从福州／厦门／泉州直接返程，班次见延伸日章节。</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:16px;padding-top:14px;border-top:1px dashed #e9eef5;">
+        👉 <b>返程日期定为 10月1日。</b>9/30 那天既可以留在平潭再玩一天，也可以顺路转场福州／厦门／泉州 ——
+        <b>四个方案全部写在下方「9月30日 · 延伸日」</b>，选一个即可。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 交通 ============ -->
+  <section>
+    <h2 class="sec">交通明细 <small>班次与时间</small></h2>
+    <div class="card">
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>日期</th><th>谁</th><th>行程</th><th>车次</th><th>出发 → 到达</th>
+              <th>耗时</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hl">
+              <td>9/25</td><td>彬彬</td><td>上海 → 深圳</td>
+              <td><b>G384</b> 高铁 <span class="tag rec">首选</span></td>
+              <td>上海虹桥 08:47 → 深圳北 17:30</td>
+              <td>8h43m</td>
+            </tr>
+            <tr>
+              <td>9/25</td><td>彬彬</td><td>上海 → 深圳</td>
+              <td>D2287 动车 <span class="tag alt">备选</span></td>
+              <td>上海虹桥 07:47 → 深圳北 19:19</td>
+              <td>11h32m</td>
+            </tr>
+            <tr>
+              <td>9/25</td><td>彬彬</td><td>上海 → 深圳</td>
+              <td>G997 高铁 <span class="tag alt">最早到</span></td>
+              <td>上海南 07:30 → 深圳北 14:42</td>
+              <td>7h12m</td>
+            </tr>
+            <tr>
+              <td>9/25</td><td>彬彬</td><td>上海 → 深圳</td>
+              <td>HO1889 航班 <span class="tag alt">省时</span></td>
+              <td>上海虹桥 21:35 → 深圳宝安 00:15</td>
+              <td>2h40m</td>
+            </tr>
+            <tr class="hl">
+              <td>9/27</td><td>彬彬江江</td><td>深圳 → 平潭</td>
+              <td><b>D3344</b> 动车 <span class="tag warn">唯一直达</span></td>
+              <td>深圳北 15:10 → 平潭 21:24</td>
+              <td>6h14m</td>
+            </tr>
+            <tr>
+              <td>9/30</td><td>彬彬江江</td><td>平潭 → 延伸城市</td>
+              <td>动车 <span class="tag warn">四选一</span></td>
+              <td>平潭 → 福州南 0.5h ／ 泉州 1.8h ／ 厦门北 2.3h（留在平潭则不动）</td>
+              <td>0.5-2.7h</td>
+            </tr>
+            <tr class="hl">
+              <td>10/1</td><td>彬彬</td><td>返 上海</td>
+              <td><b>G1634</b> 高铁 <span class="tag rec">从平潭出发</span></td>
+              <td>平潭 08:08 → 上海虹桥 13:45</td>
+              <td>5h37m</td>
+            </tr>
+            <tr class="hl">
+              <td>10/1</td><td>江江</td><td>返 深圳</td>
+              <td><b>D3346</b> 动车 <span class="tag rec">从平潭出发</span></td>
+              <td>平潭 08:54 → 深圳北 14:48</td>
+              <td>5h54m</td>
+            </tr>
+            <tr>
+              <td>10/1</td><td>彬彬</td><td>返 上海 · 兜底</td>
+              <td><span class="tag alt">福州中转</span> 平潭→福州南 ＋ 福州 G258</td>
+              <td>平潭 任一上午班次 → 福州南 → 上海虹桥 16:47</td>
+              <td>合计约 6h</td>
+            </tr>
+            <tr>
+              <td>10/1</td><td>江江</td><td>返 深圳 · 兜底</td>
+              <td><span class="tag alt">福州中转</span> 平潭→福州南 ＋ 福州南 D3333</td>
+              <td>平潭 任一早班 → 福州南 → 深圳北 11:39</td>
+              <td>合计约 5h</td>
+            </tr>
+            <tr>
+              <td>10/1</td><td>彬彬</td><td>备选</td>
+              <td>G1630 高铁 <span class="tag alt">更早</span></td>
+              <td>平潭 06:18 → 上海虹桥 13:03</td>
+              <td>6h45m</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12.8px;color:var(--muted);margin-top:14px;">
+        注：<b>10月1日是国庆首日，直达票极难抢</b>，所以下面两行「福州中转」的兜底方案要一起盯着 —— 平潭→福州南只要半小时、全天 20 多班，福州出发的长途车每天 40 多班，<b>两段分开买，成功率远高于死磕直达</b>。铁路实行浮动票价，具体车次与时刻以 12306 当天实际开行为准。
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="font-size:14.5px;margin-bottom:10px;">🚇 关键接驳（住龙华大浪，交通其实很顺）</h4>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>路段</th><th>方式</th><th>耗时</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>深圳北站 → 三合村新村</b></td>
+              <td>地铁6号线 深圳北站 → 元芬站（3站：上芬、红山、元芬），出站步行约1公里；或打车约10分钟</td>
+              <td>约25分钟</td>
+            </tr>
+            <tr>
+              <td><b>三合村新村 → 深圳北站</b></td>
+              <td>同样走6号线元芬站，3站直达</td>
+              <td>约25分钟</td>
+            </tr>
+            <tr>
+              <td>大浪 → 世界之窗</td>
+              <td>6号线元芬 → 科学馆（约24分钟）→ 换1号线 → 世界之窗</td>
+              <td>约55分钟</td>
+            </tr>
+            <tr>
+              <td>大浪 → 深圳湾公园</td>
+              <td>6号线 → 科学馆换1号线 → 世界之窗换2号线 → 景田换9号线 → 深圳湾公园站D2口</td>
+              <td>约1小时10分</td>
+            </tr>
+            <tr>
+              <td>大浪 → 大梅沙</td>
+              <td>6号线 → 深圳北换5号线 → 黄贝岭换2/8号线 → 大梅沙站；打车约50分钟</td>
+              <td>约1小时20分</td>
+            </tr>
+            <tr>
+              <td>平潭站 → 县城 / 民宿</td>
+              <td>公交或打车</td>
+              <td>20-35分钟</td>
+            </tr>
+            <tr>
+              <td>平潭环岛（3天）</td>
+              <td>租电动车（优选，续航100km以上）</td>
+              <td>全天可用</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 住宿 ============ -->
+  <section>
+    <h2 class="sec">住宿推荐 <small>深圳2晚 · 平潭3-4晚 · 延伸日1晚</small></h2>
+
+    <div class="card">
+      <h4 style="font-size:15px;margin-bottom:6px;">🏨 深圳 · 9月25—27日（住2晚）· 龙华大浪片区</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">
+        三合村新村位于龙华区<b>大浪街道外环路</b>，最近地铁是6号线<b>元芬站（约990米）</b>，次近是阳台山东站（约1.1公里）。
+        推荐直接住「大浪商业中心」片区 —— 离住处近，吃饭购物方便，去深圳北站只有3站地铁。
+      </p>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>酒店</th><th>位置</th><th>为什么选它</th></tr></thead>
+          <tbody>
+            <tr class="hl">
+              <td><b>汉庭酒店（深圳龙华地铁站店）</b> <span class="tag rec">性价比首选</span></td>
+              <td>大浪街道龙胜老村499号</td>
+              <td>华住经济型连锁，干净可靠、床品稳定，大浪片区最省心的选择</td>
+            </tr>
+            <tr>
+              <td>潮漫酒店（大浪商业中心店）</td>
+              <td>大浪街道华旺路150号</td>
+              <td>3星新开业，评分4.6，环境比快捷酒店好一档</td>
+            </tr>
+            <tr>
+              <td>海株雲酒店（大浪商业中心店）</td>
+              <td>大浪街道下横朗玉田花园</td>
+              <td>2星，预算极限时的选择，胜在便宜</td>
+            </tr>
+            <tr>
+              <td>深圳龙华智选假日酒店（大浪商业中心店）</td>
+              <td>大浪街道华宁路16号</td>
+              <td>IHG旗下，含双早，床品和早餐明显更好，想住舒服点选它</td>
+            </tr>
+            <tr>
+              <td>深圳龙华大浪商业中心亚朵X酒店</td>
+              <td>大浪街道华荣路504号</td>
+              <td>4星，评分4.8，近后浪新天地，最舒服的一档</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:12px;">
+        如果更看重27号赶高铁的便利，也可以住深圳北站片区：全季酒店（深圳北站店，民治大道637号，含免费接送站）、全季酒店（深圳北站民治地铁站店）、桔子酒店（深圳龙华地铁站店，民治大道302号，距5号线民治站770米）。不过那样就离江江住处远了，得不偿失。
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="font-size:15px;margin-bottom:6px;">🌊 平潭岛 · 9月27日—10月1日（住3-4晚）</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">
+        建议 3 晚住同一家，别搬行李。27号晚21:24才到平潭站，第一晚优先选<b>县城/龙王头片区</b>，到店最省事。<br>
+        如果 9/30 选方案①<b>留在平潭</b>，就续住 1 晚、住到 10/1 早上直接去车站；如果选方案②③④<b>转场福州／厦门／泉州</b>，9/30 那晚就改住到那座城市（见下方）。
+      </p>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>区域</th><th>类型</th><th>特点</th></tr></thead>
+          <tbody>
+            <tr class="hl">
+              <td><b>县城 / 龙王头沙滩</b> <span class="tag rec">性价比首选</span></td>
+              <td>快捷酒店 / 普通民宿</td>
+              <td>吃饭购物方便，北线南线都居中，深夜到店最省心</td>
+            </tr>
+            <tr>
+              <td>北港村</td><td>石头厝海景民宿</td>
+              <td>文艺出片，近北线景点，推窗见海，情侣氛围感最强</td>
+            </tr>
+            <tr>
+              <td>坛南湾</td><td>海景度假民宿</td>
+              <td>临沙滩、安静，适合看日出，近南线</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--muted);margin-top:12px;">
+        可搜索的具体房源：平潭梦之岚客栈、玥庭兰舍客栈坛南湾七号沙滩店、晴屿栖海·日出夕阳度假民宿、青庭海景民宿北港店。
+        <b style="color:#c2551a;">订房必做：私信房东确认是"正面海景"还是"侧面海景"，要求发实时视频，别只看精修图。</b>
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="font-size:15px;margin-bottom:6px;">🏙️ 9月30日 延伸日 · 住哪儿（多1晚）</h4>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">
+        9/30 是国庆前最后一个工作日，这一晚房价还没跳档；<b>从 10/1 起福州／厦门／泉州会立刻涨到国庆价</b>，能提前订就提前订。
+      </p>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>方案</th><th>住哪片区</th><th>为什么</th></tr></thead>
+          <tbody>
+            <tr class="hl">
+              <td><b>① 留在平潭</b></td>
+              <td>原住处续住 1 晚</td>
+              <td>不用搬行李，10/1 早上出门就是熟路，最省心</td>
+            </tr>
+            <tr>
+              <td><b>② 福州</b> <span class="tag rec">首推</span></td>
+              <td>三坊七巷／东街口，或福州站·福州南站周边</td>
+              <td>景点和老城都在步行圈，晚上逛完就能回酒店；住车站旁则第二天上车省事</td>
+            </tr>
+            <tr>
+              <td><b>③ 厦门</b></td>
+              <td>轮渡／中山路，或厦门北站周边</td>
+              <td>轮渡片区离鼓浪屿码头近；若第二天从厦门北乘车，住厦门北站周边更顺</td>
+            </tr>
+            <tr>
+              <td><b>④ 泉州</b></td>
+              <td>西街／钟楼 老城片区</td>
+              <td>开元寺、西街、钟楼全在步行圈里，性价比也最好</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 26号深圳怎么玩 ============ -->
+  <section>
+    <h2 class="sec">9月26日 · 深圳怎么玩 <small>四条路线任选，都从龙华大浪出发</small></h2>
+    <div class="route-grid">
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">路线 A · 推荐</div>
+          <h4>经典地标线：世界之窗 + 深圳湾 + 欢乐海岸</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>09:00 出发</b>：6号线元芬 → 科学馆 → 换1号线 → 世界之窗站（约55分钟）</li>
+            <li><b>10:00-14:00 世界之窗</b>：埃菲尔铁塔1:3复刻、金字塔+狮身人面像、尼亚加拉瀑布喷水表演，一天环游地球。建议逆时针走。夜场票便宜但项目少。</li>
+            <li><b>14:00 午餐</b>：地铁站C2口益田假日广场，选择多、比园内便宜</li>
+            <li><b>15:30 深圳湾公园</b>：9号线深圳湾公园站D2口出站就是海。17公里海滨栈道，骑行或散步，隔海望香港。往左去观鸟，往右去日落剧场。<b>免费</b></li>
+            <li><b>18:00 看日落</b>：深圳湾日落剧场，晚霞洒在海面，深圳最治愈的画面</li>
+            <li><b>19:00 欢乐海岸</b>：水主题商圈，陶陶居、捞王等随便挑，饭后看夜景</li>
+            <li><b>21:00 返回大浪</b>（约1小时）</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">亮点：</span>深圳最具代表性的地标 + 最美海岸线日落</div>
+            <div><span class="k">门票：</span>世界之窗需购票，深圳湾与欢乐海岸免费</div>
+            <div><span class="k">适合：</span>第一次来深圳、想一次打卡到位</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">路线 B · 海边</div>
+          <h4>海边度假线：大梅沙 + 盐田海鲜街</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>08:30 出发</b>：打车约50分钟到盐田，或地铁约1小时20分</li>
+            <li><b>09:30 大梅沙海滨公园</b>：羽翼人形雕塑打卡、1.8公里银滩、临海木栈道、81米愿望塔。<b>免费入园</b></li>
+            <li><b>12:30 盐田海鲜街</b>：十几家海鲜酒家并排，现点现做</li>
+            <li><b>14:30 二选一</b>：① 小梅沙海洋世界；② 东部华侨城茶溪谷/大侠谷</li>
+            <li><b>17:30 回大梅沙看日落</b>："天长地久"礁石群是日落最佳机位</li>
+            <li><b>19:00 晚餐后返回</b>，约20:30到大浪</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">亮点：</span>真正意义上的海边度假，沙滩+海鲜+日落</div>
+            <div><span class="k">注意：</span>5-10月周末/节假日需小程序实名预约，日限流8万人，提前约</div>
+            <div><span class="k">适合：</span>就想看海、不想赶景点</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">路线 C · 文艺</div>
+          <h4>文艺小众线：华侨城创意园 + 海上世界 + 南头古城</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>10:00 华侨城创意园（OCT-LOFT）</b>：老厂房改造的艺术区，书店、咖啡馆、独立设计店，出片率高</li>
+            <li><b>12:30 午餐</b>：创意园内或华侨城片区</li>
+            <li><b>14:30 海上世界（蛇口）</b>：明华轮、海上世界文化艺术中心，海景步道散步</li>
+            <li><b>17:00 南头古城</b>：1700年历史的城中村改造项目，市集、文创、小吃，傍晚最热闹</li>
+            <li><b>19:30 晚餐</b>：南头古城或南山万象天地</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">亮点：</span>人少、有格调，适合喜欢拍照和逛小店的情侣</div>
+            <div><span class="k">门票：</span>全部免费</div>
+            <div><span class="k">适合：</span>不想人挤人、想慢慢逛</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">路线 D · 就近</div>
+          <h4>龙华就近轻松线：阳台山 + 壹方天地 + 观澜湖</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>09:00 阳台山森林公园</b>：就在大浪旁边，爬山看城景，免费，2-3小时</li>
+            <li><b>12:00 大浪商业中心 / 后浪新天地</b>：吃午饭，逛街</li>
+            <li><b>14:00 龙华壹方天地</b>：大型商场，MELAND CLUB等娱乐，购物吃饭一站式</li>
+            <li><b>16:30 观澜湖 / 卡鲁冰雪世界</b>：室内滑雪、主题场馆，适合下午到晚上</li>
+            <li><b>19:00 龙华吃晚饭后回住处</b></li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">亮点：</span>完全不折腾，通勤时间最短，留足体力给平潭</div>
+            <div><span class="k">门票：</span>阳台山免费，其余按项目</div>
+            <div><span class="k">适合：</span>25号坐了一天车、想轻松点</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="font-size:14.5px;margin-bottom:10px;">📌 其他值得去的地方（时间富裕可加）</h4>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>景点</th><th>门票</th><th>地铁</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>莲花山公园</td><td>免费</td><td>3/4号线少年宫站F1口</td><td>山顶广场俯瞰福田CBD中轴线，傍晚4点后光线最好</td></tr>
+            <tr><td>深圳湾文化广场</td><td>常设展需购票</td><td>9号线</td><td>新晋网红建筑，设计感强，适合拍照</td></tr>
+            <tr><td>欢乐港湾·湾区之光摩天轮</td><td>需购票</td><td>宝安区，5号线临海站</td><td>国内全天景回转式摩天轮，夜景很美</td></tr>
+            <tr><td>大鹏所城 + 较场尾</td><td>免费</td><td>E11转M471</td><td>600年明代海防古城 + 彩虹民宿村，但距龙华约1.5小时，需预约通行</td></tr>
+            <tr><td>甘坑客家小镇</td><td>免费</td><td>10号线甘坑站</td><td>客家风情小镇，离龙华较近，适合傍晚逛</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 每日行程 ============ -->
+  <section>
+    <h2 class="sec">每日详细行程</h2>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>25</b><i>周五</i></div>
+        <div class="d-info">
+          <h4>上海 → 深圳 · 一个人先到</h4>
+          <p>全天在车上，傍晚到深圳北，直奔龙华大浪</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">06:50</div><div class="c">出门，前往<b>上海虹桥站</b>。<span class="note">中秋首日虹桥人极多，务必提前1小时到站。</span></div></div>
+        <div class="slot"><div class="t">08:47</div><div class="c"><b>G384 发车</b>（上海虹桥 → 深圳北）。<span class="note">8小时43分，提前在12306订好车上餐食或自备干粮。</span></div></div>
+        <div class="slot"><div class="t">17:30</div><div class="c">抵达<b>深圳北站</b>。换乘<b>地铁6号线</b>，坐3站（上芬、红山）到<b>元芬站</b>。<span class="note">约10分钟。出站后步行约1公里到三合村新村，或打车。</span></div></div>
+        <div class="slot"><div class="t">18:30</div><div class="c">到三合村新村汇合，放下行李，去预订好的酒店办入住。</div></div>
+        <div class="slot"><div class="t">19:30</div><div class="c">晚餐：<b>大浪商业中心</b>片区，火锅、粤菜、烧烤选择很多。</div></div>
+        <div class="slot"><div class="t">21:00</div><div class="c">回酒店休息。<span class="note">今天坐了8个多小时车，早点睡，明天要玩一整天。</span></div></div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>26</b><i>周六</i></div>
+        <div class="d-info">
+          <h4>深圳一日游 · 两个人一起</h4>
+          <p>按路线A（经典地标线）排的时间线，可换任意一条</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">08:00</div><div class="c">在酒店或楼下吃早餐。</div></div>
+        <div class="slot"><div class="t">09:00</div><div class="c">出发：6号线元芬 → <b>科学馆</b>换1号线 → <b>世界之窗站</b>。<span class="note">约55分钟。中秋假期热门景点人多，早出门值。</span></div></div>
+        <div class="slot"><div class="t">10:00</div><div class="c"><b>世界之窗</b>：埃菲尔铁塔1:3复刻登塔、埃及金字塔区、尼亚加拉瀑布喷水表演。<span class="note">园区很大，穿舒服的鞋。</span></div></div>
+        <div class="slot"><div class="t">14:00</div><div class="c">午餐：地铁站C2口<b>益田假日广场</b>，比园内便宜且选择多。</div></div>
+        <div class="slot"><div class="t">15:30</div><div class="c"><b>深圳湾公园</b>：D2口出站即见海。17公里海滨栈道骑车或散步，隔海望香港。<span class="note">免费。</span></div></div>
+        <div class="slot"><div class="t">18:00</div><div class="c"><b>深圳湾日落</b>：日落剧场看晚霞洒满海面。<span class="note">9月底日落约18:10-18:30。</span></div></div>
+        <div class="slot"><div class="t">19:00</div><div class="c"><b>欢乐海岸</b>晚餐 + 夜景：水主题商圈，陶陶居、捞王等。</div></div>
+        <div class="slot"><div class="t">21:00</div><div class="c">返回大浪住处。<span class="note">约1小时。回去记得收拾行李，明天下午的高铁。</span></div></div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>27</b><i>周日</i></div>
+        <div class="d-info">
+          <h4>龙华上午 → 平潭岛 · 高铁移动日</h4>
+          <p>唯一直达班次 D3344，15:10 发车</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">08:30</div><div class="c">自然醒，吃早餐，收拾行李、<b>退房</b>（可先寄存在前台）。</div></div>
+        <div class="slot"><div class="t">09:30</div><div class="c">就近逛：<b>大浪商业中心</b> / <b>阳台山森林公园</b> / <b>龙华壹方天地</b>。<span class="note">别跑远，今天重点是赶上高铁。</span></div></div>
+        <div class="slot"><div class="t">11:30</div><div class="c">提前吃午饭。<span class="note">车上6小时，务必吃饱。</span></div></div>
+        <div class="slot"><div class="t">13:00</div><div class="c"><b>出发去深圳北站</b>：6号线元芬站坐3站直达。<span class="note">约25分钟。假期人多，宁可早到。</span></div></div>
+        <div class="slot"><div class="t">13:40</div><div class="c">抵达深圳北站，安检进站，买点车上吃的。</div></div>
+        <div class="slot"><div class="t">15:10</div><div class="c"><b>D3344 发车</b>（深圳北 → 平潭）。<span class="note">途经汕尾、潮汕、厦门北、泉州、莆田、福州南。</span></div></div>
+        <div class="slot"><div class="t">21:24</div><div class="c">抵达<b>平潭站</b>。打车前往住处。<span class="note">平潭站离县城约10公里，打车约20分钟。</span></div></div>
+        <div class="slot"><div class="t">22:00</div><div class="c">入住，楼下吃夜宵：平潭特色"时来运转"（咸米时）、海蛎饼、鱼丸汤。</div></div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>28</b><i>周一</i></div>
+        <div class="d-info">
+          <h4>平潭北线 · 风车海与日落</h4>
+          <p>环岛骑行，全程约40公里</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">08:30</div><div class="c">早餐：锅边糊 + 咸米时。</div></div>
+        <div class="slot"><div class="t">09:30</div><div class="c"><b>仙人井（东海仙境）</b>：海蚀悬崖奇观，玄武岩壁配白色浪沫，早上光线最好。<span class="note">需购票。</span></div></div>
+        <div class="slot"><div class="t">11:30</div><div class="c"><b>北港村</b>：彩色石头厝文创渔村，《爸爸去哪儿》取景地，逛小店喝咖啡。<span class="note">免费。</span></div></div>
+        <div class="slot"><div class="t">13:00</div><div class="c">北港村渔家排档午饭：紫菜海蛎煲、八珍炒糕。</div></div>
+        <div class="slot"><div class="t">14:30</div><div class="c"><b>最美环岛路骑行</b>（北港 → 长江澳），一边大海一边山崖，随停随拍。<span class="note">北线风大，带件防风外套，注意安全。</span></div></div>
+        <div class="slot"><div class="t">16:00</div><div class="c"><b>北部生态廊道</b>：直接走到 F2/F3/F5 观景台俯瞰整片风车海，别停在第一个平台。<span class="note">免费。</span></div></div>
+        <div class="slot"><div class="t">17:30</div><div class="c"><b>长江澳风车田看日落</b>（平潭日落封神机位）。<span class="note">9月日落约17:40-18:10，16:30前到占机位。</span></div></div>
+        <div class="slot"><div class="t">19:30</div><div class="c">回县城吃<b>海鲜大排档</b>：清蒸石斑、白灼虾、葱油鱿鱼。<span class="note">只选明码标价的店。</span></div></div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>29</b><i>周二</i></div>
+        <div class="d-info">
+          <h4>平潭南线 · 沙滩与68海里</h4>
+          <p>日出、礁石、白沙滩</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">05:30</div><div class="c"><b>龙王头沙滩看日出</b>（龙凤头海滨浴场），9.5公里细腻白沙，平潭最经典日出点。<span class="note">免费。起不来就改成下午来玩水。</span></div></div>
+        <div class="slot"><div class="t">08:00</div><div class="c">回住处吃早餐、补个觉。</div></div>
+        <div class="slot"><div class="t">11:00</div><div class="c"><b>68海里景区（猴研岛）</b>：祖国大陆距台湾岛最近的地方，红白灯塔 + 68海里石碑 + 海蚀地貌。<span class="note">需购票，建议买观光车代步。</span></div></div>
+        <div class="slot"><div class="t">13:00</div><div class="c">澳前镇午饭。</div></div>
+        <div class="slot"><div class="t">14:30</div><div class="c"><b>坛南湾</b>："白金海岸"，沙质细腻，网红沙发 + ins风遮阳伞，躺一下午。<span class="note">免费。9月海水还有23-25℃，可以下水踩浪。</span></div></div>
+        <div class="slot"><div class="t">17:00</div><div class="c">可选：<b>将军山</b>登高俯瞰坛南湾全景，下午4点后光线柔和更出片。<span class="note">需购票。</span></div></div>
+        <div class="slot"><div class="t">18:30</div><div class="c"><b>海坛古城</b>或县城老街兜一圈，买伴手礼。<span class="note">海坛古城免费但商业气息重，别买贝壳制品。</span></div></div>
+        <div class="slot"><div class="t">20:00</div><div class="c">最后一顿平潭海鲜。</div></div>
+        <div class="slot"><div class="t">21:30</div><div class="c">定明天（延伸日）的走法。<span class="note">留在平潭就直接续住、不用订票；要转场福州／厦门／泉州，今晚就把 9/30 的动车票和当地住宿定好。</span></div></div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>30</b><i>周三</i></div>
+        <div class="d-info">
+          <h4>延伸日 · 四个方案任选一个</h4>
+          <p>国庆前最后一个工作日，人少价低；四个方案都接得上 10/1 的返程</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">方案 ①</div><div class="c"><b>留在平潭，再玩一天</b><span class="note"> —— 东庠岛坐船，或象鼻湾拍日出，或干脆沿环岛路慢骑一整天。不搬行李、不用抢票，最省事。</span></div></div>
+        <div class="slot"><div class="t">方案 ②</div><div class="c"><b>转场福州</b>（首推）<span class="note"> —— 08:39／10:45 等班次，半小时到福州南。白天三坊七巷 → 烟台山 → 上下杭，晚上闽江之心看夜景，住老城，10/1 从福州直接返程。</span></div></div>
+        <div class="slot"><div class="t">方案 ③</div><div class="c"><b>转场厦门</b><span class="note"> —— 10:45 D6294（13:10 到厦门北）时间最舒服。鼓浪屿轮渡船票要提前抢，下午环岛路 + 沙坡尾，住轮渡或厦门北站旁。</span></div></div>
+        <div class="slot"><div class="t">方案 ④</div><div class="c"><b>转场泉州</b><span class="note"> —— 10:45 D6294（12:36 到泉州）。开元寺 + 西街 + 蟳埔村簪花围，住西街老城。</span></div></div>
+        <div class="slot"><div class="t">晚上</div><div class="c">确认 10/1 的返程票已经到手。<span class="note">若还在候补，今晚再补两个「福州中转」组合当保险。</span></div></div>
+      </div>
+    </div>
+
+    <div class="day">
+      <div class="day-head">
+        <div class="d-badge"><b>1</b><i>周四</i></div>
+        <div class="d-info">
+          <h4>返程日 · 彬彬回上海 ／ 江江回深圳</h4>
+          <p>10月1日 · 国庆首日 · 客流最高峰，车站提前 1.5 小时到</p>
+        </div>
+      </div>
+      <div class="day-body">
+        <div class="slot"><div class="t">06:40</div><div class="c">（若从平潭走）起床、退房，<b>彬彬江江一起打车去平潭站</b>。<span class="note">县城出发约20分钟，07:15前到站。</span></div></div>
+        <div class="slot"><div class="t">08:08</div><div class="c"><b>彬彬：G1634 发车</b>（平潭 → 上海虹桥）。<span class="note">13:45 到虹桥；也可选更早的 G1630 06:18→13:03。</span></div></div>
+        <div class="slot"><div class="t">08:54</div><div class="c"><b>江江：D3346 发车</b>（平潭 → 深圳北）。<span class="note">14:48 到深圳北，出站坐6号线可回大浪。</span></div></div>
+        <div class="slot"><div class="t">从福州</div><div class="c">彬彬：福州 G258 13:06 → 上海虹桥 16:47（另有最快的 G1652 10:51→14:32，仅 3h41m）。江江：福州南 D3333 06:43 → 深圳北 11:39，全天 40 多班随便挑。</div></div>
+        <div class="slot"><div class="t">从厦门</div><div class="c">江江：厦门北 → 深圳北 <b>2h47m-3h45m、每天 40 多班</b>，几乎随时能走。彬彬：直达要 6-8 小时，时间紧可考虑飞上海。</div></div>
+        <div class="slot"><div class="t">从泉州</div><div class="c">江江：泉州 → 深圳北 约 4 小时直达。彬彬：泉州 → 上海虹桥 约 6.5-8 小时，偏长。</div></div>
+        <div class="slot"><div class="t">13:45</div><div class="c">彬彬抵达<b>上海虹桥站</b>，行程结束。</div></div>
+        <div class="slot"><div class="t">14:48</div><div class="c">江江抵达<b>深圳北站</b>，行程结束。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9月30日 延伸日 ============ -->
+  <section>
+    <h2 class="sec">9月30日 · 延伸日怎么安排 <small>四个方案任选一个，都接 10月1日 返程</small></h2>
+
+    <div class="card">
+      <p style="font-size:13.8px;color:#3d4b5a;">
+        9/30 是国庆前最后一个工作日 —— <b>景点人少，车票和酒店也都还没涨</b>，是这趟行程里性价比最高的一天。
+        平潭在福建东部沿海通道上，往北是<b>福州</b>，往西南依次是<b>泉州、厦门</b>，动车全部顺路，不用绕回深圳或上海。
+        下面四个方案按「省事程度 ＋ 彬彬江江各自返程的方便度」排序，<b>选一个就行</b>。
+      </p>
+      <div class="tbl-scroll" style="margin-top:16px;">
+        <table>
+          <thead><tr><th>方案</th><th>9/30 怎么走</th><th>玩什么</th><th>彬彬回上海（10/1）</th><th>江江回深圳（10/1）</th></tr></thead>
+          <tbody>
+            <tr class="hl">
+              <td><b>① 留在平潭</b> <span class="tag rec">最省事</span></td>
+              <td>不移动，原住处<b>续住 1 晚</b></td>
+              <td>东庠岛坐船、象鼻湾日出、环岛路慢骑、坛南湾再躺一天；不用搬行李</td>
+              <td><b>G1634</b> 平潭 08:08 → 上海虹桥 13:45</td>
+              <td><b>D3346</b> 平潭 08:54 → 深圳北 14:48</td>
+            </tr>
+            <tr class="hl">
+              <td><b>② 福州</b> <span class="tag rec">首推</span></td>
+              <td>动车 <b>29-41分钟</b>，全天 20+ 班，二等座 ¥29-42</td>
+              <td>三坊七巷、烟台山、上下杭、鼓山、西湖公园；鱼丸、肉燕、锅边糊、荔枝肉</td>
+              <td>直达多：3h41m-6h38m，二等座 ¥327-470<br>（G258 13:06→16:47）</td>
+              <td>福州南→深圳北 每天 40+ 班，4h2m-5h41m，二等座 ¥295-449<br>（D3333 06:43→11:39）</td>
+            </tr>
+            <tr>
+              <td><b>③ 厦门</b> <span class="tag rec">度假感最强</span></td>
+              <td>动车 <b>2h17m-2h43m</b>，每天 7-9 班，二等座 ¥127-138</td>
+              <td>鼓浪屿、环岛路骑行、曾厝垵、沙坡尾、中山路、厦门大学（需预约）</td>
+              <td>直达 6-8小时，偏长<br>（G1660 17:09→23:22），时间紧可改飞机</td>
+              <td>直达 <b>2h47m-3h45m</b>，每天 40+ 班，极方便</td>
+            </tr>
+            <tr>
+              <td><b>④ 泉州</b> <span class="tag alt">人文</span></td>
+              <td>动车 <b>1h46m-2h05m</b>，每天 3 班（07:38／10:45／16:32），二等座 ¥101-104</td>
+              <td>开元寺东西塔、西街、蟳埔村簪花围、清源山老君岩、洛阳桥、提线木偶戏</td>
+              <td>直达约 6.5-8 小时</td>
+              <td>直达约 4 小时</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="route-grid" style="margin-top:16px;">
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">方案 ① · 最省事</div>
+          <h4>留在平潭，再玩一天 ｜ 不搬行李、不用抢票</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>睡到自然醒</b>：前几天都在赶行程，这天可以补个觉，10点出门也不迟</li>
+            <li><b>东庠岛</b>：从流水码头坐船过去，岛上有渔村和沙滩，适合慢慢走。<b>务必盯好班船时间，别赶末班船回来</b></li>
+            <li><b>象鼻湾</b>：退潮时沙滩露出蜿蜒水道，是全岛最出片的机位之一；涨潮时又是完整海湾，两种情况都值得看</li>
+            <li><b>环岛路慢骑</b>：前两天赶景点，这天纯兜风，遇到喜欢的海滩就停下来坐一会儿</li>
+            <li><b>晚上回原住处</b>，10/1 早上直接打车去平潭站，全程零折腾</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">唯一要做的事：</span>跟前台<b>续订 9/30 这一晚</b>，其他都不用动</div>
+            <div><span class="k">适合：</span>想把平潭待透、不想再折腾的人</div>
+            <div><span class="k">返程：</span>10/1 仍是 G1634 与 D3346 那两班，和原计划一样省心</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">方案 ② · 首推</div>
+          <h4>转场福州 ｜ 半小时就到，彬彬江江都能直达回家</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>9/30 上午出发</b>：平潭 → 福州南 动车只要 29-41 分钟，08:39／10:45／11:43 等多班任选，票也好买</li>
+            <li><b>三坊七巷</b>：明清古厝街区，免费开放，白墙黛瓦＋南后街小店，情侣散步拍照都合适</li>
+            <li><b>烟台山历史风貌区</b>：万国建筑＋咖啡馆，福州最出片的片区，傍晚去</li>
+            <li><b>上下杭 / 闽江之心</b>：晚上看夜景，江边散步</li>
+            <li><b>鼓山</b>（半天）：坐缆车或爬山看福州全景，涌泉寺在山腰</li>
+            <li><b>小吃必吃</b>：福州鱼丸、肉燕、锅边糊、荔枝肉、芋泥、佛跳墙（老店更稳）</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">为什么排第一：</span>平潭到福州只要半小时，且<b>彬彬回上海、江江回深圳都有直达车</b>，不用为延伸目的地换乘折腾</div>
+            <div><span class="k">建议天数：</span>1天走三坊七巷+烟台山，2天加鼓山和上下杭</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">方案 ③ · 想继续看海</div>
+          <h4>转场厦门 ｜ 海岛度假的延续，鼓浪屿在等着</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>平潭 → 厦门北</b>：2小时15分到2小时45分，选10:45那班（13:10到）时间最舒服</li>
+            <li><b>鼓浪屿</b>：世界文化遗产，需提前在官方平台买<b>轮渡船票</b>（实名、分时段），岛上钢琴博物馆、日光岩、老别墅</li>
+            <li><b>环岛路骑行</b>：从厦门大学到曾厝垵，海景一路相伴</li>
+            <li><b>沙坡尾 / 曾厝垵</b>：文艺渔港＋小吃街，晚上热闹</li>
+            <li><b>中山路步行街</b>：骑楼老街，闽南小吃集中</li>
+            <li><b>厦门大学</b>：需提前预约入校参观名额</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">江江回深圳：</span>厦门北→深圳北 <b>2h47m-3h45m，每天40多班</b>，几乎随时发车，比从平潭走还轻松</div>
+            <div><span class="k">彬彬回上海：</span>直达要6-8小时，偏长；时间紧的话这一段可以考虑飞机</div>
+            <div><span class="k">提醒：</span>鼓浪屿船票节假日非常抢手，决定去就尽早订</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rt">
+        <div class="rt-head">
+          <div class="lbl">方案 ④ · 喜欢人文</div>
+          <h4>转场泉州 ｜ 半城烟火半城仙，世遗古城</h4>
+        </div>
+        <div class="rt-body">
+          <ol>
+            <li><b>平潭 → 泉州</b>：约1小时50分-2小时05分，每天3班</li>
+            <li><b>开元寺 + 东西塔</b>：泉州地标，千年古刹，红砖白石</li>
+            <li><b>西街</b>：老城最热闹的一条街，边走边吃，抬头就是东西塔</li>
+            <li><b>蟳埔村</b>：簪花围体验，女生会很出片，村里阿姨现场盘发＋拍照</li>
+            <li><b>清源山老君岩 / 洛阳桥</b>：宋代石像、千年古桥，人文味拉满</li>
+            <li><b>提线木偶戏</b>：泉州非遗，看一场不亏</li>
+          </ol>
+          <div class="rt-meta">
+            <div><span class="k">亮点：</span>2021年列入世界遗产，古城密度高，走路就能串很多点</div>
+            <div><span class="k">返程：</span>江江回深圳约4小时直达；彬彬回上海约6.5-8小时</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="font-size:14.5px;margin-bottom:10px;">🧭 把「10/1 返程」办稳的三个动作</h4>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>动作</th><th>怎么做</th><th>为什么</th></tr></thead>
+          <tbody>
+            <tr class="hl">
+              <td><b>立刻开满候补</b> <span class="tag rec">现在就做</span></td>
+              <td>10/1 的票 <b>9月17日就已开售</b>，热门车次基本只剩候补。在 12306 同时挂多个候补订单，多选车次／席别／乘车日期，勾上<b>「接受新增列车」</b></td>
+              <td>候补兑现按提交时间排序，<b>越早提交排队越靠前</b></td>
+            </tr>
+            <tr>
+              <td><b>备一套「福州中转」</b></td>
+              <td>若直达抢不到，改成 <b>平潭→福州南</b>（半小时、全天 20 多班）＋ <b>福州出发的长途段</b>（回上海／回深圳每天各 40 多班），两段分开买</td>
+              <td>拆成两段后每一段都不紧张，成功率成倍提高</td>
+            </tr>
+            <tr>
+              <td><b>错峰半天也行</b></td>
+              <td>10/1 全天都是高峰。若实在抢不到票，可以考虑 <b>10/2 上午返程</b>（多住一晚，票和酒店压力都小很多）</td>
+              <td>10/1 是铁路全年客流最高峰日</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:#c2551a;margin-top:14px;background:var(--sun-soft);border-radius:8px;padding:12px 14px;">
+        <b>⚠️ 一个必须清楚的取舍：</b>如果返程提前到 <b>9月30日</b>，就完全避开国庆首日，车票和酒店都好办得多。
+        延长到 10/1 换来的是「<b>多玩一天 ＋ 多去一座城市</b>」，代价是抢票压力和 10/1 起的国庆房价。
+        两条路都可行，先想清楚哪个更重要，再去买票。
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <h4 style="font-size:14.5px;margin-bottom:10px;">💡 顺路但不推荐这次去的地方</h4>
+      <ul style="margin-left:18px;font-size:13.6px;color:#3d4b5a;">
+        <li><b>霞浦（滩涂摄影）</b>：在福州北边，方向相反，得先回福州再北上，绕路。</li>
+        <li><b>湄洲岛（莆田妈祖故里）</b>：要在莆田中转再坐船，平潭出发至少要一天机动时间，太赶。</li>
+        <li><b>东山岛（漳州）</b>：福建最美海岛之一，但从平潭过去要先到厦门再换大巴，单程大半天，适合下次单独安排。</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 贴士 ============ -->
+  <section>
+    <h2 class="sec">避坑与实用贴士</h2>
+    <div class="tips">
+
+      <div class="tip warnbox">
+        <h4>🎫 抢票与预约（10/1 返程最关键）</h4>
+        <ul>
+          <li>12306 提前 <b>15 天</b>售票，<b>10/1 的票 9月17日就开售了</b>，现在几乎只剩候补 —— 立刻挂满候补订单，并勾选<b>「接受新增列车」</b>。</li>
+          <li><b>别死磕平潭直达。</b>抢不到就拆成「平潭→福州南（半小时、20多班）＋ 福州出发的长途段（回沪/回深每天各40多班）」两段分开买，成功率高得多。</li>
+          <li>D3344 是深圳北→平潭<b>唯一一班直达车</b>，且只有15:10一个时间，务必优先锁死。</li>
+          <li>返程 D3346（平潭→深圳北）和 G1634（平潭→上海）也都是每天少数几班直达车之一，同样要早订。</li>
+          <li>9/28、9/29、9/30 都是工作日，<b>记得提前跟公司请假</b>；国庆调休后 <b>10月10日（周六）要上班</b>。</li>
+          <li>大梅沙5-10月周末/节假日需微信小程序<b>实名预约</b>，日限流8万人。</li>
+          <li>自驾去深圳东部（大鹏/梅沙），5-10月周末及法定节假日需<b>预约通行</b>，无预约罚300元。</li>
+          <li>去鼓浪屿的话，<b>轮渡船票要单独提前抢</b>，实名且分时段，和火车票不是一回事。</li>
+        </ul>
+      </div>
+
+      <div class="tip warnbox">
+        <h4>🌪️ 天气与人流</h4>
+        <ul>
+          <li>9月底平潭白天22-28℃，体感干爽，是全年最舒服的窗口期之一。</li>
+          <li>但仍是台风季尾巴（真正结束要到10月中），<b>出发前3天务必查平潭天气预报</b>，遇台风部分景区和跨海交通会停。</li>
+          <li>必备"三件套"：高倍防晒、防风外套、雨伞。海边紫外线极强。</li>
+          <li><b>10/1 起进入国庆黄金周</b>：景点、车站、返程列车都是全年最挤的时候，酒店价格也会从 10/1 起跳档，能提前订就别拖。</li>
+          <li><b>蓝眼泪基本看不到了</b>，最佳期是4-6月。9月去别抱期待，重点放在风车日落和沙滩上。</li>
+        </ul>
+      </div>
+
+      <div class="tip">
+        <h4>🚇 深圳交通小抄</h4>
+        <ul>
+          <li>住大浪最有用的一条线是<b>6号线</b>：元芬站 ↔ 深圳北站只有3站（上芬、红山），约10分钟。</li>
+          <li>去市区（福田/南山）：6号线到<b>科学馆</b>换1号线，到哪都方便。</li>
+          <li>去海滩（大梅沙）：6号线→深圳北换5号线→黄贝岭换2/8号线，或直接打车约50分钟。</li>
+          <li>深圳地铁支持扫码乘车，直接微信/支付宝搜索"深圳地铁"乘车码即可。</li>
+        </ul>
+      </div>
+
+      <div class="tip">
+        <h4>🛵 平潭岛内怎么走</h4>
+        <ul>
+          <li><b>租电动车是首选</b>，灵活随停随拍。<b>一定选续航100公里以上</b>的。</li>
+          <li>彬彬江江合骑一辆小电驴更省，但北线风大、有坡，建议租两辆或改租汽车。</li>
+          <li>景点间打车也比较方便，两天打车花费可以接受。</li>
+          <li>坚决不坐黑车，不请"追泪向导"（9月没蓝眼泪）。</li>
+        </ul>
+      </div>
+
+      <div class="tip">
+        <h4>🦞 吃海鲜不被宰</h4>
+        <ul>
+          <li>平潭县城吃饭平价；海边大排档容易"刺客"，<b>只吃明码标价的店</b>。</li>
+          <li>必吃：时来运转（咸米时）、天长地久（油羹）、八珍炒糕、海蛎饼。</li>
+          <li>9月开海后梭子蟹蟹黄最饱满，正是时候。</li>
+          <li>深圳盐田海鲜街：点单前先问价、先称重，确认计价单位。</li>
+        </ul>
+      </div>
+
+      <div class="tip">
+        <h4>💑 加分体验</h4>
+        <ul>
+          <li>深圳：世界之窗铁塔下合影，深圳湾看晚霞；或大梅沙"天长地久"礁石群看日落。</li>
+          <li>平潭：长江澳风车田拍情侣剪影，北港村石头厝喝咖啡看海。</li>
+          <li>平潭：环岛路骑小电驴，彬彬江江共骑一车吹海风，是全岛最浪漫的环节。</li>
+          <li>早起看一次龙王头日出，比任何网红机位都值。</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 打包清单 ============ -->
+  <section>
+    <h2 class="sec">行李清单 <small>9月底—10月初 · 海边 · 7天</small></h2>
+    <div class="card">
+      <div class="pack">
+        <span>身份证（必带）</span>
+        <span>换洗衣物 ×5-6套</span>
+        <span>泳衣 / 速干衣</span>
+        <span>薄外套（防风）</span>
+        <span>沙滩鞋 / 拖鞋</span>
+        <span>高倍防晒霜</span>
+        <span>墨镜 + 遮阳帽</span>
+        <span>防蚊喷雾</span>
+        <span>晕车药 / 肠胃药</span>
+        <span>充电宝</span>
+        <span>相机 / 手机广角</span>
+        <span>雨伞</span>
+        <span>小背包（白天出门）</span>
+        <span>防水袋（装手机）</span>
+        <span>洗漱小样</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 费用明细（默认整块不显示 · 长按/双击页脚爱心查看） ============ -->
+  <div class="cost-trigger" id="costTrigger" title="长按或双击查看费用明细" role="button" aria-label="长按或双击查看费用明细">❤️</div>
+
+  <section id="cost-section">
+    <h2 class="sec">费用明细 <small>再次长按或双击上方爱心即可隐藏</small></h2>
+    <div class="card">
+        <div class="tbl-scroll">
+          <table>
+            <thead><tr><th>类别</th><th>明细</th><th class="num">金额</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><b>大交通</b></td>
+                <td>彬彬 上海→深圳 G384 ¥976.5 ＋ 彬彬江江 深圳→平潭 D3344 ¥724 ＋ 彬彬 平潭→上海 G1634 ¥476 ＋ 江江 平潭→深圳 D3346 ¥370<span style="color:var(--muted);font-size:12.5px;">（按方案①，返程从平潭出发；转场其他城市的增减见下）</span></td>
+                <td class="num">¥2,546.5</td>
+              </tr>
+              <tr>
+                <td><b>住宿</b></td>
+                <td>深圳大浪 2晚 × ¥230 ＋ 平潭 4晚 × ¥220（9/27—10/1，含延伸日1晚）</td>
+                <td class="num">¥1,340</td>
+              </tr>
+              <tr>
+                <td><b>市内/岛内交通</b></td>
+                <td>深圳地铁＋打车 ¥200 ＋ 平潭电动车4天 ¥320 ＋ 平潭打车 ¥110</td>
+                <td class="num">¥630</td>
+              </tr>
+              <tr>
+                <td><b>门票</b></td>
+                <td>深圳世界之窗 ¥220×2 ＋ 平潭（仙人井、68海里、将军山）¥236</td>
+                <td class="num">¥676</td>
+              </tr>
+              <tr>
+                <td><b>餐饮</b></td>
+                <td>深圳 ¥450 ＋ 平潭及延伸日 ¥950 ＋ 路途 ¥200（人均约¥115/天）</td>
+                <td class="num">¥1,600</td>
+              </tr>
+              <tr>
+                <td><b>杂项</b></td>
+                <td>防晒、饮水、零食、伴手礼、应急备用（多1天略增）</td>
+                <td class="num">¥430</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sum-grid">
+          <div class="sum-box"><div class="lbl">交通占比</div><div class="val">44<small>%</small></div></div>
+          <div class="sum-box"><div class="lbl">人均总花费</div><div class="val">¥3,611</div></div>
+          <div class="sum-box"><div class="lbl">日均（2人）</div><div class="val">¥1,032</div></div>
+        </div>
+
+        <div class="total-box">
+          <div class="l">
+            基准方案①（留在平潭）· 10/1 返程
+            <b>7天6晚 · 2人合计</b>
+          </div>
+          <div class="r">¥7,222</div>
+        </div>
+
+        <p style="font-size:12.8px;color:var(--muted);margin-top:14px;">
+          票价为二等座全价、酒店为参考价，铁路实行浮动票价，以 12306 与各平台当天实际价格为准。
+        </p>
+
+        <div style="margin-top:16px;border-top:1px dashed #eef2f7;padding-top:16px;">
+          <h4 style="font-size:15px;margin-bottom:4px;">🔀 如果 9/30 转场其他城市，费用怎么变</h4>
+          <p style="font-size:12.8px;color:var(--muted);margin:6px 0 10px;">
+            转场会同时发生三件事：<b>多一段城际动车</b>、<b>退掉平潭那晚、换成当地住 1 晚</b>、<b>返程票价略有不同</b>。下面是相对基准（方案①）的参考增减。
+          </p>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>方案</th><th>变化构成</th><th class="num">相对基准</th></tr></thead>
+              <tbody>
+                <tr class="hl">
+                  <td><b>① 留在平潭</b></td>
+                  <td>基准：平潭多住 1 晚，其余不变</td>
+                  <td class="num">—</td>
+                </tr>
+                <tr>
+                  <td><b>② 福州</b></td>
+                  <td>＋平潭→福州南 ¥42×2 ＋福州住1晚约¥300 －平潭退1晚约¥220；返程票价与从平潭出发接近</td>
+                  <td class="num">约 ＋¥200-300</td>
+                </tr>
+                <tr>
+                  <td><b>③ 厦门</b></td>
+                  <td>＋平潭→厦门北 ¥127×2 ＋厦门住1晚约¥450 －平潭退1晚约¥220；江江返深约¥130-190，彬彬返沪约¥500-600（比从平潭走贵）</td>
+                  <td class="num">约 ＋¥500-900</td>
+                </tr>
+                <tr>
+                  <td><b>④ 泉州</b></td>
+                  <td>＋平潭→泉州 ¥101×2 ＋泉州住1晚约¥300 －平潭退1晚约¥220；返程票价与福州相近</td>
+                  <td class="num">约 ＋¥250-400</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;border-top:1px dashed #eef2f7;padding-top:16px;">
+          <h4 style="font-size:15px;margin-bottom:4px;">💡 想再省一点？三个动作能压到约 ¥6,300</h4>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>可调整项</th><th>怎么做</th><th class="num">省下</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>上海→深圳换车次</td>
+                  <td>改乘 D2287（07:47→19:19，11小时32分），只多坐不到2小时</td>
+                  <td class="num">¥408</td>
+                </tr>
+                <tr>
+                  <td>26号不去世界之窗</td>
+                  <td>走路线B/C/D，深圳大部分好玩的都免费</td>
+                  <td class="num">¥440</td>
+                </tr>
+                <tr>
+                  <td>深圳住宿降级</td>
+                  <td>住海株雲酒店（大浪商业中心店，¥187起）这类2星</td>
+                  <td class="num">约 ¥90</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <footer>
+    行程基于 2026年9月24日 查询的班次整理，铁路实行浮动票价与一日一图，<br>
+    具体车次与时刻以 12306 当天实际开行为准。祝旅途愉快 🌊
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var trigger = document.getElementById('costTrigger');
+  var section = document.getElementById('cost-section');
+  var timer = null;
+  function toggle(){
+    section.classList.toggle('show');
+    if(section.classList.contains('show')){
+      section.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  }
+  // 双击（鼠标）
+  trigger.addEventListener('dblclick', function(e){ e.preventDefault(); toggle(); });
+  // 阻止双击选中文字
+  trigger.addEventListener('mousedown', function(e){ if(e.detail > 1) e.preventDefault(); });
+  // 长按（触屏，约0.6秒）
+  trigger.addEventListener('touchstart', function(){
+    timer = setTimeout(toggle, 600);
+  }, {passive:true});
+  trigger.addEventListener('touchend', function(){ clearTimeout(timer); });
+  trigger.addEventListener('touchmove', function(){ clearTimeout(timer); });
+  trigger.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+})();
+</script>
+</body>
+</html>

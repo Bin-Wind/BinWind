@@ -696,6 +696,20 @@
             font-weight: 400
         }
 
+        .detail-date {
+            display: inline-block;
+            margin-bottom: 9px;
+            color: var(--blue);
+            font-size: .7rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase
+        }
+
+        .detail:nth-child(even) .detail-date {
+            color: #9d251c
+        }
+
         .detail p {
             margin: 0;
             opacity: .78;
@@ -1121,7 +1135,7 @@
                 <div class="copy">
                     <p class="eyebrow">To my dearest Jiangjiang</p>
                     <h1><span class="name">江江</span><span class="happy">生日快乐!</span></h1>
-                    <p class="sub">虽然今天不能当面把蛋糕和祝福送给你，但还是想隔着屏幕，认真地祝你生日快乐。愿今天的你只负责开心、许愿，收下所有美好。</p><button class="primary" id="startParty"
+                    <p class="sub">虽然生日这天不能陪在你身边，但中秋见面后一起度过的那 9 天，已经让思念有了真实的模样。隔着屏幕，也想把蛋糕、祝福和满满的偏爱认真送给你。</p><button class="primary" id="startParty"
                         type="button">开始庆祝</button>
                 </div>
                 <div class="visual">
@@ -1162,26 +1176,30 @@
         </section>
         <section class="love-notes">
             <div class="love-wrap">
-                <div class="love-intro"><span class="kicker">Nice to meet you · 关于我们的相识</span>
-                    <h2>还没见面，<br>却很高兴认识你。</h2>
-                    <p>从朋友介绍，到隔着屏幕慢慢聊天，我们的故事才刚刚写下开头。生日让我有了一个认真表达祝福的理由。</p>
+                <div class="love-intro"><span class="kicker">Nine days with you · 属于我们的九天</span>
+                    <h2>从聊天开始，<br>故事仍在继续。</h2>
+                    <p>从线上聊天，到中秋终于见面，期待里其实也藏着忐忑：担心初见会不会尴尬，担心真实的彼此是否和想象中一样。直到真正见到你，那些不安才慢慢变成了安心。</p>
                 </div>
                 <div class="detail-list">
                     <article class="detail"><span class="detail-icon">☀</span><div>
-                        <h3>谢谢这场介绍</h3>
-                        <p>原本只是一次简单的认识，却让我遇到了一个愿意继续聊下去、也想慢慢了解的人。</p>
+                        <span class="detail-date">Nine days with you</span>
+                        <h3>中秋相见的九天</h3>
+                        <p>出发前，我一边期待，一边又忍不住紧张：怕第一次见面不知道说什么，也怕自己表现得不够好。但当我从上海来到深圳，真正站在你面前，那份忐忑很快就被见到你的开心替代。后来我们一起去了福州和平潭，再回到深圳；9 天的同行，把屏幕里的期待变成了真实的相处，也留下了温暖与分别后的想念。</p>
                     </div></article>
                     <article class="detail"><span class="detail-icon">♡</span><div>
-                        <h3>喜欢聊天的感觉</h3>
-                        <p>分享日常、说说心情，哪怕只是几句简单的消息，也会给普通的一天添一点期待。</p>
+                        <span class="detail-date">Everyday moments</span>
+                        <h3>喜欢和你聊天的感觉</h3>
+                        <p>分享日常、说说心情，哪怕只是几句简单的消息，也会给普通的一天添一点期待。见过面以后，这份熟悉又多了一层真实的温度。</p>
                     </div></article>
                     <article class="detail"><span class="detail-icon">✦</span><div>
-                        <h3>期待了解更多</h3>
-                        <p>现在认识的只是你的一小部分，但已经足够让我好奇：真实的江江，还有多少可爱又特别的故事。</p>
+                        <span class="detail-date">Knowing you more</span>
+                        <h3>想继续了解更多</h3>
+                        <p>9 天的相处让我看见了聊天框以外、更真实也更鲜活的你，但这还只是故事的一部分。关于江江，还有很多可爱又特别的地方，想在以后慢慢发现。</p>
                     </div></article>
                     <article class="detail"><span class="detail-icon">∞</span><div>
+                        <span class="detail-date">To be continued</span>
                         <h3>把时间交给时间</h3>
-                        <p>不急着给关系写下答案，也不提前许下太远的承诺。认真聊天，真诚相处，让故事自然发生。</p>
+                        <p>不急着把故事写到结尾，也不让距离冲淡认真。继续聊天，真诚相处，珍惜已经拥有的回忆，也自然地期待下一次见面。</p>
                     </div></article>
                 </div>
             </div>
@@ -1189,19 +1207,19 @@
         <section class="together">
             <div class="together-photo" role="img" aria-label="夜色中点亮蜡烛的生日蛋糕"></div>
             <div class="together-copy"><span class="kicker">To be continued · 未完待续</span>
-                <h2>隔着屏幕，<br>也认真祝福你。</h2>
-                <p>这次生日没办法见面，所以把想说的话放进这个小小的网页里。它代替不了当面的祝福，但每一句都是认真写给你的。</p>
-                <p>至于未来，不急着预设剧情。希望我们还能分享很多日常，慢慢熟悉彼此；如果有一天真的见面，也希望那会是轻松又开心的一天。</p>
-                <div class="mini-promises"><span>继续分享日常</span><span>认真听你说话</span><span>保持真诚和分寸</span><span>期待自然发生</span></div>
+                <h2>九天很短，<br>回忆却很长。</h2>
+                <p>从上海到深圳，从深圳到福州，再到平潭，然后回到深圳。9 天的时间过得太快，见面之前积攒的期待，在真正相处以后，变成了更多具体的想念。</p>
+                <p>这次生日虽然不能见面，但我们已经拥有了一段真实而珍贵的旅程。希望下一次见面不用等太久，也希望以后还能一起解锁更多城市与故事。</p>
+                <div class="mini-promises"><span>中秋初见</span><span>深圳同行</span><span>福州记忆</span><span>平潭风景</span><span>暂别以后</span></div>
             </div>
         </section>
         <section class="letter-section">
             <article class="letter"><span class="tape" aria-hidden="true"></span>
                 <div class="kicker">A birthday note for Jiangjiang</div>
                 <h2>写给江江的话</h2>
-                <p>很高兴因为一次介绍认识了你。我们还没有见过面，也没有共同走过很长的路，但那些隔着屏幕的聊天，已经让“江江”这个名字变得有些特别。</p>
-                <p>谢谢你愿意和我分享日常，也谢谢每一次真诚的回应。新的一岁，希望你先好好爱自己：顺利的时候尽情开心，疲惫的时候也允许自己慢一点。至于我们，就从每一次聊天开始，慢慢认识，慢慢靠近。</p>
-                <p class="signature">生日快乐，江江。很高兴认识你，也期待继续认识你。</p><button class="wish-button" id="wishButton"
+                <p>很高兴认识了你，也很庆幸我们不只停留在聊天框里。去深圳见你以前，我其实既期待又忐忑，反复想象见面的样子，也担心初见会不会尴尬。可中秋真正见到你的那一刻，之前所有隔着屏幕的期待都有了答案，那些不安也一点点变成了安心。一起度过的 9 天，让我认识了更真实、更可爱的江江。</p>
+                <p>谢谢你和我一起从深圳走到福州、平潭，再一起回到深圳；也谢谢旅途里每一段平凡却珍贵的相处。回上海不是故事的终点，只是暂时的分别。新的一岁，希望你先好好爱自己，而我会认真珍惜我们的回忆，也期待下一次见面。</p>
+                <p class="signature">生日快乐，江江。九天是开始，故事还在继续。</p><button class="wish-button" id="wishButton"
                     type="button">按下收藏这份愿望</button>
             </article>
         </section>

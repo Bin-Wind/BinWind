@@ -5,6 +5,7 @@
       countLabel: '85 PHOTOS · 9 DAYS',
       days: '九天之旅',
       basePath: '/travel_images/2026.09.25~2026.10.03/',
+      thumbnailBasePath: '/travel_thumbnails/2026.09.25~2026.10.03/',
       route: 'SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　',
       ariaLabel: '九天旅行相册',
       photoLabel: 'MEMORY',
@@ -101,6 +102,7 @@
       countLabel: '23 PHOTOS · 2 DAYS',
       days: '长沙两天',
       basePath: '/travel_images/2026.10.31~2026.11.01/',
+      thumbnailBasePath: '/travel_thumbnails/2026.10.31~2026.11.01/',
       route: 'SHANGHAI → CHANGSHA ← SHENZHEN　✦　OUR HOMETOWN · OUR TWO DAYS　✦　SHANGHAI → CHANGSHA ← SHENZHEN　✦　OUR HOMETOWN · OUR TWO DAYS　✦　',
       ariaLabel: '长沙两天相册',
       photoLabel: 'CHANGSHA',
@@ -134,7 +136,7 @@
 
   const storyPhotos = Object.values(collections).flatMap((collection) =>
     collection.photos.map((filename) => ({
-      src: collection.basePath + encodeURIComponent(filename),
+      src: collection.thumbnailBasePath + encodeURIComponent(filename.replace(/\.[^.]+$/, '.webp')),
       label: collection.title
     }))
   );
@@ -231,6 +233,7 @@
   const viewerCount = document.getElementById('viewerCount');
   let activeKey = 'journey';
   let currentIndex = 0;
+  const initialPhotoCount = 10;
 
   const activeCollection = () => collections[activeKey];
 
@@ -244,6 +247,34 @@
     if (!viewer.open) viewer.showModal();
   };
 
+  const createPhotoCard = (collection, filename, index) => {
+      const button = document.createElement('button');
+      button.className = 'photo-card';
+      button.type = 'button';
+      button.setAttribute('aria-label', `查看旅行照片 ${index + 1}`);
+      const image = document.createElement('img');
+      image.src = collection.thumbnailBasePath + encodeURIComponent(filename.replace(/\.[^.]+$/, '.webp'));
+      image.alt = `${collection.title} 旅行照片 ${index + 1}`;
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.width = 800;
+      button.appendChild(image);
+      const number = document.createElement('span');
+      number.className = 'photo-index';
+      number.textContent = `${collection.photoLabel} ${String(index + 1).padStart(2, '0')}`;
+      button.appendChild(number);
+      button.addEventListener('click', () => showPhoto(index));
+      return button;
+  };
+
+  const appendPhotoCards = (collection, start, end) => {
+    const fragment = document.createDocumentFragment();
+    collection.photos.slice(start, end).forEach((filename, offset) => {
+      fragment.appendChild(createPhotoCard(collection, filename, start + offset));
+    });
+    grid.appendChild(fragment);
+  };
+
   const renderCollection = (key) => {
     activeKey = key;
     const collection = activeCollection();
@@ -255,27 +286,9 @@
     grid.classList.remove('expanded');
     grid.setAttribute('aria-label', collection.ariaLabel);
     grid.replaceChildren();
+    appendPhotoCards(collection, 0, Math.min(initialPhotoCount, collection.photos.length));
     toggle.setAttribute('aria-expanded', 'false');
     toggle.textContent = `查看全部 ${collection.photos.length} 张照片`;
-
-    collection.photos.forEach((filename, index) => {
-      const button = document.createElement('button');
-      button.className = 'photo-card';
-      button.type = 'button';
-      button.setAttribute('aria-label', `查看旅行照片 ${index + 1}`);
-      const image = document.createElement('img');
-      image.src = collection.basePath + encodeURIComponent(filename);
-      image.alt = `${collection.title} 旅行照片 ${index + 1}`;
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      button.appendChild(image);
-      const number = document.createElement('span');
-      number.className = 'photo-index';
-      number.textContent = `${collection.photoLabel} ${String(index + 1).padStart(2, '0')}`;
-      button.appendChild(number);
-      button.addEventListener('click', () => showPhoto(index));
-      grid.appendChild(button);
-    });
 
     filters.forEach((filter) => {
       const selected = filter.dataset.album === key;
@@ -290,7 +303,14 @@
 
   toggle.addEventListener('click', () => {
     const collection = activeCollection();
-    const expanded = grid.classList.toggle('expanded');
+    const expanded = !grid.classList.contains('expanded');
+    if (expanded) {
+      appendPhotoCards(collection, grid.children.length, collection.photos.length);
+      grid.classList.add('expanded');
+    } else {
+      while (grid.children.length > initialPhotoCount) grid.lastElementChild.remove();
+      grid.classList.remove('expanded');
+    }
     toggle.setAttribute('aria-expanded', String(expanded));
     toggle.textContent = expanded ? '收起相册' : `查看全部 ${collection.photos.length} 张照片`;
     if (!expanded) album.scrollIntoView({ behavior: 'smooth', block: 'start' });

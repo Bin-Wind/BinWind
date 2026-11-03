@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#12080a">
+    <title>江江 · 写给你的表白</title>
+    <style>
+        :root {
+            --wine: #6f1428;
+            --rose: #ad4056;
+            --cream: #f3e9d8;
+            --paper: #eadbc4;
+            --gold: #c5a875;
+            --night: #0c0708;
+            --ink: #271313
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        html {
+            max-width: 100%;
+            overflow-x: hidden
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            color: var(--cream);
+            background: var(--night);
+            font-family: Georgia, "Noto Serif SC", "Songti SC", serif;
+            max-width: 100%;
+            overflow-x: hidden
+        }
+
+        body.locked {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overscroll-behavior: none;
+            touch-action: none
+        }
+
+        button,
+        input {
+            font: inherit
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background: linear-gradient(90deg, rgba(7, 4, 5, .2), rgba(7, 4, 5, .68)), url('/images/love-letter-bg.png') 58% center/cover no-repeat;
+            transform: scale(1.02)
+        }
+
+        .background:after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 48% 42%, transparent 0, rgba(7, 3, 4, .18) 38%, rgba(7, 3, 4, .84) 100%)
+        }
+
+        .grain {
+            position: fixed;
+            inset: 0;
+            z-index: 30;
+            pointer-events: none;
+            opacity: .14;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+            mix-blend-mode: soft-light
+        }
+
+        #heartCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none
+        }
+
+        .gate {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            background: rgba(8, 4, 5, .76);
+            backdrop-filter: blur(24px);
+            transition: opacity .9s ease, visibility .9s ease
+        }
+
+        .gate.hidden {
+            opacity: 0;
+            visibility: hidden
+        }
+
+        .gate-card {
+            width: min(430px, 100%);
+            text-align: center
+        }
+
+        .eyebrow {
+            margin: 0 0 26px;
+            color: var(--gold);
+            font: 600 .7rem/1.2 system-ui, sans-serif;
+            letter-spacing: .32em;
+            text-transform: uppercase
+        }
+
+        .seal {
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 28px;
+            border: 1px solid #ffffff21;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #f4d8cf;
+            font-size: 28px;
+            background: radial-gradient(circle at 35% 25%, #a93a4c, #681125 68%, #3d0713);
+            box-shadow: 0 18px 45px #0008, inset 0 0 0 5px #ffffff09;
+            animation: breathe 3s ease-in-out infinite
+        }
+
+        @keyframes breathe {
+            50% {
+                transform: translateY(-4px);
+                box-shadow: 0 24px 55px #5008198c, inset 0 0 0 5px #ffffff0d
+            }
+        }
+
+        .gate h1 {
+            margin: 0;
+            font-weight: 400;
+            font-size: clamp(2.4rem, 9vw, 4rem);
+            letter-spacing: .06em
+        }
+
+        .gate-copy {
+            margin: 14px 0 32px;
+            color: #f3e9d894;
+            font-size: .95rem;
+            letter-spacing: .12em
+        }
+
+        .unlock {
+            display: grid;
+            grid-template-columns: 1fr 52px;
+            width: min(340px, 100%);
+            margin: auto;
+            padding: 5px;
+            border: 1px solid #c5a87547;
+            border-radius: 99px;
+            background: #ffffff0b
+        }
+
+        .unlock input {
+            min-width: 0;
+            border: 0;
+            outline: 0;
+            color: var(--cream);
+            background: transparent;
+            padding: 0 18px;
+            text-align: center;
+            letter-spacing: .28em
+        }
+
+        .unlock input::placeholder {
+            color: #f3e9d847;
+            letter-spacing: .12em
+        }
+
+        .unlock button {
+            width: 42px;
+            height: 42px;
+            border: 0;
+            border-radius: 50%;
+            color: #fff4e7;
+            cursor: pointer;
+            background: var(--wine);
+            transition: .25s
+        }
+
+        .unlock button:hover {
+            transform: rotate(-8deg) scale(1.06);
+            background: var(--rose)
+        }
+
+        .error {
+            min-height: 20px;
+            margin: 13px 0 0;
+            color: #e48b9a;
+            font: .78rem system-ui, sans-serif;
+            letter-spacing: .08em
+        }
+
+        .hint {
+            margin: 28px 0 0;
+            color: #f3e9d84d;
+            font: .72rem system-ui, sans-serif;
+            letter-spacing: .1em
+        }
+
+        .page {
+            opacity: 0;
+            transition: opacity 1.2s ease .15s
+        }
+
+        .page.ready {
+            opacity: 1
+        }
+
+        .hero {
+            min-height: 100svh;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 34px clamp(24px, 6vw, 92px) 40px
+        }
+
+        .topline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #f3e9d894;
+            font: .68rem system-ui, sans-serif;
+            letter-spacing: .24em;
+            text-transform: uppercase
+        }
+
+        .monogram {
+            font-family: Georgia, serif;
+            font-size: 1rem;
+            color: var(--cream);
+            border: 1px solid #c5a87573;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            letter-spacing: 0
+        }
+
+        .hero-copy {
+            align-self: center;
+            width: min(760px, 92%);
+            padding: 9vh 0 6vh
+        }
+
+        .kicker {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            color: var(--gold);
+            font: .72rem system-ui, sans-serif;
+            letter-spacing: .28em;
+            text-transform: uppercase
+        }
+
+        .kicker:before {
+            content: "";
+            width: 44px;
+            height: 1px;
+            background: var(--gold)
+        }
+
+        .hero h2 {
+            margin: 0;
+            max-width: 720px;
+            font-size: clamp(4.8rem, 13vw, 10.5rem);
+            font-weight: 400;
+            line-height: .75;
+            letter-spacing: -.07em;
+            text-wrap: balance
+        }
+
+        .hero h2 em {
+            display: block;
+            margin: .1em 0 0 .55em;
+            color: #d8bcb0;
+            font-weight: 400
+        }
+
+        .lead {
+            max-width: 510px;
+            margin: 36px 0 0 9px;
+            color: #f3e9d8b8;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            line-height: 2;
+            letter-spacing: .09em
+        }
+
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 24px
+        }
+
+        .scroll {
+            color: #f3e9d873;
+            font: .68rem system-ui, sans-serif;
+            letter-spacing: .22em;
+            text-transform: uppercase
+        }
+
+        .scroll:after {
+            content: "";
+            display: inline-block;
+            width: 48px;
+            height: 1px;
+            margin-left: 14px;
+            vertical-align: middle;
+            background: currentColor
+        }
+
+        .date {
+            color: var(--gold);
+            font-size: .85rem;
+            letter-spacing: .14em
+        }
+
+        .story-section {
+            position: relative;
+            padding: 120px clamp(24px, 7vw, 110px);
+            background: linear-gradient(180deg, #080405e8, #13080d 65%, #0a0507)
+        }
+
+        .section-intro {
+            display: grid;
+            grid-template-columns: .7fr 1.3fr;
+            gap: clamp(30px, 7vw, 100px);
+            max-width: 1180px;
+            margin: 0 auto 70px
+        }
+
+        .section-no {
+            color: var(--gold);
+            font: .7rem system-ui, sans-serif;
+            letter-spacing: .28em;
+            text-transform: uppercase
+        }
+
+        .section-intro h3 {
+            margin: 0;
+            font-size: clamp(2.8rem, 7vw, 6rem);
+            font-weight: 400;
+            line-height: 1.05
+        }
+
+        .section-intro h3 em {
+            color: #d6a99d;
+            font-weight: 400
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1180px;
+            margin: auto;
+            border-top: 1px solid #c5a87552
+        }
+
+        .moment {
+            position: relative;
+            min-height: 260px;
+            padding: 34px 30px;
+            border-right: 1px solid #c5a87538
+        }
+
+        .moment:last-child { border-right: 0 }
+        .moment:before {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: 30px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 18px #c5a875b8
+        }
+
+        .moment small {
+            color: var(--gold);
+            font: .68rem system-ui, sans-serif;
+            letter-spacing: .2em;
+            text-transform: uppercase
+        }
+
+        .moment h4 { margin: 48px 0 14px; font-size: 1.5rem; font-weight: 400 }
+        .moment p { margin: 0; color: #f3e9d899; font-size: 1rem; line-height: 1.85 }
+
+        .first-meet {
+            padding: 130px 24px;
+            text-align: left;
+            background: radial-gradient(circle at center, #32101c, #0a0507 68%)
+        }
+
+        .first-meet-inner { width: min(900px, 100%); margin: 0 auto }
+        .first-meet .section-no { display: block; margin-bottom: 24px }
+        .first-meet h3 { max-width: 900px; margin: 0; font-size: clamp(2.8rem, 7vw, 6.2rem); font-weight: 400; line-height: 1.08 }
+        .first-meet p { max-width: 760px; margin: 30px 0 0; color: #f3e9d899; font-size: 1.06rem; line-height: 2 }
+        .meet-note { display: inline-block; margin-top: 40px; padding: 13px 22px; border: 1px solid #c5a87573; border-radius: 99px; color: var(--gold); font: .72rem system-ui, sans-serif; letter-spacing: .16em }
+
+
+        .letter-section {
+            min-height: 100svh;
+            display: grid;
+            place-items: center;
+            padding: 90px 24px 130px;
+            background: linear-gradient(to bottom, transparent, #080405b8 14%, #080405ed)
+        }
+
+        .letter {
+            position: relative;
+            width: min(740px, 100%);
+            padding: clamp(42px, 8vw, 82px);
+            color: var(--ink);
+            background: linear-gradient(135deg, #f3e8d6, #e6d3b9);
+            box-shadow: 0 40px 100px #0000008c;
+            transform: rotate(-.35deg)
+        }
+
+        .letter:before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid #5730272e;
+            pointer-events: none
+        }
+
+        .chapter {
+            margin: 0 0 26px;
+            color: var(--wine);
+            font: 700 .68rem system-ui, sans-serif;
+            letter-spacing: .32em;
+            text-transform: uppercase
+        }
+
+        .letter h3 {
+            margin: 0 0 32px;
+            color: #44131b;
+            font-size: clamp(2.2rem, 7vw, 4.7rem);
+            font-weight: 400;
+            line-height: 1.06
+        }
+
+        .letter-body {
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            line-height: 2.05;
+            letter-spacing: .055em
+        }
+
+        .letter-body p:first-child:first-letter {
+            float: left;
+            margin: .06em .12em 0 0;
+            color: var(--wine);
+            font-size: 4.3em;
+            line-height: .72
+        }
+
+        .signature {
+            margin: 36px 0 0;
+            text-align: right;
+            color: var(--wine);
+            font-size: 1.5rem;
+            font-style: italic
+        }
+
+        .letter-seal {
+            position: absolute;
+            right: clamp(28px, 7vw, 68px);
+            bottom: -28px;
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            color: #f5dcd2;
+            background: radial-gradient(circle at 35% 25%, #b34357, #671025 70%);
+            box-shadow: 0 8px 18px #320a0f73
+        }
+
+        .photo-album { position: relative; overflow: hidden; padding: 130px clamp(18px, 5vw, 72px) 160px; color: #f8eedd; background: radial-gradient(circle at 80% 12%, #5d1728 0, transparent 30%), linear-gradient(145deg, #16090d, #070405 72%) }
+        .photo-album:before { content: "09 DAYS"; position: absolute; top: 40px; right: -2vw; color: #ffffff08; font: 900 clamp(6rem, 18vw, 17rem)/.8 Georgia, serif; letter-spacing: -.07em; pointer-events: none }
+        .album-heading { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 24px; max-width: 1280px; margin: 0 auto 36px }
+        .album-heading .section-no { color: #d8bd8b }
+        .album-heading h3 { margin: 12px 0 0; color: #fff5e8; font-size: clamp(2.6rem, 6vw, 5.4rem); font-weight: 400; line-height: 1.02; text-shadow: 0 10px 40px #0008 }
+        .album-count { flex: 0 0 auto; color: #d7bd90; font: .78rem system-ui, sans-serif; letter-spacing: .2em }
+        .album-route { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto 22px; overflow: hidden; border-block: 1px solid #d8bd8b38; color: #d8bd8b; white-space: nowrap }
+        .album-route span { display: inline-block; min-width: 100%; padding: 12px 0; font: .68rem system-ui, sans-serif; letter-spacing: .26em; animation: route-slide 18s linear infinite }
+        @keyframes route-slide { to { transform: translateX(-50%) } }
+        .album-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 105px; grid-auto-flow: dense; gap: 14px; max-width: 1280px; margin: auto }
+        .photo-card { position: relative; grid-column: span 3; grid-row: span 3; display: block; width: 100%; border: 0; padding: 0; overflow: hidden; background: #251318; cursor: zoom-in; box-shadow: 0 16px 50px #0005 }
+        .photo-card:nth-child(1) { grid-column: span 7; grid-row: span 6 }
+        .photo-card:nth-child(2) { grid-column: span 5; grid-row: span 3 }
+        .photo-card:nth-child(3) { grid-column: span 5; grid-row: span 3 }
+        .photo-card:nth-child(5n+4) { grid-column: span 6 }
+        .photo-card:nth-child(7n+6) { grid-row: span 4 }
+        .photo-card:nth-child(n+13) { display: none }
+        .album-grid.expanded .photo-card { display: block }
+        .photo-card:after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, #120509b8, transparent 45%); opacity: .65; transition: opacity .4s }
+        .photo-card img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.03); transition: transform .7s cubic-bezier(.2,.8,.2,1), filter .5s }
+        .photo-card:hover img { transform: scale(1.055); filter: saturate(1.08) contrast(1.02) }
+        .photo-card:hover:after { opacity: .25 }
+        .photo-index { position: absolute; z-index: 2; left: 14px; bottom: 12px; color: #fff7eb; font: .66rem system-ui, sans-serif; letter-spacing: .2em; text-shadow: 0 2px 8px #000 }
+        .album-toggle { display: block; margin: 42px auto 0; border: 1px solid #d8bd8b80; border-radius: 99px; padding: 14px 30px; color: #fff8ec; background: #6f1428; cursor: pointer; font: .8rem system-ui, sans-serif; letter-spacing: .14em; box-shadow: 0 14px 34px #0005; transition: transform .25s, background .25s }
+        .album-toggle:hover { transform: translateY(-3px); background: #8f1b35 }
+        .photo-viewer { width: min(94vw, 1200px); max-height: 94vh; border: 0; padding: 0; overflow: visible; background: transparent }
+        .photo-viewer::backdrop { background: #050203e8; backdrop-filter: blur(10px) }
+        .photo-viewer img { display: block; max-width: 100%; max-height: 88vh; margin: auto; object-fit: contain }
+        .viewer-close { position: fixed; top: 18px; right: 20px; width: 42px; height: 42px; border: 1px solid #fff8ec80; border-radius: 50%; color: #fff8ec; background: #10090ab8; cursor: pointer; font-size: 1.35rem }
+        .viewer-nav { position: fixed; top: 50%; width: 48px; height: 48px; border: 1px solid #fff8ec66; border-radius: 50%; color: #fff8ec; background: #10090ab8; cursor: pointer; font-size: 1.4rem; transform: translateY(-50%) }
+        .viewer-prev { left: 18px }
+        .viewer-next { right: 18px }
+        .viewer-count { position: fixed; left: 50%; bottom: 18px; color: #fff8ec; font: .72rem system-ui, sans-serif; letter-spacing: .2em; transform: translateX(-50%) }
+
+        .actions {
+            position: fixed;
+            left: 50%;
+            bottom: 22px;
+            z-index: 20;
+            display: flex;
+            gap: 4px;
+            padding: 6px;
+            border: 1px solid #ffffff1f;
+            border-radius: 99px;
+            background: #14080a9e;
+            backdrop-filter: blur(18px);
+            transform: translateX(-50%) translateY(120px);
+            transition: transform .8s cubic-bezier(.2, .8, .2, 1);
+            box-shadow: 0 16px 44px #00000059
+        }
+
+        .page.ready .actions {
+            transform: translateX(-50%)
+        }
+
+        .action {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 0 17px;
+            border: 0;
+            border-radius: 99px;
+            color: #fff6eac2;
+            background: transparent;
+            cursor: pointer;
+            font: .78rem system-ui, sans-serif;
+            transition: .2s
+        }
+
+        .action:hover {
+            color: #fff;
+            background: #ffffff1a
+        }
+
+        .icon {
+            color: #d18794;
+            font-size: 1rem
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            background: #060304b8;
+            backdrop-filter: blur(14px);
+            transition: .35s
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .modal-card {
+            width: min(540px, 100%);
+            padding: 58px 48px 48px;
+            color: var(--ink);
+            text-align: center;
+            background: var(--paper);
+            box-shadow: 0 30px 90px #0009;
+            transform: translateY(22px) scale(.97);
+            transition: .4s
+        }
+
+        .modal.open .modal-card {
+            transform: none
+        }
+
+        .modal-icon {
+            color: var(--wine);
+            font-size: 1.6rem
+        }
+
+        .modal-message {
+            margin: 22px 0 30px;
+            font-size: clamp(1.15rem, 4vw, 1.55rem);
+            line-height: 1.85
+        }
+
+        .message-form { display: none; margin-top: 20px; text-align: left }
+        .message-form.open { display: block }
+        .message-form label { display: block; margin-bottom: 10px; color: var(--wine); font-size: 1rem }
+        .message-input {
+            width: 100%;
+            min-height: 130px;
+            resize: vertical;
+            border: 1px solid #6f142852;
+            border-radius: 3px;
+            padding: 15px 16px;
+            color: var(--ink);
+            background: #fffaf1;
+            outline: none;
+            font: 1rem/1.7 system-ui, sans-serif
+        }
+        .message-input:focus { border-color: var(--wine); box-shadow: 0 0 0 3px #6f142814 }
+        .message-count { display: block; margin-top: 6px; color: #6b574f; text-align: right; font: .75rem system-ui, sans-serif }
+        .message-status { min-height: 24px; margin: 8px 0; color: #6b574f; text-align: center; font: .85rem/1.6 system-ui, sans-serif }
+        .message-status.error { color: #a3263e }
+        .message-actions { display: flex; justify-content: center; align-items: center; gap: 22px }
+        .send-message {
+            border: 1px solid var(--wine);
+            border-radius: 99px;
+            padding: 11px 25px;
+            color: #fff8ec;
+            background: var(--wine);
+            cursor: pointer;
+            font: .82rem system-ui, sans-serif;
+            letter-spacing: .12em
+        }
+        .send-message:disabled { opacity: .55; cursor: not-allowed }
+
+        .close {
+            border: 0;
+            border-bottom: 1px solid var(--wine);
+            padding: 7px 2px;
+            color: var(--wine);
+            background: transparent;
+            cursor: pointer;
+            font: .72rem system-ui, sans-serif;
+            letter-spacing: .18em
+        }
+
+        .spark {
+            position: fixed;
+            z-index: 40;
+            pointer-events: none;
+            animation: float 2.8s ease-out forwards
+        }
+
+        @keyframes float {
+            to {
+                opacity: 0;
+                transform: translate(var(--x), -220px) rotate(var(--r)) scale(.3)
+            }
+        }
+
+        @media(max-width:680px) {
+            .hero {
+                padding: 24px 22px 96px
+            }
+
+            .hero-copy {
+                width: 100%;
+                min-width: 0;
+                padding-top: 12vh
+            }
+
+            .hero h2 {
+                max-width: 100%;
+                font-size: clamp(3.8rem, 17vw, 5.5rem);
+                letter-spacing: -.085em
+            }
+
+            .hero h2 em {
+                width: max-content;
+                max-width: 100%;
+                margin-left: .08em;
+                white-space: nowrap
+            }
+
+            .lead {
+                max-width: 88%;
+                margin-top: 30px;
+                font-size: 1rem;
+                line-height: 1.85
+            }
+
+            .topline span:not(.monogram) {
+                display: none
+            }
+
+            .date {
+                font-size: .7rem
+            }
+
+            .story-section,
+            .first-meet { padding-block: 90px }
+
+            .section-intro { grid-template-columns: 1fr }
+
+            .timeline { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid #c5a87552 }
+            .moment { min-height: 0; padding: 12px 20px 48px 30px; border-right: 0 }
+            .moment:before { top: 5px; left: -5px }
+            .moment h4 { margin-top: 24px }
+
+            .letter-section {
+                padding-inline: 15px
+            }
+
+            .letter {
+                padding: 48px 34px 60px
+            }
+
+            .photo-album { padding: 90px 14px 130px }
+            .album-heading { align-items: start; flex-direction: column; margin-bottom: 28px; padding-inline: 10px }
+            .album-heading h3 { font-size: clamp(2rem, 10vw, 3.2rem) }
+            .album-route { margin-inline: 10px }
+            .album-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 92px; gap: 8px }
+            .photo-card { grid-column: span 1; grid-row: span 2 }
+            .photo-card:nth-child(1) { grid-column: span 2; grid-row: span 4 }
+            .photo-card:nth-child(2), .photo-card:nth-child(3) { grid-column: span 1; grid-row: span 2 }
+            .photo-card:nth-child(5n+4) { grid-column: span 2 }
+            .photo-card:nth-child(7n+6) { grid-row: span 3 }
+            .viewer-nav { width: 40px; height: 40px }
+
+            .actions {
+                bottom: 14px;
+                width: calc(100% - 24px);
+                justify-content: space-around
+            }
+
+            .action {
+                flex-direction: column;
+                gap: 2px;
+                min-width: 0;
+                padding: 7px 11px;
+                font-size: .65rem
+            }
+
+            .modal-card {
+                padding: 52px 28px 42px
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *:before,
+            *:after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important
+            }
+        }
+    </style>
+</head>
+
+<body class="locked">
+    <div class="background" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div><canvas id="heartCanvas" aria-hidden="true"></canvas>
+    <section class="gate" id="gate" aria-labelledby="gateTitle">
+        <div class="gate-card">
+            <p class="eyebrow">Private correspondence · No. 520</p>
+            <div class="seal" aria-hidden="true">♥</div>
+            <h1 id="gateTitle">只写给江江</h1>
+            <p class="gate-copy">江江，有些话想等你亲自打开</p>
+            <form class="unlock" id="unlockForm"><input id="password" type="password" inputmode="text"
+                    autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false"
+                    placeholder="输入我们的暗号" aria-label="输入密码"><button type="submit"
+                    aria-label="打开信件">→</button></form>
+            <p class="error" id="error" role="alert"></p>
+            <p class="hint">提示：字母与“一生一世”的数字组合</p>
+        </div>
+    </section>
+    <main class="page" id="page">
+        <section class="hero">
+            <header class="topline"><span class="monogram">J</span><span>A letter for Jiangjiang</span><span>Forever, in every universe</span></header>
+            <div class="hero-copy">
+                <div class="kicker">致我最爱的江江</div>
+                <h2>Only <em>Jiangjiang.</em></h2>
+                <p class="lead">江江，从一个手机号码、一句“你好呀”，到我从上海奔赴深圳，再一起走过九天，我们的故事已经有了值得珍藏的回忆。</p>
+            </div>
+            <footer class="hero-footer"><span class="scroll">继续读下去</span><span class="date">520 · 1314</span></footer>
+        </section>
+        <section class="story-section">
+            <div class="section-intro">
+                <span class="section-no">Chapter I · 相识</span>
+                <h3>故事没有轰轰烈烈，<br>只是从一句<em>“你好呀”</em>开始。</h3>
+            </div>
+            <div class="timeline">
+                <article class="moment"><small>01 · 从认识开始</small><h4>一个号码，让故事有了开头</h4><p>那时我还不知道你的姓名，摆在面前的只是一个手机号码。加或不加是一念之间的选择，而那次选择，让我们的人生有了第一个交点。</p></article>
+                <article class="moment"><small>02 · 微信里的相识</small><h4>从一句“你好呀”，慢慢认识彼此</h4><p>一条好友申请，把两个原本陌生的人连在了一起。隔着屏幕的每一次回应，都让想象中的你变得更真实，也让我开始期待真正见到你。</p></article>
+                <article class="moment"><small>03 · 九天同行</small><h4>从中秋见面，到一起走过三座城</h4><p>你在深圳，我从上海奔赴而来。见面后的九天里，我们从深圳去了福州和平潭，再回到深圳。城市的灯火、街巷的烟火与海边的风，都成了只属于我们的共同回忆。</p></article>
+            </div>
+        </section>
+
+        <section class="first-meet">
+            <div class="first-meet-inner">
+                <span class="section-no">Chapter II · 我们的九天</span>
+                <h3>从中秋见面开始，<br>九天有了许多真实的回忆。</h3>
+                <p>中秋前后，我从上海来到你所在的深圳，我们终于跨过屏幕见到了彼此。之后的九天，我们从深圳到福州、再到平潭，最后回到深圳。一起看过城市的灯光，走过福州的街巷，也吹过平潭的海风。真正让我珍惜的，不只是去了哪里，而是每一段路、每一顿饭、每一次笑，都有你在身边。</p>
+                <span class="meet-note">深圳的灯火 · 福州的烟火 · 平潭的海风 · 我们的九天</span>
+            </div>
+        </section>
+
+        <section class="letter-section" id="letter">
+            <article class="letter">
+                <p class="chapter">Chapter III · 写给江江</p>
+                <h3>见过你以后，<br>更想认真地走近你。</h3>
+                <div class="letter-body">
+                    <p>江江，你是 10 月 14 日，我是 1 月 14 日。两个相隔九个月的“14”，因为一个手机号码和一句“你好呀”有了交集，又在中秋前后，跨过上海与深圳的距离真正见到了彼此。</p>
+                    <p>一起相处的九天，让想象变成了许多具体的画面：深圳的灯火、福州的街巷、平潭的海风，还有那些不需要特别安排的普通时刻。旅途会结束，但我们一起经历过的快乐，已经成为故事里真实的一页。</p>
+                    <p>见过你以后，我更愿意用时间和行动表达认真。我想继续了解真实的你，也愿意让你慢慢看见真实的我。未来不必急着说满，只希望下一次见面、下一段旅程，依然可以与你一起期待。</p>
+                </div>
+                <p class="signature">江江，很高兴见到你，也开始期待我们的下一次见面。</p><span class="letter-seal" aria-hidden="true">♥</span>
+            </article>
+        </section>
+        <section class="photo-album" id="album">
+            <header class="album-heading">
+                <div><span class="section-no">Chapter IV · 旅行相册</span><h3>2026.09.25 ~ 2026.10.03</h3></div>
+                <span class="album-count">85 PHOTOS · 9 DAYS</span>
+            </header>
+            <div class="album-route" aria-hidden="true"><span>SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　</span></div>
+            <div class="album-grid" id="albumGrid" aria-label="九天旅行相册"></div>
+            <button class="album-toggle" id="albumToggle" type="button" aria-expanded="false">查看全部 85 张照片</button>
+        </section>
+        <dialog class="photo-viewer" id="photoViewer" aria-label="照片预览"><img id="viewerImage" alt="旅行照片大图"><button class="viewer-nav viewer-prev" id="viewerPrev" type="button" aria-label="上一张照片">‹</button><button class="viewer-nav viewer-next" id="viewerNext" type="button" aria-label="下一张照片">›</button><span class="viewer-count" id="viewerCount"></span><button class="viewer-close" id="viewerClose" type="button" aria-label="关闭照片">×</button></dialog>
+        <nav class="actions" aria-label="爱的互动"><button class="action" type="button" data-action="hearts"><span
+                    class="icon">♥</span><span>心动</span></button><button class="action" type="button"
+                data-action="letter"><span class="icon">✦</span><span>情话</span></button><button class="action"
+                type="button" data-action="fireworks"><span class="icon">✺</span><span>星光</span></button><button
+                class="action" type="button" data-action="secret"><span class="icon">∞</span><span>秘密</span></button>
+        </nav>
+    </main>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalMessage">
+        <div class="modal-card">
+            <div class="modal-icon">♥</div>
+            <div class="modal-message" id="modalMessage"></div>
+            <form class="message-form" id="messageForm">
+                <label for="messageInput">想对我说的话</label>
+                <textarea class="message-input" id="messageInput" maxlength="3000" placeholder="写下你想说的话……" required></textarea>
+                <span class="message-count" id="messageCount">0 / 3000</span>
+                <p class="message-status" id="messageStatus" aria-live="polite"></p>
+                <div class="message-actions"><button class="send-message" id="sendMessage" type="submit">发送消息</button><button class="close" id="cancelMessage" type="button">暂时不写</button></div>
+            </form>
+            <button class="close" id="closeModal" type="button">收好这句话</button>
+        </div>
+    </div>
+    <script src="/love1-jiangjiang.js"></script>
+    <script src="/travel-gallery1.js"></script>
+    <script>(() => { const gate = document.getElementById('gate'), page = document.getElementById('page'), form = document.getElementById('unlockForm'), password = document.getElementById('password'), error = document.getElementById('error'), modal = document.getElementById('modal'), modalMessage = document.getElementById('modalMessage'), closeModal = document.getElementById('closeModal'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; form.addEventListener('submit', e => { e.preventDefault(); if (!window.verifyLovePassword(password.value.trim())) { error.textContent = password.value ? '暗号不太对，再想想看。' : '先输入我们的暗号。'; password.value = ''; password.focus(); return } error.textContent = ''; gate.classList.add('hidden'); page.classList.add('ready'); document.body.classList.remove('locked'); startCanvas() }); const messages = ['遇见你以后，我才知道“刚刚好”原来不是形容时间，而是形容一个人。', '我想和你分享的，从来不只是浪漫，还有早餐、晚风和漫长岁月。', '你不用一直闪闪发光。在我这里，你永远可以做最真实的自己。', '我的偏爱很简单：别人再好也是别人，你不一样，你是我的答案。', '想把每一个普通的明天，都慢慢变成我们的以后。']; function show(message) { modalMessage.textContent = message; modal.classList.add('open'); closeModal.focus() } function hide() { modal.classList.remove('open') } closeModal.addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); document.addEventListener('keydown', e => { if (e.key === 'Escape') hide() }); function burst(x = innerWidth / 2, y = innerHeight / 2, amount = 18) { if (reduced) return; for (let i = 0; i < amount; i++) { const s = document.createElement('span'); s.className = 'spark'; s.textContent = Math.random() > .35 ? '♥' : '✦'; s.style.left = x + 'px'; s.style.top = y + 'px'; s.style.color = Math.random() > .5 ? '#c46678' : '#d8bd8b'; s.style.fontSize = 8 + Math.random() * 14 + 'px'; s.style.setProperty('--x', (Math.random() - .5) * 240 + 'px'); s.style.setProperty('--r', (Math.random() - .5) * 90 + 'deg'); document.body.appendChild(s); s.addEventListener('animationend', () => s.remove()) } } document.querySelector('.actions').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (!b) return; const r = b.getBoundingClientRect(), a = b.dataset.action; if (a === 'hearts') burst(r.left + r.width / 2, r.top, 24); if (a === 'letter') show(messages[Math.floor(Math.random() * messages.length)]); if (a === 'fireworks') [0, 220, 440, 660].forEach(d => setTimeout(() => burst(innerWidth * (.18 + Math.random() * .64), innerHeight * (.18 + Math.random() * .42), 28), d)); if (a === 'secret') show('偷偷告诉你：这个页面会旧，代码会更新，但我喜欢你这件事，永远是最新版本。') }); document.addEventListener('click', e => { if (gate.classList.contains('hidden') && !e.target.closest('button') && !e.target.closest('.modal-card')) burst(e.clientX, e.clientY, 7) }); const canvas = document.getElementById('heartCanvas'), ctx = canvas.getContext('2d'); let motes = [], running = false; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function startCanvas() { if (running || reduced) return; running = true; motes = Array.from({ length: 34 }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.4 + .4, s: Math.random() * .22 + .06, o: Math.random() * .35 + .08 })); draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); for (const m of motes) { m.y -= m.s; m.x += Math.sin(m.y * .006) * .08; if (m.y < -8) { m.y = innerHeight + 8; m.x = Math.random() * innerWidth } ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(216,189,139,${m.o})`; ctx.fill() } requestAnimationFrame(draw) } })();</script>
+</body>
+
+</html>

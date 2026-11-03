@@ -14,7 +14,8 @@
             --paper: #eadbc4;
             --gold: #c5a875;
             --night: #0c0708;
-            --ink: #271313
+            --ink: #271313;
+            --content-gutter: max(24px, calc((100vw - 1180px) / 2))
         }
 
         * {
@@ -336,14 +337,14 @@
 
         .story-section {
             position: relative;
-            padding: 120px clamp(24px, 7vw, 110px);
+            padding: 120px var(--content-gutter);
             background: linear-gradient(180deg, #080405e8, #13080d 65%, #0a0507)
         }
 
         .section-intro {
             display: grid;
-            grid-template-columns: .7fr 1.3fr;
-            gap: clamp(30px, 7vw, 100px);
+            grid-template-columns: .82fr 1.18fr;
+            gap: clamp(30px, 5vw, 80px);
             max-width: 1180px;
             margin: 0 auto 70px
         }
@@ -356,10 +357,10 @@
         }
 
         .section-intro h3 {
-            margin: 0;
-            font-size: clamp(2.8rem, 7vw, 6rem);
+            margin: 55px 0 0;
+            font-size: clamp(2.6rem, 5.4vw, 5.25rem);
             font-weight: 400;
-            line-height: 1.05
+            line-height: 1.08
         }
 
         .section-intro h3 em {
@@ -367,22 +368,41 @@
             font-weight: 400
         }
 
+        .story-aside { min-width: 0 }
+        .story-carousel { position: relative; width: 100%; aspect-ratio: 4 / 5; margin-top: 28px; overflow: hidden; border: 1px solid #c5a8754d; background: #11090b; box-shadow: 0 28px 70px #0006 }
+        .story-carousel:after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(180deg, #0904050d 45%, #090405c9 100%); box-shadow: inset 0 0 0 8px #08040538 }
+        .story-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity .9s ease, transform 5.8s ease; will-change: opacity, transform }
+        .story-slide.active { opacity: 1; transform: scale(1) }
+        .story-carousel-meta { position: absolute; z-index: 3; right: 18px; bottom: 18px; left: 18px; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: #fff5e8; font: .66rem system-ui, sans-serif; letter-spacing: .2em }
+        .story-carousel-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+        .story-carousel-controls { display: flex; flex: 0 0 auto; gap: 8px }
+        .story-carousel-button { width: 34px; height: 34px; display: grid; place-items: center; padding: 0; border: 1px solid #fff6; border-radius: 50%; color: #fff7ed; background: #10080a8f; cursor: pointer; transition: background .2s, border-color .2s }
+        .story-carousel-button:hover { border-color: #d8bd8b; background: #6f1428 }
+        .story-carousel-progress { position: absolute; z-index: 3; right: 0; bottom: 0; left: 0; height: 2px; background: #ffffff1c }
+        .story-carousel-progress span { display: block; width: 0; height: 100%; background: var(--gold) }
+        .story-carousel.playing .story-carousel-progress span { animation: story-progress 5s linear forwards }
+        @keyframes story-progress { to { width: 100% } }
+
         .timeline {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 25%);
             max-width: 1180px;
+            width: 100%;
             margin: auto;
-            border-top: 1px solid #c5a87552
+            border-top: 1px solid #c5a87552;
+            border-left: 1px solid #c5a87538;
+            box-sizing: border-box
         }
 
         .moment {
             position: relative;
+            min-width: 0;
             min-height: 260px;
+            box-sizing: border-box;
             padding: 34px 30px;
             border-right: 1px solid #c5a87538
         }
 
-        .moment:last-child { border-right: 0 }
         .moment:before {
             content: "";
             position: absolute;
@@ -402,32 +422,34 @@
             text-transform: uppercase
         }
 
-        .moment h4 { margin: 48px 0 14px; font-size: 1.5rem; font-weight: 400 }
+        .moment h4 { min-height: 3.15em; margin: 48px 0 14px; font-size: 1.5rem; font-weight: 400; line-height: 1.45 }
         .moment p { margin: 0; color: #f3e9d899; font-size: 1rem; line-height: 1.85 }
 
         .first-meet {
-            padding: 130px 24px;
+            padding: 130px var(--content-gutter);
             text-align: left;
             background: radial-gradient(circle at center, #32101c, #0a0507 68%)
         }
 
-        .first-meet-inner { width: min(900px, 100%); margin: 0 auto }
+        .first-meet-inner { position: relative; width: min(1180px, 100%); margin: 0 auto }
         .first-meet .section-no { display: block; margin-bottom: 24px }
-        .first-meet h3 { max-width: 900px; margin: 0; font-size: clamp(2.8rem, 7vw, 6.2rem); font-weight: 400; line-height: 1.08 }
-        .first-meet p { max-width: 760px; margin: 30px 0 0; color: #f3e9d899; font-size: 1.06rem; line-height: 2 }
+        .first-meet h3 { width: 100%; max-width: none; margin: 0; font-size: clamp(2.6rem, 5.2vw, 5.2rem); font-weight: 400; line-height: 1.1 }
+        .first-meet p { width: 100%; max-width: none; margin: 30px 0 0; color: #f3e9d899; font-size: 1.06rem; line-height: 2 }
         .meet-note { display: inline-block; margin-top: 40px; padding: 13px 22px; border: 1px solid #c5a87573; border-radius: 99px; color: var(--gold); font: .72rem system-ui, sans-serif; letter-spacing: .16em }
+
 
         .letter-section {
             min-height: 100svh;
             display: grid;
             place-items: center;
-            padding: 90px 24px 130px;
+            padding: 90px var(--content-gutter) 130px;
             background: linear-gradient(to bottom, transparent, #080405b8 14%, #080405ed)
         }
 
         .letter {
             position: relative;
-            width: min(740px, 100%);
+            width: 100%;
+            max-width: 1180px;
             padding: clamp(42px, 8vw, 82px);
             color: var(--ink);
             background: linear-gradient(135deg, #f3e8d6, #e6d3b9);
@@ -481,6 +503,11 @@
             font-style: italic
         }
 
+        .letter .chapter,
+        .letter h3,
+        .letter-body,
+        .letter .signature { max-width: 920px; margin-left: auto; margin-right: auto }
+
         .letter-seal {
             position: absolute;
             right: clamp(28px, 7vw, 68px);
@@ -495,16 +522,21 @@
             box-shadow: 0 8px 18px #320a0f73
         }
 
-        .photo-album { position: relative; overflow: hidden; padding: 130px clamp(18px, 5vw, 72px) 160px; color: #f8eedd; background: radial-gradient(circle at 80% 12%, #5d1728 0, transparent 30%), linear-gradient(145deg, #16090d, #070405 72%) }
-        .photo-album:before { content: "09 DAYS"; position: absolute; top: 40px; right: -2vw; color: #ffffff08; font: 900 clamp(6rem, 18vw, 17rem)/.8 Georgia, serif; letter-spacing: -.07em; pointer-events: none }
-        .album-heading { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 24px; max-width: 1280px; margin: 0 auto 36px }
+        .photo-album { position: relative; overflow: hidden; padding: 130px var(--content-gutter) 160px; color: #f8eedd; background: radial-gradient(circle at 80% 12%, #5d1728 0, transparent 30%), linear-gradient(145deg, #16090d, #070405 72%) }
+        .photo-album:before { content: attr(data-days); position: absolute; top: 40px; right: -2vw; color: #ffffff08; font: 900 clamp(6rem, 18vw, 17rem)/.8 Georgia, serif; letter-spacing: -.07em; pointer-events: none }
+        .photo-album.show-changsha { background: radial-gradient(circle at 15% 18%, #7d3824 0, transparent 28%), linear-gradient(150deg, #120a08, #070405 70%) }
+        .album-heading { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: end; gap: 24px; max-width: 1180px; margin: 0 auto 36px }
         .album-heading .section-no { color: #d8bd8b }
         .album-heading h3 { margin: 12px 0 0; color: #fff5e8; font-size: clamp(2.6rem, 6vw, 5.4rem); font-weight: 400; line-height: 1.02; text-shadow: 0 10px 40px #0008 }
         .album-count { flex: 0 0 auto; color: #d7bd90; font: .78rem system-ui, sans-serif; letter-spacing: .2em }
-        .album-route { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto 22px; overflow: hidden; border-block: 1px solid #d8bd8b38; color: #d8bd8b; white-space: nowrap }
+        .album-filters { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; max-width: 1180px; margin: 0 auto 28px }
+        .album-filter { border: 1px solid #d8bd8b52; border-radius: 99px; padding: 11px 18px; color: #d8bd8bbd; background: #ffffff08; cursor: pointer; font: .72rem system-ui, sans-serif; letter-spacing: .11em; transition: .25s }
+        .album-filter:hover { color: #fff5e8; border-color: #d8bd8b9e }
+        .album-filter.active { color: #1c0b10; border-color: #d8bd8b; background: #d8bd8b; box-shadow: 0 10px 30px #0004 }
+        .album-route { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto 22px; overflow: hidden; border-block: 1px solid #d8bd8b38; color: #d8bd8b; white-space: nowrap }
         .album-route span { display: inline-block; min-width: 100%; padding: 12px 0; font: .68rem system-ui, sans-serif; letter-spacing: .26em; animation: route-slide 18s linear infinite }
         @keyframes route-slide { to { transform: translateX(-50%) } }
-        .album-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 105px; grid-auto-flow: dense; gap: 14px; max-width: 1280px; margin: auto }
+        .album-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 105px; grid-auto-flow: dense; gap: 14px; max-width: 1180px; margin: auto }
         .photo-card { position: relative; grid-column: span 3; grid-row: span 3; display: block; width: 100%; border: 0; padding: 0; overflow: hidden; background: #251318; cursor: zoom-in; box-shadow: 0 16px 50px #0005 }
         .photo-card:nth-child(1) { grid-column: span 7; grid-row: span 6 }
         .photo-card:nth-child(2) { grid-column: span 5; grid-row: span 3 }
@@ -678,6 +710,7 @@
         }
 
         @media(max-width:680px) {
+            :root { --content-gutter: 18px }
             .hero {
                 padding: 24px 22px 96px
             }
@@ -720,24 +753,22 @@
             .first-meet { padding-block: 90px }
 
             .section-intro { grid-template-columns: 1fr }
+            .section-intro h3 { margin-top: 0 }
+            .story-carousel { max-width: 440px; margin-top: 22px }
 
-            .timeline { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid #c5a87552 }
+            .timeline { grid-template-columns: 100%; border-top: 0; border-left: 1px solid #c5a87552 }
             .moment { min-height: 0; padding: 12px 20px 48px 30px; border-right: 0 }
             .moment:before { top: 5px; left: -5px }
-            .moment h4 { margin-top: 24px }
-
-            .letter-section {
-                padding-inline: 15px
-            }
+            .moment h4 { min-height: 0; margin-top: 24px }
 
             .letter {
                 padding: 48px 34px 60px
             }
 
-            .photo-album { padding: 90px 14px 130px }
-            .album-heading { align-items: start; flex-direction: column; margin-bottom: 28px; padding-inline: 10px }
+            .photo-album { padding-block: 90px 130px }
+            .album-heading { align-items: start; flex-direction: column; margin-bottom: 28px }
             .album-heading h3 { font-size: clamp(2rem, 10vw, 3.2rem) }
-            .album-route { margin-inline: 10px }
+            .album-filter { flex: 1 1 100%; text-align: left }
             .album-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 92px; gap: 8px }
             .photo-card { grid-column: span 1; grid-row: span 2 }
             .photo-card:nth-child(1) { grid-column: span 2; grid-row: span 4 }
@@ -802,49 +833,61 @@
             <div class="hero-copy">
                 <div class="kicker">致我最爱的江江</div>
                 <h2>Only <em>Jiangjiang.</em></h2>
-                <p class="lead">江江，从一个手机号码、一句“你好呀”，到我从上海奔赴深圳，再一起走过九天，我们的故事已经有了值得珍藏的回忆。</p>
+                <p class="lead">江江，我们从屏幕两端走到彼此身边，从第一次奔赴到长沙重逢。故事不再只是想象，而是一次次见面、一段段同行，慢慢写成了真正的“我们”。</p>
             </div>
             <footer class="hero-footer"><span class="scroll">继续读下去</span><span class="date">520 · 1314</span></footer>
         </section>
         <section class="story-section">
             <div class="section-intro">
-                <span class="section-no">Chapter I · 相识</span>
-                <h3>故事没有轰轰烈烈，<br>只是从一句<em>“你好呀”</em>开始。</h3>
+                <div class="story-aside">
+                    <span class="section-no">Chapter I · 我们的故事</span>
+                    <div class="story-carousel" id="storyCarousel" aria-roledescription="carousel" aria-label="我们的旅行照片轮播">
+                        <img class="story-slide active" id="storySlideA" alt="我们的旅行回忆">
+                        <img class="story-slide" id="storySlideB" alt="" aria-hidden="true">
+                        <div class="story-carousel-meta"><span class="story-carousel-label" id="storyCarouselLabel">OUR MEMORIES</span><span id="storyCarouselCount">01 / 108</span><span class="story-carousel-controls"><button class="story-carousel-button" id="storyCarouselPrev" type="button" aria-label="上一张照片">‹</button><button class="story-carousel-button" id="storyCarouselNext" type="button" aria-label="下一张照片">›</button></span></div>
+                        <div class="story-carousel-progress" aria-hidden="true"><span></span></div>
+                    </div>
+                </div>
+                <h3>从一句<em>“你好呀”</em>开始，<br>走过相识、相知，<br>慢慢相恋，认真相爱。</h3>
             </div>
             <div class="timeline">
-                <article class="moment"><small>01 · 从认识开始</small><h4>一个号码，让故事有了开头</h4><p>那时我还不知道你的姓名，摆在面前的只是一个手机号码。加或不加是一念之间的选择，而那次选择，让我们的人生有了第一个交点。</p></article>
-                <article class="moment"><small>02 · 微信里的相识</small><h4>从一句“你好呀”，慢慢认识彼此</h4><p>一条好友申请，把两个原本陌生的人连在了一起。隔着屏幕的每一次回应，都让想象中的你变得更真实，也让我开始期待真正见到你。</p></article>
-                <article class="moment"><small>03 · 九天同行</small><h4>从中秋见面，到一起走过三座城</h4><p>你在深圳，我从上海奔赴而来。见面后的九天里，我们从深圳去了福州和平潭，再回到深圳。城市的灯火、街巷的烟火与海边的风，都成了只属于我们的共同回忆。</p></article>
+                <article class="moment"><small>01 · 相识</small><h4>一个号码，让故事有了开头</h4><p>那时我还不知道你的姓名，摆在面前的只是一个手机号码。加或不加是一念之间的选择，而那次选择，让我们的人生有了第一个交点。</p></article>
+                <article class="moment"><small>02 · 相知</small><h4>从一句“你好呀”，慢慢了解彼此</h4><p>一条好友申请，把两个原本陌生的人连在了一起。隔着屏幕的一次次回应，让想象中的你逐渐变得真实，也让我们从认识名字，走向了解彼此。</p></article>
+                <article class="moment"><small>03 · 相恋 · 09.11</small><h4>喜欢有了名字，也有了方向</h4><p>9 月 11 日，我们正式成为恋人。后来你在深圳，我从上海奔赴而来；从深圳到福州和平潭，感情终于从屏幕里的约定，走进了真实的陪伴。</p></article>
+                <article class="moment"><small>04 · 相爱</small><h4>从两座城市，回到同一个故乡</h4><p>10 月 31 日，你从深圳、我从上海，一起回到湖南长沙。这里有我三年的大学时光，也有你五年的求学青春。一起度过的两天，让熟悉的故乡多了一段属于我们的新回忆，也让爱有了更具体的模样。</p></article>
             </div>
         </section>
 
         <section class="first-meet">
             <div class="first-meet-inner">
-                <span class="section-no">Chapter II · 我们的九天</span>
-                <h3>从中秋见面开始，<br>九天有了许多真实的回忆。</h3>
-                <p>中秋前后，我从上海来到你所在的深圳，我们终于跨过屏幕见到了彼此。之后的九天，我们从深圳到福州、再到平潭，最后回到深圳。一起看过城市的灯光，走过福州的街巷，也吹过平潭的海风。真正让我珍惜的，不只是去了哪里，而是每一段路、每一顿饭、每一次笑，都有你在身边。</p>
-                <span class="meet-note">深圳的灯火 · 福州的烟火 · 平潭的海风 · 我们的九天</span>
+                <span class="section-no">Chapter II · 从心动到真实</span>
+                <h3>九天，不只是一段旅程，<br>也是我们第一次真正走进彼此。</h3>
+                <p>中秋前后，我从上海奔赴深圳，终于见到了屏幕另一端的你。之后的九天，我们一起看过城市灯火、走过陌生街巷，也吹过平潭的海风。长时间相处让期待落了地，也让差异浮了出来：有心动和依赖，也有争吵与针锋相对。我们看见了彼此的温柔，也碰到了各自固执的棱角。它并不完美，却足够真实——重要的不是从不产生分歧，而是情绪过去以后，我们仍愿意听懂对方，继续同行。</p>
+                <span class="meet-note">不是完美的九天 · 是没有滤镜的我们</span>
             </div>
         </section>
 
         <section class="letter-section" id="letter">
             <article class="letter">
                 <p class="chapter">Chapter III · 写给江江</p>
-                <h3>见过你以后，<br>更想认真地走近你。</h3>
+                <h3>走过心动，也愿意<br>一起走过磨合。</h3>
                 <div class="letter-body">
-                    <p>江江，你是 10 月 14 日，我是 1 月 14 日。两个相隔九个月的“14”，因为一个手机号码和一句“你好呀”有了交集，又在中秋前后，跨过上海与深圳的距离真正见到了彼此。</p>
-                    <p>一起相处的九天，让想象变成了许多具体的画面：深圳的灯火、福州的街巷、平潭的海风，还有那些不需要特别安排的普通时刻。旅途会结束，但我们一起经历过的快乐，已经成为故事里真实的一页。</p>
-                    <p>见过你以后，我更愿意用时间和行动表达认真。我想继续了解真实的你，也愿意让你慢慢看见真实的我。未来不必急着说满，只希望下一次见面、下一段旅程，依然可以与你一起期待。</p>
+                    <p>江江，你是 10 月 14 日，我是 1 月 14 日。我们从陌生人开始，慢慢认识、慢慢心动；直到 9 月 11 日，喜欢终于有了名字，我们也正式成为了彼此的恋人。</p>
+                    <p>我是一个容易想很多的人。遇到事情，常会先放在心里反复理清；认定了一个人，又会忍不住想为她多做一点。我的在意有时不太会说，更常藏在一次奔赴、一个安排和一件件想要做好的小事里。可在情绪里，我也会急着讲道理，或在受伤时沉默下来。这些都是真实的我，也是我想为了我们慢慢学会改变的地方。</p>
+                    <p>两次见面，让我认识了比聊天框里更完整的你，也让你看见了不加修饰的我。我们分享过快乐，也看见了彼此真实的情绪；有靠近时的温柔，也有不小心互相刺痛的时候。可我渐渐明白，爱不是永远意见一致，而是在分歧之后，仍愿意把对方放在心上。</p>
+                    <p>从跨城相见，到回到共同的故乡，我们正在一点点积累属于两个人的生活。这个月底，你要来上海找工作。想到我们或许能从两座城市的想念，走进同一座城市的日常，我心里有期待，也有许多关于未来的憧憬。</p>
+                    <p>我不想把未来说得太满，却真心期待有一天，见面不再需要穿越城市，想念不再只能留在屏幕里。我想和你一起面对工作与生活的忙碌，也一起收藏晚餐、散步和每一个平凡的晚上。比起遥远而完美的答案，我更想和你把眼前的日子，一天一天过成我们的未来。</p>
                 </div>
-                <p class="signature">江江，很高兴见到你，也开始期待我们的下一次见面。</p><span class="letter-seal" aria-hidden="true">♥</span>
+                <p class="signature">江江，我很期待上海见，也很期待我们的未来。</p><span class="letter-seal" aria-hidden="true">♥</span>
             </article>
         </section>
-        <section class="photo-album" id="album">
+        <section class="photo-album" id="album" data-days="九天之旅">
             <header class="album-heading">
-                <div><span class="section-no">Chapter IV · 旅行相册</span><h3>2026.09.25 ~ 2026.10.03</h3></div>
-                <span class="album-count">85 PHOTOS · 9 DAYS</span>
+                <div><span class="section-no">Chapter IV · 旅行相册</span><h3 id="albumTitle">2026.09.25 ~ 2026.10.03</h3></div>
+                <span class="album-count" id="albumCount">85 PHOTOS · 9 DAYS</span>
             </header>
-            <div class="album-route" aria-hidden="true"><span>SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　</span></div>
+            <div class="album-filters" role="tablist" aria-label="按旅行日期筛选照片"><button class="album-filter active" type="button" role="tab" aria-selected="true" data-album="journey">2026.09.25 ~ 2026.10.03 · 九天旅行</button><button class="album-filter" type="button" role="tab" aria-selected="false" data-album="changsha">2026.10.31 ~ 2026.11.01 · 长沙两天</button></div>
+            <div class="album-route" aria-hidden="true"><span id="albumRoute">SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　SHANGHAI → SHENZHEN → FUZHOU → PINGTAN → SHENZHEN → SHANGHAI　✦　</span></div>
             <div class="album-grid" id="albumGrid" aria-label="九天旅行相册"></div>
             <button class="album-toggle" id="albumToggle" type="button" aria-expanded="false">查看全部 85 张照片</button>
         </section>
@@ -871,7 +914,7 @@
         </div>
     </div>
     <script src="/love-jiangjiang.js"></script>
-    <script src="/travel-gallery.js"></script>
+    <script src="/travel-gallery-unified.js"></script>
     <script>(() => { const gate = document.getElementById('gate'), page = document.getElementById('page'), form = document.getElementById('unlockForm'), password = document.getElementById('password'), error = document.getElementById('error'), modal = document.getElementById('modal'), modalMessage = document.getElementById('modalMessage'), closeModal = document.getElementById('closeModal'), reduced = matchMedia('(prefers-reduced-motion:reduce)').matches; form.addEventListener('submit', e => { e.preventDefault(); if (!window.verifyLovePassword(password.value.trim())) { error.textContent = password.value ? '暗号不太对，再想想看。' : '先输入我们的暗号。'; password.value = ''; password.focus(); return } error.textContent = ''; gate.classList.add('hidden'); page.classList.add('ready'); document.body.classList.remove('locked'); startCanvas() }); const messages = ['遇见你以后，我才知道“刚刚好”原来不是形容时间，而是形容一个人。', '我想和你分享的，从来不只是浪漫，还有早餐、晚风和漫长岁月。', '你不用一直闪闪发光。在我这里，你永远可以做最真实的自己。', '我的偏爱很简单：别人再好也是别人，你不一样，你是我的答案。', '想把每一个普通的明天，都慢慢变成我们的以后。']; function show(message) { modalMessage.textContent = message; modal.classList.add('open'); closeModal.focus() } function hide() { modal.classList.remove('open') } closeModal.addEventListener('click', hide); modal.addEventListener('click', e => { if (e.target === modal) hide() }); document.addEventListener('keydown', e => { if (e.key === 'Escape') hide() }); function burst(x = innerWidth / 2, y = innerHeight / 2, amount = 18) { if (reduced) return; for (let i = 0; i < amount; i++) { const s = document.createElement('span'); s.className = 'spark'; s.textContent = Math.random() > .35 ? '♥' : '✦'; s.style.left = x + 'px'; s.style.top = y + 'px'; s.style.color = Math.random() > .5 ? '#c46678' : '#d8bd8b'; s.style.fontSize = 8 + Math.random() * 14 + 'px'; s.style.setProperty('--x', (Math.random() - .5) * 240 + 'px'); s.style.setProperty('--r', (Math.random() - .5) * 90 + 'deg'); document.body.appendChild(s); s.addEventListener('animationend', () => s.remove()) } } document.querySelector('.actions').addEventListener('click', e => { const b = e.target.closest('[data-action]'); if (!b) return; const r = b.getBoundingClientRect(), a = b.dataset.action; if (a === 'hearts') burst(r.left + r.width / 2, r.top, 24); if (a === 'letter') show(messages[Math.floor(Math.random() * messages.length)]); if (a === 'fireworks') [0, 220, 440, 660].forEach(d => setTimeout(() => burst(innerWidth * (.18 + Math.random() * .64), innerHeight * (.18 + Math.random() * .42), 28), d)); if (a === 'secret') show('偷偷告诉你：这个页面会旧，代码会更新，但我喜欢你这件事，永远是最新版本。') }); document.addEventListener('click', e => { if (gate.classList.contains('hidden') && !e.target.closest('button') && !e.target.closest('.modal-card')) burst(e.clientX, e.clientY, 7) }); const canvas = document.getElementById('heartCanvas'), ctx = canvas.getContext('2d'); let motes = [], running = false; function resize() { canvas.width = innerWidth * devicePixelRatio; canvas.height = innerHeight * devicePixelRatio; ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0) } addEventListener('resize', resize); resize(); function startCanvas() { if (running || reduced) return; running = true; motes = Array.from({ length: 34 }, () => ({ x: Math.random() * innerWidth, y: Math.random() * innerHeight, r: Math.random() * 1.4 + .4, s: Math.random() * .22 + .06, o: Math.random() * .35 + .08 })); draw() } function draw() { ctx.clearRect(0, 0, innerWidth, innerHeight); for (const m of motes) { m.y -= m.s; m.x += Math.sin(m.y * .006) * .08; if (m.y < -8) { m.y = innerHeight + 8; m.x = Math.random() * innerWidth } ctx.beginPath(); ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(216,189,139,${m.o})`; ctx.fill() } requestAnimationFrame(draw) } })();</script>
 </body>
 

@@ -83,6 +83,7 @@
       document.getElementById('gate').classList.add('hidden');
       document.getElementById('page').classList.add('ready');
       document.body.classList.remove('locked');
+      window.dispatchEvent(new Event('love:unlocked'));
     }, 0);
   }
 

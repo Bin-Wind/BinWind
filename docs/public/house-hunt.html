@@ -1,14 +1,275 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="referrer" content="no-referrer">
-  <meta http-equiv="refresh" content="0; url=https://binwind-house-log-mwaekhqh.giving-mochi-8586.chatgpt.site/">
-  <title>找房笔记</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="集中记录看过的房源，比较价格、位置和看房评分。">
+<meta name="robots" content="noindex, nofollow">
+<title>找房笔记 · BinWind</title>
+<style>
+:root{color-scheme:light;--bg:#f6f7f4;--paper:#fff;--ink:#182a22;--muted:#607068;--line:#dfe6df;--green:#1c5b43;--soft:#e7f1e9;--gold:#9d5e13;font:15px/1.55 system-ui,"PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.65}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:3px}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+header{background:var(--paper);border-bottom:1px solid var(--line)}.top,main{max-width:1200px;margin:auto;padding-inline:32px}.top{height:68px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;font-weight:750}.mark{display:grid;place-items:center;background:var(--green);color:#fff;border-radius:10px;width:34px;height:34px}.private{color:var(--muted);display:flex;align-items:center;gap:6px;font-size:13px}.private svg{width:15px;height:15px}
+main{padding-block:38px 60px}.hero{background:#e6efe5;border:1px solid #d8e5d9;border-radius:22px;position:relative;overflow:hidden;padding:32px;display:flex;align-items:end;justify-content:space-between;gap:20px}.hero::before,.hero::after{content:"";position:absolute;right:-54px;top:-100px;width:370px;height:370px;border:1px solid #cdded0;border-radius:50%;pointer-events:none}.hero::after{right:-18px;top:-64px;width:298px;height:298px}.hero>*{position:relative;z-index:1}.kicker{color:var(--green);font-size:12px;font-weight:750;letter-spacing:.13em}.hero h1{font-size:clamp(32px,6vw,48px);letter-spacing:-.06em;line-height:1.15;margin:8px 0 12px}.hero p,.section-title p{margin:0;color:var(--muted)}
+.btn{display:inline-flex;gap:7px;align-items:center;justify-content:center;min-height:42px;padding:8px 15px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-weight:650;white-space:nowrap}.btn:hover{background:var(--soft)}.primary{background:var(--green);border-color:var(--green);color:#fff}.primary:hover{background:#144832}.danger{color:#a02929}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px 0 32px}.stat{display:flex;gap:14px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 17px}.stat .mark{background:var(--soft);color:var(--green);width:40px;height:40px}.stat strong{display:block;font-size:23px;line-height:1.25}.stat small{color:var(--muted)}
+.section-title{display:flex;gap:12px;justify-content:space-between;align-items:end;margin-bottom:12px}.section-title h2{margin:0 0 3px;font-size:23px}.section-title p{font-size:13px}.table-card{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden}.toolbar{display:flex;justify-content:space-between;gap:12px;padding:13px 16px;flex-wrap:wrap}.search{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:9px;padding:0 10px;color:var(--muted);width:min(355px,100%)}.search input{border:0;background:none;padding:8px 0;width:100%;color:var(--ink)}.search input:focus-visible{outline:none}.search:focus-within{outline:2px solid var(--green);outline-offset:2px}select,input:not([type=file]){min-height:39px}select,.field input:not([type=file]){border:1px solid #ccd8ce;border-radius:9px;padding:7px 10px;background:#fff;color:var(--ink)}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:795px;text-align:left}th{background:#f0f4ef;font-weight:650;color:#4e5f56;white-space:nowrap;font-size:13px}th,td{padding:12px 14px;border-top:1px solid var(--line)}td{overflow-wrap:anywhere}td:first-child{min-width:155px;max-width:220px;font-weight:700}td:nth-child(2){max-width:155px}td:nth-child(3),td:nth-child(5){white-space:nowrap}td:nth-child(4){min-width:110px}.tag{display:inline-block;background:var(--soft);color:var(--green);border-radius:6px;padding:2px 7px;margin:2px 4px 2px 0;font-size:12px}.rating{color:var(--gold);letter-spacing:.05em}.quiet{color:var(--muted)}.link{padding:4px 5px;border:0;background:none;color:var(--green);font-weight:650;border-radius:5px}.link:hover{background:var(--soft)}.link.danger{color:#a02929}.actions{white-space:nowrap}.state{text-align:center;padding:44px 16px;border-top:1px solid var(--line)}[hidden]{display:none!important}.state .mark{margin:auto;background:var(--soft);color:var(--green);width:45px;height:45px}.state h3{margin:10px 0 3px}.state p{margin:0 0 14px;color:var(--muted)}.footer{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px;margin:12px 2px}
+dialog{width:min(550px,calc(100% - 24px));max-height:calc(100dvh - 28px);border:1px solid var(--line);border-radius:18px;padding:0;color:var(--ink);box-shadow:0 22px 80px #152b2440}dialog::backdrop{background:#13271e80}dialog form,.modal-content{padding:22px}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:10px}.modal-head h2{margin:0;font-size:22px}.close{font-size:22px;min-width:40px;padding:0}.fields{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:grid;gap:5px;align-content:start;font-weight:650;font-size:14px;min-width:0}.field input,.field select{min-width:0;width:100%}.wide{grid-column:1/-1}.hint{font-weight:400;font-size:12px;color:var(--muted)}.price{display:grid;grid-template-columns:1fr auto;gap:6px}.stars{display:flex;align-items:center;gap:3px;flex-wrap:wrap}.star{background:transparent;border:0;font-size:25px;padding:0 4px;color:var(--gold)}.stars .quiet{margin-left:5px;font-size:12px}.upload{border:1px dashed #b6c9b9;background:#f7faf6;border-radius:10px;padding:10px}.upload input{font-weight:400;font-size:13px}.upload input::file-selector-button{border:1px solid var(--line);border-radius:7px;padding:6px 10px;margin-right:8px;background:#fff;color:var(--green);cursor:pointer}.form-error{color:#a02929;margin:10px 0 0}.modal-actions{display:flex;justify-content:end;gap:8px;margin-top:18px}.modal-content video{width:100%;max-height:65dvh;background:#17241d;border-radius:10px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:9px;padding:8px 14px;z-index:3}
+@media(max-width:650px){.top,main{padding-inline:16px}.top{height:56px}main{padding-top:20px}.hero{padding:21px;align-items:start;flex-direction:column;gap:16px}.hero p{font-size:13px}.stats{gap:6px;margin:12px 0 23px}.stat{padding:9px;gap:6px}.stat .mark{display:none}.stat strong{font-size:19px}.stat small{font-size:11px}.section-title h2{font-size:20px}.toolbar{padding:10px}.search{width:100%}.fields{gap:10px}dialog form,.modal-content{padding:15px}.footer{flex-wrap:wrap}}
+</style>
 </head>
 <body>
-  <a href="https://binwind-house-log-mwaekhqh.giving-mochi-8586.chatgpt.site/">打开找房笔记</a>
+<header><div class="top"><div class="brand"><span class="mark"><svg aria-hidden="true"><path d="m2 9 7.5-6 7.5 6v7H2zM7 16v-5h5v5"/></svg></span>找房笔记</div><span class="private"><svg aria-hidden="true"><rect x="3" y="7" width="13" height="10" rx="2"/><path d="M6 7V5a3.5 3.5 0 0 1 7 0v2"/></svg>本机工作台</span></div></header>
+<main>
+<section class="hero"><div><span class="kicker">看房工作台</span><h1>找房笔记</h1><p>集中记录看过的房源，回头比较更方便。</p></div><button class="btn primary" type="button" data-add disabled><svg aria-hidden="true"><path d="M9.5 3v13M3 9.5h13"/></svg>添加房源</button></section>
+<section class="stats" aria-label="房源统计">
+<div class="stat"><span class="mark"><svg aria-hidden="true"><path d="m2 9 7.5-6 7.5 6v7H2zM7 16v-5h5v5"/></svg></span><div><strong id="total">—</strong><small>全部房源</small></div></div>
+<div class="stat"><span class="mark"><svg aria-hidden="true"><path d="m9.5 2 2.3 4.8 5.3.8-3.8 3.7.9 5.3-4.7-2.5-4.7 2.5.9-5.3-3.8-3.7 5.3-.8z"/></svg></span><div><strong id="favorites">—</strong><small>四星及以上</small></div></div>
+<div class="stat"><span class="mark"><svg aria-hidden="true"><rect x="2" y="4" width="11" height="11" rx="2"/><path d="m13 8 4-3v9l-4-3"/></svg></span><div><strong id="videos">—</strong><small>附看房视频</small></div></div>
+</section>
+<section aria-labelledby="list-title">
+<div class="section-title"><div><h2 id="list-title">房源清单</h2><p>搜索位置、微信名称或标签，快速找到想对比的房源。</p></div></div>
+<div class="table-card">
+<div class="toolbar"><label class="search"><svg aria-hidden="true"><circle cx="8" cy="8" r="4.7"/><path d="m12 12 4 4"/></svg><input id="search" type="search" aria-label="搜索房源" placeholder="搜索位置、微信名称或标签"></label><select id="filter" aria-label="按星级筛选"><option value="all">全部星级</option><option value="4">四星及以上</option><option value="5">五星</option><option value="0">未评星</option></select></div>
+<div class="table-scroll" tabindex="0" aria-label="房源表格"><table><thead><tr><th scope="col">位置</th><th scope="col">微信名称</th><th scope="col">价格</th><th scope="col">标签</th><th scope="col">评分</th><th scope="col">视频</th><th scope="col">操作</th></tr></thead><tbody id="rows"></tbody></table></div>
+<div class="state" id="state" aria-live="polite"><span class="mark"><svg aria-hidden="true"><path d="m2 9 7.5-6 7.5 6v7H2zM7 16v-5h5v5"/></svg></span><h3 id="state-title">正在加载房源</h3><p id="state-description"></p><button class="btn primary" type="button" data-add hidden>添加第一套房源</button><button class="btn" id="retry" type="button" hidden>重试</button></div>
+</div>
+<div class="footer"><span id="count" aria-live="polite"></span><span>房源和视频保存在当前浏览器</span></div>
+</section>
+</main>
+<dialog id="editor" aria-labelledby="editor-title">
+<form id="form">
+<div class="modal-head"><h2 id="editor-title">添加房源</h2><button type="button" class="btn close" data-close aria-label="关闭">×</button></div>
+<div class="fields">
+<label class="field wide">位置（必填）<input name="location" required maxlength="150" placeholder="例如：浦东新区 · 世纪大道附近"></label>
+<label class="field">微信名称<input name="wechat" maxlength="100" placeholder="联系人微信昵称"></label>
+<div class="field"><label for="price">价格</label><div class="price"><input id="price" name="price" type="number" min="0" max="9999999999" step="0.01" placeholder="金额（元）"><select name="unit" aria-label="价格单位"><option value="month">元/月</option><option value="total">元（总价）</option></select></div></div>
+<label class="field wide">标签<input name="tags" maxlength="240" placeholder="例如：近地铁、采光好、可养宠"><span class="hint">多个标签用逗号或顿号分隔，最多 12 个。</span></label>
+<div class="field wide"><span id="rating-label">评分</span><div class="stars" role="group" aria-labelledby="rating-label" id="stars"><span id="star-value" class="quiet"></span></div></div>
+<div class="field wide"><label for="video-file">看房视频</label><div class="upload"><input id="video-file" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,.mp4,.webm,.mov"><div class="hint">支持 MP4、MOV、WebM，单个文件最多 40 MB。</div><div id="existing-video" hidden><label class="hint"><input name="removeVideo" type="checkbox"> 移除现有视频</label></div></div></div>
+</div>
+<p id="form-error" class="form-error" role="alert" hidden></p>
+<div class="modal-actions"><button class="btn" type="button" data-close>取消</button><button class="btn primary" id="save" type="submit">保存房源</button></div>
+</form>
+</dialog>
+<dialog id="player" aria-labelledby="player-title"><div class="modal-content"><div class="modal-head"><h2 id="player-title">看房视频</h2><button class="btn close" type="button" data-close aria-label="关闭">×</button></div><video controls playsinline preload="metadata"></video><p id="video-error" class="form-error" role="alert" hidden>当前浏览器无法播放此视频。<a id="download" download>下载视频</a></p></div></dialog>
+<dialog id="delete-dialog" aria-labelledby="delete-title"><div class="modal-content"><div class="modal-head"><h2 id="delete-title">删除房源</h2><button class="btn close" type="button" data-close aria-label="关闭">×</button></div><p id="delete-message"></p><p id="delete-error" class="form-error" role="alert" hidden></p><div class="modal-actions"><button class="btn" type="button" data-close>取消</button><button class="btn danger" type="button" id="delete-confirm">删除房源</button></div></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<script type="module">
+import { openListings, listListings, saveListing, deleteListing, getVideo } from "./house-hunt-storage.js";
+
+const q = (selector) => document.querySelector(selector);
+const all = (selector) => [...document.querySelectorAll(selector)];
+const rows = q("#rows");
+const editor = q("#editor");
+const form = q("#form");
+const player = q("#player");
+const video = player.querySelector("video");
+const deleteDialog = q("#delete-dialog");
+let listings = [];
+let editing = null;
+let deleting = null;
+let rating = 0;
+let busy = false;
+let toastTimer;
+let videoUrl;
+
+function element(tag, value, className) {
+  const el = document.createElement(tag);
+  if (value !== undefined) el.textContent = value;
+  if (className) el.className = className;
+  return el;
+}
+function action(label, callback, className = "link") {
+  const button = element("button", label, className);
+  button.type = "button";
+  button.addEventListener("click", callback);
+  return button;
+}
+function notice(message) {
+  q("#toast").textContent = message;
+  q("#toast").hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { q("#toast").hidden = true; }, 3200);
+}
+function showError(selector, message) {
+  q(selector).textContent = message;
+  q(selector).hidden = !message;
+}
+function showState(title, description, add = false, retry = false) {
+  q("#state").hidden = !title;
+  q("#state-title").textContent = title;
+  q("#state-description").textContent = description;
+  q("#state [data-add]").hidden = !add;
+  q("#retry").hidden = !retry;
+}
+function render() {
+  const query = q("#search").value.trim().toLowerCase();
+  const filter = q("#filter").value;
+  const matched = listings.filter((item) => {
+    const searchable = [item.location, item.wechat, ...item.tags].join(" ").toLowerCase();
+    const matchesRating = filter === "all" || (filter === "4" ? item.rating >= 4 : item.rating === Number(filter));
+    return matchesRating && query.split(/\s+/).every((term) => searchable.includes(term));
+  });
+  q("#total").textContent = listings.length;
+  q("#favorites").textContent = listings.filter((item) => item.rating >= 4).length;
+  q("#videos").textContent = listings.filter((item) => item.video).length;
+  q("#count").textContent = "显示 " + matched.length + " / " + listings.length + " 套房源";
+  rows.replaceChildren();
+  for (const item of matched) {
+    const row = element("tr");
+    const tags = element("td");
+    for (const tag of item.tags) tags.append(element("span", tag, "tag"));
+    if (!item.tags.length) tags.append(element("span", "—", "quiet"));
+    const score = element("td");
+    if (item.rating) {
+      const stars = element("span", "★".repeat(item.rating) + "☆".repeat(5 - item.rating), "rating");
+      stars.setAttribute("aria-label", item.rating + " 星");
+      score.append(stars);
+    } else score.append(element("span", "未评星", "quiet"));
+    const media = element("td");
+    if (item.video) media.append(action("播放", () => openVideo(item)));
+    else media.append(element("span", "—", "quiet"));
+    const actions = element("td", undefined, "actions");
+    const edit = action("编辑", () => openEditor(item));
+    const remove = action("删除", () => confirmDelete(item), "link danger");
+    edit.setAttribute("aria-label", "编辑 " + item.location);
+    remove.setAttribute("aria-label", "删除 " + item.location);
+    actions.append(edit, remove);
+    const price = item.price === null ? "—" : "¥" + new Intl.NumberFormat("zh-CN", {maximumFractionDigits:2}).format(item.price) + (item.unit === "month" ? " / 月" : " 总价");
+    row.append(element("td", item.location), element("td", item.wechat || "—"), element("td", price), tags, score, media, actions);
+    rows.append(row);
+  }
+  if (!listings.length) showState("还没有房源", "添加一套房源，就可以在这里对比价格、评分和视频。", true);
+  else if (!matched.length) showState("没有匹配的房源", "试试换个关键词或调整星级筛选。");
+  else showState("", "");
+}
+async function load() {
+  showState("正在加载房源", "");
+  try {
+    await openListings();
+    listings = await listListings();
+    all("[data-add]").forEach((button) => { button.disabled = false; });
+    render();
+  } catch (error) {
+    showState("房源加载失败", error.message, false, true);
+  }
+}
+function setRating(value) {
+  rating = value;
+  all(".star").forEach((button, index) => {
+    button.textContent = index < value ? "★" : "☆";
+    button.setAttribute("aria-pressed", index + 1 === value);
+  });
+  q("#star-value").textContent = value ? value + " / 5 星" : "未评星";
+}
+for (let value = 1; value <= 5; value++) {
+  const button = action("☆", () => setRating(rating === value ? 0 : value), "star");
+  button.setAttribute("aria-label", value + " 星");
+  q("#stars").insertBefore(button, q("#star-value"));
+}
+function openEditor(item = null) {
+  editing = item;
+  form.reset();
+  q("#editor-title").textContent = item ? "编辑房源" : "添加房源";
+  showError("#form-error", "");
+  if (item) {
+    for (const key of ["location", "wechat", "price", "unit"]) form.elements[key].value = item[key] ?? "";
+    form.elements.tags.value = item.tags.join("、");
+  }
+  q("#existing-video").hidden = !item?.video;
+  setRating(item?.rating ?? 0);
+  editor.showModal();
+  form.elements.location.focus();
+}
+async function openVideo(item) {
+  if (player.open) return;
+  try {
+    const file = await getVideo(item.id);
+    if (player.open) return;
+    if (!file) return notice("视频已移除，请刷新房源清单。");
+    q("#player-title").textContent = item.location;
+    q("#video-error").hidden = true;
+    videoUrl = URL.createObjectURL(file);
+    q("#download").href = videoUrl;
+    q("#download").download = file.name;
+    video.src = videoUrl;
+    player.showModal();
+  } catch (error) {
+    notice(error.message);
+  }
+}
+function confirmDelete(item) {
+  deleting = item;
+  q("#delete-message").textContent = "确定删除「" + item.location + "」及其视频？";
+  showError("#delete-error", "");
+  deleteDialog.showModal();
+}
+all("[data-add]").forEach((button) => button.addEventListener("click", () => openEditor()));
+all("[data-close]").forEach((button) => button.addEventListener("click", () => {
+  if (!busy) button.closest("dialog").close();
+}));
+all("dialog").forEach((dialog) => dialog.addEventListener("cancel", (event) => {
+  if (busy) event.preventDefault();
+}));
+player.addEventListener("close", () => {
+  video.pause();
+  video.removeAttribute("src");
+  video.load();
+  URL.revokeObjectURL(videoUrl);
+  videoUrl = undefined;
+});
+video.addEventListener("error", () => { if (player.open) q("#video-error").hidden = false; });
+q("#search").addEventListener("input", render);
+q("#filter").addEventListener("change", render);
+q("#retry").addEventListener("click", load);
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (busy) return;
+  const data = new FormData(form);
+  const file = form.elements.video.files[0];
+  showError("#form-error", "");
+  if (!data.get("location").trim()) return showError("#form-error", "请输入房源位置。");
+  if (file?.size > 40000000) return showError("#form-error", "视频超过 40 MB，请压缩后再上传。");
+  if (!file) data.delete("video");
+  busy = true;
+  q("#save").disabled = true;
+  q("#save").textContent = "正在保存…";
+  try {
+    const item = await saveListing(data, rating, editing);
+    listings = [item, ...listings.filter((listing) => listing.id !== item.id)];
+    q("#search").value = "";
+    q("#filter").value = "all";
+    editor.close();
+    render();
+    notice("房源已保存");
+  } catch (error) {
+    showError("#form-error", error.message);
+    if (error.message.includes("已在其他窗口")) await load();
+  } finally {
+    busy = false;
+    q("#save").disabled = false;
+    q("#save").textContent = "保存房源";
+  }
+});
+q("#delete-confirm").addEventListener("click", async () => {
+  if (busy) return;
+  busy = true;
+  q("#delete-confirm").disabled = true;
+  try {
+    await deleteListing(deleting);
+    listings = listings.filter((item) => item.id !== deleting.id);
+    deleteDialog.close();
+    render();
+    notice("房源已删除");
+  } catch (error) {
+    showError("#delete-error", error.message);
+    if (error.message.includes("已在其他窗口")) await load();
+  } finally {
+    busy = false;
+    q("#delete-confirm").disabled = false;
+  }
+});
+load();
+</script>
 </body>
 </html>

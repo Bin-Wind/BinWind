@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitepress'
+import houseHuntApi from './house-hunt-api.mjs'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: { plugins: [houseHuntApi()] },
   lang: 'zh-CN',
   title: "BinWind",
   description: "一条路的终点，是另一条路的起点",

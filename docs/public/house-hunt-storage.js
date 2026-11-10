@@ -1,60 +1,89 @@
-const DATABASE = "binwind-house-hunt";
+const INDEX_FILE = "listings.json";
 const CONFLICT = "房源已在其他窗口更新或删除，请关闭窗口后重新操作。";
-let database;
+const VIDEO_NAME = /^tour-[a-f0-9-]{36}\.(mp4|mov|webm)$/;
+let folder;
 
-export function openListings() {
-  if (database) return Promise.resolve();
-  return new Promise((resolve, reject) => {
-    if (!globalThis.indexedDB) {
-      reject(new Error("当前浏览器无法使用本地存储。"));
-      return;
-    }
-    const request = indexedDB.open(DATABASE, 1);
-    request.onupgradeneeded = () => {
-      const db = request.result;
-      db.createObjectStore("listings", { keyPath: "id" });
-      db.createObjectStore("videos");
-    };
-    request.onsuccess = () => {
-      database = request.result;
-      resolve();
-    };
-    request.onerror = () => reject(new Error("无法打开本地存储，请检查浏览器设置。"));
+export async function chooseFolder() {
+  if (!window.showDirectoryPicker || !navigator.locks) {
+    throw new Error("当前浏览器无法直接写入文件夹。请使用电脑上的 Chrome 或 Edge。");
+  }
+  const selected = await window.showDirectoryPicker({ id: "binwind-house-hunt", mode: "readwrite" });
+  await navigator.locks.request("binwind-house-hunt-files", async () => {
+    const existing = await readListings(selected);
+    if (existing === null) await writeFile(selected, INDEX_FILE, "[]\n");
   });
+  folder = selected;
+  return selected.name;
 }
 
-function transact(mode, operation) {
-  return new Promise((resolve, reject) => {
-    const transaction = database.transaction(["listings", "videos"], mode);
-    let result;
-    let failure;
-    transaction.oncomplete = () => resolve(result);
-    transaction.onabort = () => {
-      reject(failure ?? new Error(transaction.error?.name === "QuotaExceededError"
-        ? "浏览器存储空间不足，请缩小视频文件后重试。"
-        : "本地存储操作失败，请重试。"));
-    };
-    operation(
-      transaction.objectStore("listings"),
-      transaction.objectStore("videos"),
-      (value) => { result = value; },
-      (error) => { failure = error; transaction.abort(); },
-    );
+async function readListings(directory) {
+  let handle;
+  try {
+    handle = await directory.getFileHandle(INDEX_FILE);
+  } catch (error) {
+    if (error.name === "NotFoundError") return null;
+    throw error;
+  }
+  const content = await (await handle.getFile()).text();
+  try {
+    const items = JSON.parse(content);
+    const ids = new Set();
+    if (!Array.isArray(items)) throw new Error();
+    for (const item of items) {
+      if (!item || typeof item.id !== "string" || ids.has(item.id)
+        || !["location", "wechat", "version", "updatedAt"].every((key) => typeof item[key] === "string")
+        || !Array.isArray(item.tags) || !item.tags.every((tag) => typeof tag === "string")
+        || (item.price !== null && !Number.isFinite(item.price))
+        || !["month", "total"].includes(item.unit)
+        || !Number.isInteger(item.rating) || item.rating < 0 || item.rating > 5
+        || (item.video !== null && (typeof item.video !== "string" || !VIDEO_NAME.test(item.video)))) {
+        throw new Error();
+      }
+      ids.add(item.id);
+    }
+    return items;
+  } catch {
+    throw new Error("listings.json 格式无效。请检查文件或选择其他文件夹。");
+  }
+}
+
+async function writeFile(directory, name, content) {
+  const handle = await directory.getFileHandle(name, { create: true });
+  const stream = await handle.createWritable();
+  try {
+    await stream.write(content);
+    await stream.close();
+  } catch (error) {
+    await stream.abort().catch(() => {});
+    throw error;
+  }
+}
+
+async function removeVideo(directory, name) {
+  if (!name) return;
+  try {
+    await directory.removeEntry(name);
+  } catch (error) {
+    if (error.name !== "NotFoundError") console.warn("无法清理旧视频", name, error);
+  }
+}
+
+function withListings(operation) {
+  const directory = folder;
+  return navigator.locks.request("binwind-house-hunt-files", async () => {
+    const items = await readListings(directory);
+    if (items === null) throw new Error("找不到 listings.json，请重新选择房源文件夹。");
+    return operation(directory, items);
   });
 }
 
 export function listListings() {
-  return transact("readonly", (listings, videos, finish) => {
-    const request = listings.getAll();
-    request.onsuccess = () => finish(request.result.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)));
-  });
+  return withListings((directory, items) => items.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)));
 }
 
-export function getVideo(id) {
-  return transact("readonly", (listings, videos, finish) => {
-    const request = videos.get(id);
-    request.onsuccess = () => finish(request.result);
-  });
+export async function getVideo(name) {
+  const handle = await folder.getFileHandle(name);
+  return handle.getFile();
 }
 
 export async function saveListing(form, rating, existing) {
@@ -71,43 +100,39 @@ export async function saveListing(form, rating, existing) {
   if (file && !/\.(mp4|mov|webm)$/i.test(file.name)) throw new Error("请选择 MP4、MOV 或 WebM 视频。");
   if (file && (!file.size || file.size > 40_000_000)) throw new Error("请选择不超过 40 MB 的有效视频。");
 
-  const id = existing?.id ?? crypto.randomUUID();
-  const removeVideo = form.has("removeVideo");
-  const item = {
-    id, location, wechat, price, unit: form.get("unit"), tags, rating,
-    video: Boolean(file || (existing?.video && !removeVideo)),
-    version: crypto.randomUUID(),
-    updatedAt: new Date().toISOString(),
-  };
-  return transact("readwrite", (listings, videos, finish, abort) => {
-    const write = () => {
-      listings.put(item);
-      if (file) videos.put(file, id);
-      else if (removeVideo) videos.delete(id);
-      finish(item);
+  return withListings(async (directory, items) => {
+    const current = existing && items.find((item) => item.id === existing.id);
+    if (existing && current?.version !== existing.version) throw new Error(CONFLICT);
+
+    const newVideo = file ? "tour-" + crypto.randomUUID() + "." + file.name.split(".").pop().toLowerCase() : null;
+    const video = newVideo ?? (form.has("removeVideo") ? null : current?.video ?? null);
+    const item = {
+      id: current?.id ?? crypto.randomUUID(),
+      location, wechat, price, unit: form.get("unit"), tags, rating, video,
+      version: crypto.randomUUID(),
+      updatedAt: new Date().toISOString(),
     };
-    if (!existing) {
-      write();
-      return;
+    try {
+      if (newVideo) await writeFile(directory, newVideo, file);
+      const updated = [item, ...items.filter((entry) => entry.id !== item.id)];
+      await writeFile(directory, INDEX_FILE, JSON.stringify(updated, null, 2) + "\n");
+    } catch (error) {
+      await removeVideo(directory, newVideo);
+      throw error;
     }
-    const request = listings.get(id);
-    request.onsuccess = () => {
-      if (request.result?.version !== existing.version) abort(new Error(CONFLICT));
-      else write();
-    };
+    if (current?.video !== video && !items.some((entry) => entry.id !== item.id && entry.video === current?.video)) {
+      await removeVideo(directory, current?.video);
+    }
+    return item;
   });
 }
 
 export function deleteListing(item) {
-  return transact("readwrite", (listings, videos, finish, abort) => {
-    const request = listings.get(item.id);
-    request.onsuccess = () => {
-      if (request.result?.version !== item.version) {
-        abort(new Error(CONFLICT));
-        return;
-      }
-      listings.delete(item.id);
-      videos.delete(item.id);
-    };
+  return withListings(async (directory, items) => {
+    const current = items.find((entry) => entry.id === item.id);
+    if (current?.version !== item.version) throw new Error(CONFLICT);
+    const remaining = items.filter((entry) => entry.id !== item.id);
+    await writeFile(directory, INDEX_FILE, JSON.stringify(remaining, null, 2) + "\n");
+    if (!remaining.some((entry) => entry.video === current.video)) await removeVideo(directory, current.video);
   });
 }
